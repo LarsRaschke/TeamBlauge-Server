@@ -6,11 +6,12 @@
 //
 
 
-package XML;
+package xml;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -20,9 +21,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
+//import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
 
 /**
@@ -119,7 +122,7 @@ public class Projectlist {
         return this.ProjectOverview;
     }
     
-    public void addProjectOverview(XML.Projectlist.ProjectOverview projectOverview) {
+    public void addProjectOverview(xml.Projectlist.ProjectOverview projectOverview) {
     	
     }
 
@@ -215,12 +218,14 @@ public class Projectlist {
         @XmlAttribute(name = "name", required = true)
         protected String name;
 
-        ProjectOverview(String projectname, String description, String key) {
+        ProjectOverview(String projectname, String description, String key) throws DatatypeConfigurationException {
         	this.projectname=projectname;
         	this.description=description;
         	this.key=key;
         	ZonedDateTime lastmodtemp = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
-        	this.lastmod=XMLGregorianCalendar.class.cast(lastmodtemp);
+        	GregorianCalendar gregorianCalendar = GregorianCalendar.from(lastmodtemp);
+        	XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
+        	this.lastmod=xmlGregorianCalendar;
         }
         
         /**

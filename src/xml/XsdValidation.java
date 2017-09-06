@@ -1,4 +1,4 @@
-package XML;
+package xml;
 import java.io.*;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;

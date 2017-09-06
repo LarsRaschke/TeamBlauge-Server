@@ -1,7 +1,7 @@
-package XML;
+package xml;
 
 import java.io.FileInputStream;
-import org.junit.Assert; 
+//import org.junit.Assert; 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,12 +10,13 @@ import java.io.UnsupportedEncodingException;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.util.*;
-import org.junit.*;
+//import org.junit.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -24,53 +25,56 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.xml.sax.SAXException;
 
-import com.sun.xml.internal.ws.util.Pool.Unmarshaller;
+//import com.sun.xml.internal.ws.util.Pool.Unmarshaller;
 
-import XML.Projectlist.ProjectOverview;
-import XML.Projectlist.ProjectOverview.Userlist;
-import XML.Projectlist.ProjectOverview.Userlist.User;
-import XML.Project;
-import XML.Project.Statuslist;
-import XML.Project.Tasklist;
-import XML.Project.Tasklist.Task;
+import xml.Projectlist.ProjectOverview;
+import xml.Projectlist.ProjectOverview.Userlist;
+import xml.Projectlist.ProjectOverview.Userlist.User;
+import xml.Project;
+import xml.Project.Statuslist;
+import xml.Project.Tasklist;
+import xml.Project.Tasklist.Task;
 
-
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Xml_Server {
 	
 	
 	   
      
-   //fügt neues Projekt an die Projektlist und erzeugt neue XML Datei
-	public static void addtoprojectList(Project pr, String comment) throws JAXBException
+   //fügt neues Projekt an die Projektlist und erzeugt neue xml Datei
+	public static void addtoprojectList(Project pr, String comment) throws JAXBException, DatatypeConfigurationException
 	{
 	
-		    try {
+		  /*  try {
 		        JAXBContext jc = JAXBContext.newInstance(Project.class);
 		        javax.xml.bind.Marshaller marshaller = jc.createMarshaller();
 		        marshaller.setProperty(marshaller.JAXB_FORMATTED_OUTPUT,
 		                Boolean.TRUE);
-		        File XMLfile = new File(pr.getProjectname()+".xml");
-		        marshaller.marshal(pr, XMLfile);
+		        File xmlfile = new File(pr.getProjectname()+".xml");
+		        marshaller.marshal(pr, xmlfile);
 		    } catch (JAXBException e) {
 		        e.printStackTrace();
 		    }
+		    */
+		    
+		    marshalToFile(pr, pr.getProjectname());
 		    
 
-			Projectlist data = unmarshalFromFile("src/XML/files/" + "projectlist.xml");
+			Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
 			
 			ProjectOverview over = new ProjectOverview(pr.getProjectname(), comment, null);
 			
 			data.addProjectOverview(over);
 			
-			marshalToFile(data, "src/XML/files/" + "projectlist.xml");
+			marshalToFileProjectList(data, "src/xml/files/" + "projectlist.xml");
 
 		
 	}
   // in Projectlist suchen
-	public static ProjectOverview searchinXML(String name) throws JAXBException, XMLStreamException
+	/*public static ProjectOverview searchinxml(String name) throws JAXBException, XMLStreamException
 	{
 		XMLInputFactory xif = XMLInputFactory.newFactory();
-        StreamSource xml = new StreamSource("src/XML/files/" + "projectlist.xml");
+        StreamSource xml = new StreamSource("src/xml/files/" + "projectlist.xml");
         XMLStreamReader xsr = xif.createXMLStreamReader(xml);
 
         
@@ -82,7 +86,7 @@ public class Xml_Server {
             xsr.next();
          }
 
-        // Unmarshal from the XMLStreamReader that has been advanced
+        // Unmarshal from the xmlStreamReader that has been advanced
         JAXBContext jc = JAXBContext.newInstance(Projectlist.class);
         javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
         Projectlist data = unmarshaller.unmarshal(xsr, Projectlist.class).getValue();
@@ -97,10 +101,10 @@ public class Xml_Server {
 		
 		return pro;
 		
-	}
+	}*/
 	
 	
-	// Projectlist aus XML erzeugen
+	// Projectlist aus xml erzeugen
 	private static Projectlist unmarshalFromFile(String fileName) throws JAXBException {
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Projectlist.class);
 	    javax.xml.bind.Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -115,6 +119,7 @@ public class Xml_Server {
 	
 	private static void marshalToFile(Project data, String fileName) throws JAXBException
 	{
+		
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
 	    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
@@ -134,7 +139,7 @@ public class Xml_Server {
 	
 	private static void deleteEntry(String deleteword) throws JAXBException
 	{
-		Projectlist data = unmarshalFromFile("src/XML/files/" + "projectlist.xml");
+		Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
 		
 		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
 		while (iterator.hasNext()) {
@@ -143,19 +148,19 @@ public class Xml_Server {
 		    }
 		}
 		
-		marshalToFile(data, "src/XML/files/" + "projectlist.xml");
+		marshalToFileProjectList(data, "src/xml/files/" + "projectlist.xml");
 		
 	}
 	
 	
-	public static void changeEntryinXML(XMLGregorianCalendar time, String name) throws JAXBException, XMLStreamException
+	/*public static void changeEntryinxml(XMLGregorianCalendar time, String name) throws JAXBException, XMLStreamException
 	{
-		ProjectOverview pro = searchinXML(name);
+		ProjectOverview pro = searchinxml(name);
 		
 		pro.setLastmod(time);
 		String delete = pro.getName();
 		
-		Projectlist data = unmarshalFromFile("src/XML/files/" + "projectlist.xml");
+		Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
 		
 		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
 		while (iterator.hasNext()) {
@@ -165,14 +170,14 @@ public class Xml_Server {
 		}
 		data.getProjectOverview().add(pro);
 		
-		marshalToFile(data, "src/XML/files/" + "projectlist.xml");
+		marshalToFileProjectList(data, "src/xml/files/" + "projectlist.xml");
 		
-	}
+	}*/
 	
-	public static List<Project> checkProjectListandgiveProjectsback(String userName) throws JAXBException
+	public static List<Project> checkProjectListandgiveProjectsback(String userName) throws JAXBException, DatatypeConfigurationException
 	{
 		ArrayList<Project> proList = new ArrayList<Project>();
-		Projectlist data = unmarshalFromFile("src/XML/files/" + "projectlist.xml");
+		Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
 		
 		ProjectOverview pOver = new ProjectOverview("Testprojekt", "Das ist ein Testprojekt", "blabliblubkey");
 		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
@@ -188,7 +193,7 @@ public class Xml_Server {
 			{
 				if(userName.equals(ite.next().getValue()))
 				{
-					Project pro = unmarshalFromFileProject("src/XML/files/" + iterator.next().getProjectname().toString() + ".xml");
+					Project pro = unmarshalFromFileProject("src/xml/files/" + iterator.next().getProjectname().toString() + ".xml");
 					proList.add(pro);
 					
 		
@@ -211,23 +216,23 @@ public class Xml_Server {
 		Task task2 = new Task("dumm gucken2", "todo", "dumme sau", 0, 1323);
 		Task task3 = new Task("dumm gucken3", "todo", "dumme sau", 0, 1423);
 		
-		List<project.Tasklist.Task> task = new List<project.Tasklist.Task>();
+		List<Project.Tasklist.Task> task = new ArrayList<Project.Tasklist.Task>();
 
-		List<String> status = List<String>();
+		List<String> status = new ArrayList<String>();
+		
 		status.add("todo");
 		status.add("done");
 		status.add("fin");
 		
-		
 		task.add(task1);
 		task.add(task2);
 		task.add(task3);
-		
-		Tasklist tasklist = new Tasklist(task, task.length());
+		Statuslist statuslist = new Statuslist(status, status.size());
+		Tasklist tasklist = new Tasklist(task, task.size());
 				
-		Project pro = new Project("arschlochmodus 1", "Sauron", tasklist,  status, 12345);
+		Project pro = new Project("arschlochmodus 1", "Sauron", tasklist,  statuslist, 12345);
 		
-		addtoprojectList(Project pro, "gib gas");
+		addtoprojectList(pro, "gib gas");
 		
 		/*
 		

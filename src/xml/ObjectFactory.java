@@ -6,7 +6,7 @@
 //
 
 
-package XML;
+package xml;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
