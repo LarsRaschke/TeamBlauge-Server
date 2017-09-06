@@ -5,14 +5,17 @@
 // Generiert: 2017.08.31 um 01:15:01 PM CEST 
 //
 
-package xml;
+package xml.Backup;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -91,7 +94,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "projectname", "creator", "createdOn", "lastmod", "tasklist", "statuslist" })
+
+//@XmlType(name = "", propOrder = { "projectname", "creator", "createdOn", "lastmod", "tasklist", "statuslist" })
 @XmlRootElement(name = "project")
 public class Project {
 

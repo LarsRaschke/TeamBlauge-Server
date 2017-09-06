@@ -9,10 +9,10 @@
         <xs:element type="xs:dateTime" name="lastmod"/>
         <xs:element name="tasklist">
           <xs:complexType>
-            <xs:sequence>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
               <xs:element name="task">
                 <xs:complexType>
-                  <xs:sequence minOccurs="0">
+                  <xs:sequence>
                     <xs:element type="xs:string" name="taskname"/>
                     <xs:element type="xs:string" name="statusname"/>
                     <xs:element type="xs:dateTime" name="lastmod"/>
@@ -29,7 +29,7 @@
         <xs:element name="statuslist">
           <xs:complexType>
             <xs:sequence>
-              <xs:element type="xs:string" name="status" maxOccurs="unbounded" minOccurs="3"/>
+              <xs:element type="xs:string" name="status" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute type="xs:int" name="length"/>
           </xs:complexType>
