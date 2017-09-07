@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<projectlist count="0"/>
+<projectlist count="0">
+    <projectOverview ID="7">
+        <projectname>JOJOJO</projectname>
+        <description>gib gas</description>
+        <userlist count="0">
+            <user Admin="false">Hans</user>
+        </userlist>
+    </projectOverview>
+    <projectOverview ID="7">
+        <projectname>JOJOJO</projectname>
+        <description>gib gas</description>
+        <userlist count="0">
+            <user Admin="false">Hans</user>
+        </userlist>
+    </projectOverview>
+</projectlist>
