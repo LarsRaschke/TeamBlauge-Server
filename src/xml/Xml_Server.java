@@ -27,6 +27,8 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.bind.annotation.XmlElement;
 import org.xml.sax.SAXException;
 
+import com.sun.jmx.snmp.tasks.TaskServer;
+
 import xml.projects.Project;
 import xml.projectlist.Projectlist;
 import xml.projects.Project.Statuslist;
@@ -46,49 +48,67 @@ public class Xml_Server {
 	   
      
    //fügt neues Projekt an die Projektlist und erzeugt neue xml Datei
-	public static void addtoprojectList(Project pr, String comment) throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException
-	{
-	
+	public static void addtoprojectList(Project pr, Userlist usList) throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException
+	{	
 		    
-		    marshalToProjectFile(pr, pr.getProjectname());
-		   
+		    marshalToProjectFile(pr, pr.getProjectname());		   
 		    
 		    XsdValidation.validateProjects(pr.getProjectname());
-		    
-		    
 
 			Projectlist data = unmarshalFromProjectlistFile();
 			
 			ObjectFactory obFacProjectList = new ObjectFactory();
-			
-			User use = obFacProjectList.createProjectlistProjectOverviewUserlistUser();
-			
-			use.setAdmin(false);
-			use.setValue("Hans");
-			
-			Userlist uList = obFacProjectList.createProjectlistProjectOverviewUserlist();
-			uList.getUser().add(use);
-			
 
 			ProjectOverview proo = obFacProjectList.createProjectlistProjectOverview();
-			proo.setCreatedOn(null);
-			proo.setDescription(comment);
-			proo.setID(007);
+			proo.setCreatedOn(pr.getCreatedOn());
+			proo.setDescription(pr.getDescription());
+			proo.setID(pr.getID());
 			proo.setKey(null);
-			proo.setLastmod(null);
-			proo.setProjectname("JOJOJO");
-			proo.setUserlist(uList);
+			proo.setLastmod(pr.getLastmod());
+			proo.setProjectname(pr.getProjectname());
+			proo.setUserlist(usList);
 			
 			data.getProjectOverview().add(proo);
 
-			
 			marshalToProjectlistFile(data);
-			
-			
 
+	}
+  
+	public static void addTasktoProject(String name, Task task) throws JAXBException 
+	{
+		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+		ObjectFactoryProjects facPro = new ObjectFactoryProjects();
+		Project project = unmarshalFromProjectFile(name);
+		Tasklist tsList = facPro.createProjectTasklist();
+		tsList.getTask().add(task);
+		
+		project.setTasklist(tsList);
+		
+		marshalToProjectFile(project, project.getProjectname());
+		
+		Projectlist data = unmarshalFromProjectlistFile();
+		
+
+		ObjectFactory facProList = new ObjectFactory();
+		List<Project> proList = new ArrayList<Project>();
+		
+		ProjectOverview pro = facProList.createProjectlistProjectOverview();
+		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
+        while (iterator.hasNext()) 
+        {
+		    if (name.equals(iterator.next().getProjectname())) 
+		    {
+		         pro =  iterator.next();
+		         iterator.remove();
+		         pro.setLastmod(task.getLastmod());
+		         data.getProjectOverview().add(pro);
+
+		    }
+        }
+	
 		
 	}
-  // in Projectlist suchen
+	// in Projectlist suchenp
 	public static List<Project> searchinxml(String name) throws JAXBException, XMLStreamException
 	{
 		ObjectFactory obFacProjectList = new ObjectFactory();
@@ -98,8 +118,11 @@ public class Xml_Server {
 		
 		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
         while (iterator.hasNext()) {
-		    if (name.equals(iterator.next().getProjectname())) {
-		         pro =  iterator.next();
+		    if (name.equals(iterator.next().getProjectname())) 
+		    {
+		    	pro =  iterator.next();
+
+		    	
 		         String projectname = pro.getProjectname();
 		         Project project = unmarshalFromProjectFile(projectname);
 		         proList.add(project);
@@ -115,9 +138,7 @@ public class Xml_Server {
 		
 		
 	}
-	
-	
-	
+
 	// Projectlist aus xml erzeugen
 	public static Projectlist unmarshalFromProjectlistFile() throws JAXBException {
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Projectlist.class);
