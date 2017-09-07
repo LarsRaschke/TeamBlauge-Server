@@ -35,6 +35,7 @@ import xml.projectlist.Projectlist.ProjectOverview.Userlist;
 import xml.projectlist.Projectlist.ProjectOverview.Userlist.User;
 import xml.projectlist.ObjectFactory;
 import xml.projects.ObjectFactoryProject;
+import xml.XsdValidation;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Xml_Server {
@@ -43,11 +44,15 @@ public class Xml_Server {
 	   
      
    //fügt neues Projekt an die Projektlist und erzeugt neue xml Datei
-	public static void addtoprojectList(Project pr, String comment) throws JAXBException, DatatypeConfigurationException
+	public static void addtoprojectList(Project pr, String comment) throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException
 	{
 	
 		    
-		    marshalToFile(pr, pr.getProjectname());
+		    marshalToFile(pr, "src/xml/files/" + pr.getProjectname());
+		   
+		    
+		    XsdValidation.validate(pr.getProjectname());
+		    
 		    
 
 			Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");

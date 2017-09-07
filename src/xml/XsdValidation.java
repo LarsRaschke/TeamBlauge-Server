@@ -5,7 +5,8 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.*;
 import org.xml.sax.*;
 
-public class XsdValidation {
+public class XsdValidation 
+{
 	public static void validate(String xmlDocumentWithoutFileEnding) throws SAXException, IOException, FileNotFoundException {
 		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		try {
