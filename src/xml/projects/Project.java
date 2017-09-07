@@ -2,12 +2,14 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.07 um 11:57:39 AM CEST 
+// Generiert: 2017.09.07 um 12:23:20 PM CEST 
 //
 
 
 package xml.projects;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -32,6 +34,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="creator" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="created_on" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="tasklist">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -86,6 +89,7 @@ import javax.xml.bind.annotation.XmlType;
     "creator",
     "createdOn",
     "lastmod",
+    "description",
     "tasklist",
     "statuslist"
 })
@@ -100,6 +104,8 @@ public class Project {
     protected String createdOn;
     @XmlElement(required = true)
     protected String lastmod;
+    @XmlElement(required = true)
+    protected String description;
     @XmlElement(required = true)
     protected Project.Tasklist tasklist;
     @XmlElement(required = true)
@@ -175,8 +181,9 @@ public class Project {
      *     {@link String }
      *     
      */
-    public void setCreatedOn(String value) {
-        this.createdOn = value;
+    public void setCreatedOn() {
+    	ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+        this.createdOn = now.toString();
     }
 
     /**
@@ -199,8 +206,33 @@ public class Project {
      *     {@link String }
      *     
      */
-    public void setLastmod(String value) {
-        this.lastmod = value;
+    public void setLastmod() {
+    	ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+        this.lastmod = now.toString();
+    }
+
+    /**
+     * Ruft den Wert der description-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Legt den Wert der description-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDescription(String value) {
+        this.description = value;
     }
 
     /**
@@ -575,8 +607,9 @@ public class Project {
              *     {@link String }
              *     
              */
-            public void setLastmod(String value) {
-                this.lastmod = value;
+            public void setLastmod() {
+            	ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+                this.lastmod = now.toString();
             }
 
             /**

@@ -119,19 +119,19 @@ public class Xml_Server {
 	
 	
 	// Projectlist aus xml erzeugen
-	private static Projectlist unmarshalFromFile(String fileName) throws JAXBException {
+	public static Projectlist unmarshalFromFile(String fileName) throws JAXBException {
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Projectlist.class);
 	    javax.xml.bind.Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	    return (Projectlist) jaxbUnmarshaller.unmarshal(new File(fileName));
 	}
 	// 
-	private static Project unmarshalFromFileProject(String fileName) throws JAXBException {
+	public static Project unmarshalFromFileProject(String fileName) throws JAXBException {
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
 	    javax.xml.bind.Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	    return (Project) jaxbUnmarshaller.unmarshal(new File(fileName));
 	}
 	
-	private static void marshalToFile(Project data, String fileName) throws JAXBException
+	public static void marshalToFile(Project data, String fileName) throws JAXBException
 	{		
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
 	    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -140,7 +140,7 @@ public class Xml_Server {
 	    jaxbMarshaller.marshal(data, new File(fileName));
 	}
 	
-	private static void marshalToFileProjectList(Projectlist data, String fileName) throws JAXBException
+	public static void marshalToFileProjectList(Projectlist data, String fileName) throws JAXBException
 	{
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Projectlist.class);
 	    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -150,7 +150,7 @@ public class Xml_Server {
 	}
 	
 	
-	private static void deleteEntry(String deleteword) throws JAXBException
+	public static void deleteEntry(String deleteword) throws JAXBException
 	{
 		Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
 		
@@ -168,7 +168,6 @@ public class Xml_Server {
 	// Durchsucht die ProjectList nach einem bestimmten Projecktnamen, dann das Projekt nach einem Bestimmten Task und ändert den Status und die lastmod
 	public static void changeEntryinxml_Status(String name, String Status, String Taskname) throws JAXBException, XMLStreamException
 	{
-		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
 		List<Project> proList = searchinxml(name);
 		Project pro = new Project();
 		for(Project proIterator:proList)
@@ -180,7 +179,7 @@ public class Xml_Server {
 				if(tIterator.getTaskname().equals(Taskname))
 				{
 					tIterator.setStatusname(Status);
-					tIterator.setLastmod(now.toString());
+					tIterator.setLastmod();
 				}
 			}
 			
@@ -238,7 +237,7 @@ public class Xml_Server {
 		task1.setStatusname("todo");
 		task1.setColor(0);
 		task1.setComment("dumme sau sau");
-		task1.setLastmod(now.toString());
+		task1.setLastmod();
 		task1.setID(2);
 		
 		Tasklist tList = facPro.createProjectTasklist();
@@ -254,10 +253,10 @@ public class Xml_Server {
 		
 		pro.setTasklist(tList);
 		pro.setStatuslist(sList);
-		pro.setCreatedOn(now.toString());
+		pro.setCreatedOn();
 		pro.setCreator("hans");
 		pro.setID(007);
-		pro.setLastmod(now.toString());
+		pro.setLastmod();
 		pro.setProjectname("gogogirl");
 		
 		
