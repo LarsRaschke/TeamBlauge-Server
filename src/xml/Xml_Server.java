@@ -19,7 +19,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -51,7 +50,9 @@ public class Xml_Server {
 	{
 	
 		    
-		    marshalToFile(pr, "src/xml/files/" + pr.getProjectname() + ".xml");
+		    marshalToFile(pr, "src/xml/files/" + pr.getProjectname());
+		   
+		    
 		    XsdValidation.validateProjects(pr.getProjectname());
 		    
 		    
@@ -88,37 +89,33 @@ public class Xml_Server {
 		
 	}
   // in Projectlist suchen
-	/*public static ProjectOverview searchinxml(String name) throws JAXBException, XMLStreamException
+	public static List<Project> searchinxml(String name) throws JAXBException, XMLStreamException
 	{
-		XMLInputFactory xif = XMLInputFactory.newFactory();
-        StreamSource xml = new StreamSource("src/xml/files/" + "projectlist.xml");
-        XMLStreamReader xsr = xif.createXMLStreamReader(xml);
-
-        
-        while(xsr.hasNext()) {
-            if(xsr.isStartElement() && name.equals(xsr.getLocalName()))
-            {
-                break;
-            }
-            xsr.next();
-         }
-
-        // Unmarshal from the xmlStreamReader that has been advanced
-        JAXBContext jc = JAXBContext.newInstance(Projectlist.class);
-        javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
-        Projectlist data = unmarshaller.unmarshal(xsr, Projectlist.class).getValue();
-        ProjectOverview pro = new ProjectOverview("Testprojekt", "Das ist ein Testprojekt", "blabliblubkey");
-        Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
+		ObjectFactory obFacProjectList = new ObjectFactory();
+		Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
+		List<Project> proList = new ArrayList<Project>();
+		ProjectOverview pro = obFacProjectList.createProjectlistProjectOverview();
+		
+		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
         while (iterator.hasNext()) {
-		    if (name.equals(iterator.next().getName())) {
+		    if (name.equals(iterator.next().getProjectname())) {
 		         pro =  iterator.next();
+		         String projectname = pro.getProjectname();
+		         Project project = unmarshalFromFileProject("src/xml/files/" + projectname+".xml");
+		         proList.add(project);
+		         
 		    }
 		}
+		
+		
+        
         
 		
-		return pro;
+		return proList;
 		
-	}*/
+		
+	}
+	
 	
 	
 	// Projectlist aus xml erzeugen
@@ -135,8 +132,7 @@ public class Xml_Server {
 	}
 	
 	private static void marshalToFile(Project data, String fileName) throws JAXBException
-	{
-		
+	{		
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
 	    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
@@ -170,18 +166,25 @@ public class Xml_Server {
 	}
 	
 	
-	/*public static void changeEntryinxml(XMLGregorianCalendar time, String name) throws JAXBException, XMLStreamException
+	public static void changeEntryinxml_Status(String name, String Status) throws JAXBException, XMLStreamException
 	{
-		ProjectOverview pro = searchinxml(name);
+		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+		List<Project> proList = searchinxml(name);
+		Project pro = new Project();
+		for(Project proIterator:proList)
+		{
+			Tasklist tlist = proIterator.getTasklist()
+			
+		}
 		
 		pro.setLastmod(time);
-		String delete = pro.getName();
+		String delete = pro.getProjectname();
 		
 		Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
 		
 		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
 		while (iterator.hasNext()) {
-		    if (delete.equals(iterator.next().getName())) {
+		    if (delete.equals(iterator.next().getProjectname())) {
 		         iterator.remove();
 		    }
 		}
@@ -189,7 +192,7 @@ public class Xml_Server {
 		
 		marshalToFileProjectList(data, "src/xml/files/" + "projectlist.xml");
 		
-	}*/
+	}
 	
 	public static List<Project> checkProjectListandgiveProjectsback(String userName) throws JAXBException, DatatypeConfigurationException
 	{
@@ -204,6 +207,7 @@ public class Xml_Server {
 			Userlist userlist = iterator.next().getUserlist();
 			//User us = new User();
 			
+			@SuppressWarnings("unchecked")
 			Iterator<User> ite = (Iterator<User>) userlist.getUser();
 			
 			while(ite.hasNext())
@@ -229,16 +233,14 @@ public class Xml_Server {
 	
 	public static void main(String[] args) throws Exception 
 	{
-		
+		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
 		ObjectFactoryProjects facPro = new ObjectFactoryProjects();
 		Task task1 = facPro.createProjectTasklistTask();
 		task1.setTaskname("dumme sau");
 		task1.setStatusname("todo");
-		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
-		System.out.println(now);
-		task1.setLastmod(now.toString());
-		task1.setComment("dumme sau sau");
 		task1.setColor(0);
+		task1.setComment("dumme sau sau");
+		task1.setLastmod(now.toString());
 		task1.setID(2);
 		
 		Tasklist tList = facPro.createProjectTasklist();
