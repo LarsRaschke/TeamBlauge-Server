@@ -5,18 +5,20 @@ import java.util.HashMap;
 
 public class Projekt {
 	
+	private int id;
 	private User ersteller;
+	private String projektname;
+	private String beschreibung;
 	private HashMap<String, Task> tasks = new HashMap<String, Task>();
 	private HashMap<String, User> users = new HashMap<String, User>();
-	private String bezeichnung; /* evt. name? */
-	private int id;
 	private Statusliste statusliste;
 	private ZonedDateTime letzteAenderung;
 	private ZonedDateTime erstellungsDatum;
 
-	public Projekt(User u, String bezeichnung) {
+	public Projekt(User u, String projektname, String beschreibung) {
 		this.ersteller = u;
-		this.bezeichnung = bezeichnung;
+		this.projektname = projektname;
+		this.beschreibung = beschreibung;
 		users.put(u.getNutzername(), u);
 		
 	}
@@ -27,6 +29,46 @@ public class Projekt {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public User getErsteller() {
+		return ersteller;
+	}
+
+	public void setErsteller(User ersteller) {
+		this.ersteller = ersteller;
+	}
+	
+	public String getProjektname() {
+		return projektname;
+	}
+
+	public void setProjektname(String bezeichnung) {
+		this.projektname = bezeichnung;
+	}
+
+	public String getBeschreibung() {
+		return beschreibung;
+	}
+
+	public void setBeschreibung(String beschreibung) {
+		this.beschreibung = beschreibung;
+	}
+	
+	public HashMap<String, Task> getTasks() {
+		return tasks;
+	}
+	
+	public void setTasks(HashMap<String, Task> tasks) {
+		this.tasks = tasks;
+	}
+	
+	public HashMap<String, User> getUsers() {
+		return users;
+	}
+	
+	public void setUsers(HashMap<String, User> users) {
+		this.users = users;
 	}
 
 	public ZonedDateTime getLetzteAenderung() {
@@ -44,38 +86,6 @@ public class Projekt {
 	public void setErstellungsDatum(ZonedDateTime erstellungsDatum) {
 		this.erstellungsDatum = erstellungsDatum;
 	}
-	
-	public void setTasks(HashMap<String, Task> tasks) {
-		this.tasks = tasks;
-	}
-
-	public void setUsers(HashMap<String, User> users) {
-		this.users = users;
-	}
-
-	public User getErsteller() {
-		return ersteller;
-	}
-
-	public void setErsteller(User ersteller) {
-		this.ersteller = ersteller;
-	}
-	public HashMap<String, Task> getTasks() {
-		return tasks;
-	}
-
-	public HashMap<String, User> getUsers() {
-		return users;
-	}
-
-	public String getBezeichnung() {
-		return bezeichnung;
-	}
-
-	public void setBezeichnung(String bezeichnung) {
-		this.bezeichnung = bezeichnung;
-	}
-	
 
 	public Statusliste getStatusliste() {
 		return statusliste;
