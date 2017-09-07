@@ -25,14 +25,16 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.bind.annotation.XmlElement;
 import org.xml.sax.SAXException;
 
-import xml.Backup.Project;
-import xml.Backup.Projectlist;
-import xml.Backup.Project.Statuslist;
-import xml.Backup.Project.Tasklist;
-import xml.Backup.Project.Tasklist.Task;
-import xml.Backup.Projectlist.ProjectOverview;
-import xml.Backup.Projectlist.ProjectOverview.Userlist;
-import xml.Backup.Projectlist.ProjectOverview.Userlist.User;
+import xml.projects.Project;
+import xml.projectlist.Projectlist;
+import xml.projects.Project.Statuslist;
+import xml.projects.Project.Tasklist;
+import xml.projects.Project.Tasklist.Task;
+import xml.projectlist.Projectlist.ProjectOverview;
+import xml.projectlist.Projectlist.ProjectOverview.Userlist;
+import xml.projectlist.Projectlist.ProjectOverview.Userlist.User;
+import xml.projectlist.ObjectFactory;
+import xml.projects.ObjectFactoryProject;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Xml_Server {
@@ -44,26 +46,34 @@ public class Xml_Server {
 	public static void addtoprojectList(Project pr, String comment) throws JAXBException, DatatypeConfigurationException
 	{
 	
-		  /*  try {
-		        JAXBContext jc = JAXBContext.newInstance(Project.class);
-		        javax.xml.bind.Marshaller marshaller = jc.createMarshaller();
-		        marshaller.setProperty(marshaller.JAXB_FORMATTED_OUTPUT,
-		                Boolean.TRUE);
-		        File xmlfile = new File(pr.getProjectname()+".xml");
-		        marshaller.marshal(pr, xmlfile);
-		    } catch (JAXBException e) {
-		        e.printStackTrace();
-		    }
-		    */
 		    
-		   // marshalToFile(pr, pr.getProjectname());
+		    marshalToFile(pr, pr.getProjectname());
 		    
 
 			Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
 			
-			ProjectOverview over = new ProjectOverview(pr.getProjectname(), comment, null);
+			ObjectFactory obFacProjectList = new ObjectFactory();
 			
-			data.addProjectOverview(over);
+			User use = obFacProjectList.createProjectlistProjectOverviewUserlistUser();
+			
+			use.setAdmin(false);
+			use.setValue("Hans");
+			
+			Userlist uList = obFacProjectList.createProjectlistProjectOverviewUserlist();
+			uList.getUser().add(use);
+			
+
+			ProjectOverview proo = obFacProjectList.createProjectlistProjectOverview();
+			proo.setCreatedOn(null);
+			proo.setDescription(comment);
+			proo.setID(007);
+			proo.setKey(null);
+			proo.setLastmod(null);
+			proo.setProjectname("JOJOJO");
+			proo.setUserlist(uList);
+			
+			data.getProjectOverview().add(proo);
+
 			
 			marshalToFileProjectList(data, "src/xml/files/" + "projectlist.xml");
 			
@@ -180,7 +190,7 @@ public class Xml_Server {
 		ArrayList<Project> proList = new ArrayList<Project>();
 		Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
 		
-		ProjectOverview pOver = new ProjectOverview("Testprojekt", "Das ist ein Testprojekt", "blabliblubkey");
+		//ProjectOverview pOver = new ProjectOverview("Testprojekt", "Das ist ein Testprojekt", "blabliblubkey");
 		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
 		while (iterator.hasNext()) 
 		{
@@ -213,25 +223,36 @@ public class Xml_Server {
 	
 	public static void main(String[] args) throws Exception 
 	{
-		Task task1 = new Task("dumm gucken", "todo", "dumme sau", 0, 1223);
-		Task task2 = new Task("dumm gucken2", "todo", "dumme sau", 0, 1323);
-		Task task3 = new Task("dumm gucken3", "todo", "dumme sau", 0, 1423);
 		
-		List<Project.Tasklist.Task> task = new ArrayList<Project.Tasklist.Task>();
-
-		List<String> status = new ArrayList<String>();
+		ObjectFactoryProject facPro = new ObjectFactoryProject();
+		Task task1 = facPro.createProjectTasklistTask();
+		task1.setTaskname("dumme sau");
+		task1.setStatusname("todo");
+		task1.setColor(0);
+		task1.setComment("dumme sau sau");
+		task1.setLastmod(null);
+		task1.setID(2);
 		
-		status.add("todo");
-		status.add("done");
-		status.add("fin");
+		Tasklist tList = facPro.createProjectTasklist();
+		tList.getTask().add(task1);
 		
-		task.add(task1);
-		task.add(task2);
-		task.add(task3);
-		Statuslist statuslist = new Statuslist(status, status.size());
-		Tasklist tasklist = new Tasklist(task, task.size());
-				
-		Project pro = new Project("arschlochmodus 1", "Sauron", tasklist,  statuslist, 12345);
+        
+		
+		Statuslist sList = facPro.createProjectStatuslist();
+		
+		sList.getStatus().add("todo");
+		
+		Project pro = facPro.createProject();
+		
+		pro.setTasklist(tList);
+		pro.setStatuslist(sList);
+		pro.setCreatedOn(null);
+		pro.setCreator("hans");
+		pro.setID(007);
+		pro.setLastmod(null);
+		pro.setProjectname("gogogirl");
+		
+		
 		
 		addtoprojectList(pro, "gib gas");
 		
