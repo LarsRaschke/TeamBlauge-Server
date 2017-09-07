@@ -22,7 +22,7 @@ public class Projektmanager implements RMI_Projektmanager {
 		project.setLastmod();
 		project.setCreator(u.getNutzername());
 		project.setDescription(beschreibung);
-		Xml_Server.marshalToFile(project, projektname);
+		Xml_Server.marshalToProjectFile(project, projektname);
 		System.out.println("Erstellt!");
 	}
 
