@@ -165,32 +165,30 @@ public class Xml_Server {
 		
 	}
 	
-	
-	public static void changeEntryinxml_Status(String name, String Status) throws JAXBException, XMLStreamException
+	// Durchsucht die ProjectList nach einem bestimmten Projecktnamen, dann das Projekt nach einem Bestimmten Task und ändert den Status und die lastmod
+	public static void changeEntryinxml_Status(String name, String Status, String Taskname) throws JAXBException, XMLStreamException
 	{
 		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
 		List<Project> proList = searchinxml(name);
 		Project pro = new Project();
 		for(Project proIterator:proList)
 		{
-			Tasklist tlist = proIterator.getTasklist()
+			Tasklist tlist = proIterator.getTasklist();
+			
+			for(Task tIterator:tlist.getTask())
+			{
+				if(tIterator.getTaskname().equals(Taskname))
+				{
+					tIterator.setStatusname(Status);
+					tIterator.setLastmod(now.toString());
+				}
+			}
+			
+			marshalToFile(proIterator, proIterator.getProjectname()+".xml");
 			
 		}
 		
-		pro.setLastmod(time);
-		String delete = pro.getProjectname();
-		
-		Projectlist data = unmarshalFromFile("src/xml/files/" + "projectlist.xml");
-		
-		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
-		while (iterator.hasNext()) {
-		    if (delete.equals(iterator.next().getProjectname())) {
-		         iterator.remove();
-		    }
-		}
-		data.getProjectOverview().add(pro);
-		
-		marshalToFileProjectList(data, "src/xml/files/" + "projectlist.xml");
+
 		
 	}
 	
