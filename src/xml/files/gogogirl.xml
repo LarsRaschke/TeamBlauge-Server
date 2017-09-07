@@ -2,10 +2,13 @@
 <project ID="7">
     <projectname>gogogirl</projectname>
     <creator>hans</creator>
+    <created_on>2017-09-07T12:02:49.185+02:00[Europe/Paris]</created_on>
+    <lastmod>2017-09-07T12:02:49.185+02:00[Europe/Paris]</lastmod>
     <tasklist>
         <task ID="2">
             <taskname>dumme sau</taskname>
             <statusname>todo</statusname>
+            <lastmod>2017-09-07T12:02:49.185+02:00[Europe/Paris]</lastmod>
             <comment>dumme sau sau</comment>
             <color>0</color>
         </task>

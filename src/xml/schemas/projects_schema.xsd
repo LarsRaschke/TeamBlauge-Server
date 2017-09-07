@@ -5,8 +5,8 @@
       <xs:sequence>
         <xs:element type="xs:string" name="projectname"/>
         <xs:element type="xs:string" name="creator"/>
-        <xs:element type="xs:dateTime" name="created_on"/>
-        <xs:element type="xs:dateTime" name="lastmod"/>
+        <xs:element type="xs:string" name="created_on"/>
+        <xs:element type="xs:string" name="lastmod"/>
         <xs:element name="tasklist">
           <xs:complexType>
             <xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -15,7 +15,7 @@
                   <xs:sequence>
                     <xs:element type="xs:string" name="taskname"/>
                     <xs:element type="xs:string" name="statusname"/>
-                    <xs:element type="xs:dateTime" name="lastmod"/>
+                    <xs:element type="xs:string" name="lastmod"/>
                     <xs:element type="xs:string" name="comment"/>
                     <xs:element type="xs:int" name="color"/>
                   </xs:sequence>

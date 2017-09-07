@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.07 um 10:06:03 AM CEST 
+// Generiert: 2017.09.07 um 11:57:39 AM CEST 
 //
 
 
@@ -26,14 +26,14 @@ import javax.xml.bind.annotation.XmlRegistry;
  * 
  */
 @XmlRegistry
-public class ObjectFactoryProject {
+public class ObjectFactoryProjects {
 
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: xml.projects
      * 
      */
-    public ObjectFactoryProject() {
+    public ObjectFactoryProjects() {
     }
 
     /**

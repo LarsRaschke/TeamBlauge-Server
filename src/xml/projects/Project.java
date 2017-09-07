@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.07 um 10:06:03 AM CEST 
+// Generiert: 2017.09.07 um 11:57:39 AM CEST 
 //
 
 
@@ -15,9 +15,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -32,8 +30,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *       &lt;sequence>
  *         &lt;element name="projectname" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="creator" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="created_on" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *         &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="created_on" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="tasklist">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -46,7 +44,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *                           &lt;sequence>
  *                             &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                             &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *                             &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                             &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                             &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *                           &lt;/sequence>
@@ -99,11 +97,9 @@ public class Project {
     @XmlElement(required = true)
     protected String creator;
     @XmlElement(name = "created_on", required = true)
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar createdOn;
+    protected String createdOn;
     @XmlElement(required = true)
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar lastmod;
+    protected String lastmod;
     @XmlElement(required = true)
     protected Project.Tasklist tasklist;
     @XmlElement(required = true)
@@ -164,10 +160,10 @@ public class Project {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public XMLGregorianCalendar getCreatedOn() {
+    public String getCreatedOn() {
         return createdOn;
     }
 
@@ -176,10 +172,10 @@ public class Project {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public void setCreatedOn(XMLGregorianCalendar value) {
+    public void setCreatedOn(String value) {
         this.createdOn = value;
     }
 
@@ -188,10 +184,10 @@ public class Project {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public XMLGregorianCalendar getLastmod() {
+    public String getLastmod() {
         return lastmod;
     }
 
@@ -200,10 +196,10 @@ public class Project {
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public void setLastmod(XMLGregorianCalendar value) {
+    public void setLastmod(String value) {
         this.lastmod = value;
     }
 
@@ -383,7 +379,7 @@ public class Project {
      *                 &lt;sequence>
      *                   &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *                   &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                   &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+     *                   &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *                   &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *                   &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
      *                 &lt;/sequence>
@@ -477,7 +473,7 @@ public class Project {
          *       &lt;sequence>
          *         &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
          *         &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+         *         &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
          *         &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
          *         &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
          *       &lt;/sequence>
@@ -504,8 +500,7 @@ public class Project {
             @XmlElement(required = true)
             protected String statusname;
             @XmlElement(required = true)
-            @XmlSchemaType(name = "dateTime")
-            protected XMLGregorianCalendar lastmod;
+            protected String lastmod;
             @XmlElement(required = true)
             protected String comment;
             protected int color;
@@ -565,10 +560,10 @@ public class Project {
              * 
              * @return
              *     possible object is
-             *     {@link XMLGregorianCalendar }
+             *     {@link String }
              *     
              */
-            public XMLGregorianCalendar getLastmod() {
+            public String getLastmod() {
                 return lastmod;
             }
 
@@ -577,10 +572,10 @@ public class Project {
              * 
              * @param value
              *     allowed object is
-             *     {@link XMLGregorianCalendar }
+             *     {@link String }
              *     
              */
-            public void setLastmod(XMLGregorianCalendar value) {
+            public void setLastmod(String value) {
                 this.lastmod = value;
             }
 

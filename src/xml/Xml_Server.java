@@ -9,6 +9,8 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.*;
 import java.text.DecimalFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 //import org.junit.*;
 
@@ -17,6 +19,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -34,7 +37,7 @@ import xml.projectlist.Projectlist.ProjectOverview;
 import xml.projectlist.Projectlist.ProjectOverview.Userlist;
 import xml.projectlist.Projectlist.ProjectOverview.Userlist.User;
 import xml.projectlist.ObjectFactory;
-import xml.projects.ObjectFactoryProject;
+import xml.projects.ObjectFactoryProjects;
 import xml.XsdValidation;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -48,10 +51,8 @@ public class Xml_Server {
 	{
 	
 		    
-		    marshalToFile(pr, "src/xml/files/" + pr.getProjectname());
-		   
-		    
-		    XsdValidation.validate(pr.getProjectname());
+		    marshalToFile(pr, "src/xml/files/" + pr.getProjectname() + ".xml");
+		    XsdValidation.validateProjects(pr.getProjectname());
 		    
 		    
 
@@ -229,13 +230,15 @@ public class Xml_Server {
 	public static void main(String[] args) throws Exception 
 	{
 		
-		ObjectFactoryProject facPro = new ObjectFactoryProject();
+		ObjectFactoryProjects facPro = new ObjectFactoryProjects();
 		Task task1 = facPro.createProjectTasklistTask();
 		task1.setTaskname("dumme sau");
 		task1.setStatusname("todo");
-		task1.setColor(0);
+		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+		System.out.println(now);
+		task1.setLastmod(now.toString());
 		task1.setComment("dumme sau sau");
-		task1.setLastmod(null);
+		task1.setColor(0);
 		task1.setID(2);
 		
 		Tasklist tList = facPro.createProjectTasklist();
@@ -251,10 +254,10 @@ public class Xml_Server {
 		
 		pro.setTasklist(tList);
 		pro.setStatuslist(sList);
-		pro.setCreatedOn(null);
+		pro.setCreatedOn(now.toString());
 		pro.setCreator("hans");
 		pro.setID(007);
-		pro.setLastmod(null);
+		pro.setLastmod(now.toString());
 		pro.setProjectname("gogogirl");
 		
 		
