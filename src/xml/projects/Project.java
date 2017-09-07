@@ -2,14 +2,12 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.07 um 12:23:20 PM CEST 
+// Generiert: 2017.09.07 um 02:11:08 PM CEST 
 //
 
 
 package xml.projects;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -181,9 +179,8 @@ public class Project {
      *     {@link String }
      *     
      */
-    public void setCreatedOn() {
-    	ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
-        this.createdOn = now.toString();
+    public void setCreatedOn(String value) {
+        this.createdOn = value;
     }
 
     /**
@@ -206,9 +203,8 @@ public class Project {
      *     {@link String }
      *     
      */
-    public void setLastmod() {
-    	ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
-        this.lastmod = now.toString();
+    public void setLastmod(String value) {
+        this.lastmod = value;
     }
 
     /**
@@ -607,9 +603,8 @@ public class Project {
              *     {@link String }
              *     
              */
-            public void setLastmod() {
-            	ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
-                this.lastmod = now.toString();
+            public void setLastmod(String value) {
+                this.lastmod = value;
             }
 
             /**

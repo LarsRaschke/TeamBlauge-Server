@@ -178,8 +178,9 @@ public class Xml_Server {
 			{
 				if(tIterator.getTaskname().equals(Taskname))
 				{
+					ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
 					tIterator.setStatusname(Status);
-					tIterator.setLastmod();
+					tIterator.setLastmod(now.toString());
 				}
 			}
 			
@@ -237,7 +238,7 @@ public class Xml_Server {
 		task1.setStatusname("todo");
 		task1.setColor(0);
 		task1.setComment("dumme sau sau");
-		task1.setLastmod();
+		task1.setLastmod(now.toString());
 		task1.setID(2);
 		Tasklist tList = facPro.createProjectTasklist();
 		tList.getTask().add(task1);
@@ -252,10 +253,10 @@ public class Xml_Server {
 		
 		pro.setTasklist(tList);
 		pro.setStatuslist(sList);
-		pro.setCreatedOn();
+		pro.setCreatedOn(now.toString());
 		pro.setCreator("hans");
 		pro.setID(007);
-		pro.setLastmod();
+		pro.setLastmod(now.toString());
 		pro.setProjectname("gogogirl");
 		pro.setDescription("Das is a Testprojekt");
 		
