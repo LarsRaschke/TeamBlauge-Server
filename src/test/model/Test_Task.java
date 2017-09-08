@@ -2,7 +2,6 @@ package test.model;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayOutputStream;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
@@ -94,22 +93,14 @@ public class Test_Task {
 		Status status1 = new Status("toDo");
 		Status status2 = new Status("doing");
 		Status status3 = new Status("finished");
-		Status status4 = new Status(null);
 		task.setStatus(status1);
 		status1.setNachfolger(status2);
 		status2.setNachfolger(status3);
-		status3.setNachfolger(status4);
 		task.taskNachVorne();
 		assertEquals(status2, task.getStatus());
 		task.taskNachVorne();
 		assertEquals(status3, task.getStatus());
-		
-		
-		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-		String err = "ERROR: Task already in last status.";
-		task.taskNachVorne();
-		assertEquals(err, outContent.toString());
-		 		
+		assertEquals(false, task.taskNachVorne());	 		
 	}
 	
 	@Test
@@ -124,12 +115,7 @@ public class Test_Task {
 		assertEquals(status2, task.getStatus());
 		task.taskNachHinten();
 		assertEquals(status1, task.getStatus());
-		/*
-		 * ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-		 * String err = "ERROR: Task already in first status.";
-		 * task.taskNachHinten();
-		 * assertTrue(err == outContent.toString());
-		 */		
+		assertEquals(false, task.taskNachHinten());			
 	}
 	
 	@Test

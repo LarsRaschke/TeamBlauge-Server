@@ -83,46 +83,52 @@ public class Task {
 	 * method to move a task forward
 	 * 
 	 */
-	public void taskNachVorne()
+	public boolean taskNachVorne()
 	{
 		/**
 		 * Task can be moved by any user
 		 */
-		Status temp;
-		temp = this.getStatus().getNachfolger().getNachfolger();
-		if(this.getStatus().getNachfolger() != null)
-		{
-			this.getStatus().setVorgaenger(this.status);
-			this.setStatus(this.getStatus().getNachfolger());
-			this.getStatus().setNachfolger(temp);
+		try{
+			Status temp;
+			temp = this.getStatus().getNachfolger().getNachfolger();
+			if(this.getStatus().getNachfolger() != null)
+			{
+				this.getStatus().setVorgaenger(this.status);
+				this.setStatus(this.getStatus().getNachfolger());
+				this.getStatus().setNachfolger(temp);
+				return true;
+			}
 		}
-		else
-		{
-			System.out.println("ERROR: Task already in last status.");
+		catch(NullPointerException npe){
+			System.out.println("NullPointerException gefunden bei taskNachVorne"); // Error Log fehlt noch
 		}
+		return false;
 	}
 	
 	/**
 	 * method to move a task backward
 	 * 
 	 */
-	public void taskNachHinten()
+	public boolean taskNachHinten()
 	{
 		/**
 		 * TODO: Implement admin-only in this method
 		 */
-		Status temp;
+		try{
+			Status temp;
 		temp = this.getStatus().getVorgaenger().getVorgaenger();
 		if(this.getStatus().getVorgaenger() != null)
 		{
 			this.getStatus().setNachfolger(this.getStatus());
 			this.setStatus(this.getStatus().getVorgaenger());
 			this.getStatus().setVorgaenger(temp);
+			return true;
 		}
-		else
-		{
-			System.out.println("ERROR: Task already in first status.");
 		}
+		catch(NullPointerException npe){
+			System.out.println("NullPointerException gefunden bei taskNachHinten"); // Error Log fehlt noch
+		}
+		return false;
 	}
 	
 	/**
