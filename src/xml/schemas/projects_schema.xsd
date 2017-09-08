@@ -1,42 +1,55 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
-  <xs:element name="project">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element type="xs:string" name="projectname"/>
-        <xs:element type="xs:string" name="creator"/>
-        <xs:element type="xs:string" name="created_on"/>
-        <xs:element type="xs:string" name="lastmod"/>
-        <xs:element type="xs:string" name="description"/>
-        <xs:element name="tasklist">
-          <xs:complexType>
-            <xs:sequence minOccurs="0" maxOccurs="unbounded">
-              <xs:element name="task">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element type="xs:string" name="taskname"/>
-                    <xs:element type="xs:string" name="statusname"/>
-                    <xs:element type="xs:string" name="lastmod"/>
-                    <xs:element type="xs:string" name="comment"/>
-                    <xs:element type="xs:int" name="color"/>
-                  </xs:sequence>
-                  <xs:attribute type="xs:int" name="ID"/>
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-            <xs:attribute type="xs:int" name="count"/>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="statuslist">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element type="xs:string" name="status" maxOccurs="unbounded" minOccurs="0"/>
-            </xs:sequence>
-            <xs:attribute type="xs:int" name="length"/>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-      <xs:attribute type="xs:int" name="ID"/>
-    </xs:complexType>
-  </xs:element>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	attributeFormDefault="unqualified" elementFormDefault="qualified">
+	<xs:element name="project">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element type="xs:string" name="projectname" />
+				<xs:element type="xs:string" name="creator" />
+				<xs:element type="xs:string" name="created_on" />
+				<xs:element type="xs:string" name="lastmod" />
+				<xs:element type="xs:string" name="description" />
+				<xs:element name="tasklist">
+					<xs:complexType>
+						<xs:sequence minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="task">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="taskname" />
+										<xs:element type="xs:string" name="statusname" />
+										<xs:element type="xs:string" name="lastmod" />
+										<xs:element type="xs:string" name="comment" />
+										<xs:element type="xs:int" name="color" />
+										<xs:element type="xs:string" name="lastUser"/>
+										<xs:element name="tags">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute type="xs:boolean" name="Admin"
+															use="required" />
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute type="xs:int" name="ID" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute type="xs:int" name="count" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="statuslist">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element type="xs:string" name="status" maxOccurs="unbounded"
+								minOccurs="0" />
+						</xs:sequence>
+						<xs:attribute type="xs:int" name="length" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute type="xs:int" name="ID" />
+		</xs:complexType>
+	</xs:element>
 </xs:schema>
