@@ -112,6 +112,46 @@ public class Projektmanager implements RMI_Projektmanager
 		String userName = orginaluser.getNutzername();
 		HashMap<Project, Userlist> pList = Xml_Server.checkProjectListandgiveProjectsback(userName);
 		
+		for (HashMap.Entry<Project, Userlist> entry :pList.entrySet()) 
+		{
+			xml.projects.Project pro = entry.getKey();
+			xml.projectlist.Projectlist.ProjectOverview.Userlist usList = entry.getValue();
+			
+			Projekt orginalProjekt = new Projekt(orginaluser,pro.getProjectname(),pro.getDescription());
+			User orgiUser = new User(pro.getCreator(), true, null, null);
+			orginalProjekt.setErsteller(orgiUser);
+			orginalProjekt.setId(pro.getID());
+			
+			orginalProjekt.setErstellungsDatum(ZonedDateTime.parse(pro.getCreatedOn()));
+			
+			orginalProjekt.setLetzteAenderung(ZonedDateTime.parse(pro.getLastmod()));
+			
+			Statusliste slist = new Statusliste();
+			
+			for(String stat: pro.getStatuslist().getStatus())
+			{
+				Status orgistat = new Status(stat);
+				slist.insertStatus(orgistat);
+			}
+			
+			orginalProjekt.setStatusliste(slist);
+			
+			for( xml.projects.Project.Tasklist.Task tAs : pro.getTasklist().getTask())
+			{
+				Task orgiTask = new Task()
+			}
+			
+			for(xml.projectlist.Projectlist.ProjectOverview.Userlist.User usa:usList.getUser())
+			{
+				User orUser = new User(usa.getValue(), usa.isAdmin(), null, null);
+				orginalProjekt.addUserToHashMap(orUser);
+			}
+			
+			
+		}
+		
+				
+		
 		
 		
 		

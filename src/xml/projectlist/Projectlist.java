@@ -404,7 +404,9 @@ public class Projectlist {
         })
         public static class Userlist {
 
-            protected List<Projectlist.ProjectOverview.Userlist.User> user;
+            
+			
+			protected List<Projectlist.ProjectOverview.Userlist.User> user;
             @XmlAttribute(name = "count", required = true)
             protected int count;
 
