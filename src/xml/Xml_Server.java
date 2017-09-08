@@ -213,18 +213,20 @@ public class Xml_Server {
 		
 	}
 	
-	public static List<Project> checkProjectListandgiveProjectsback(String userName) throws JAXBException, DatatypeConfigurationException
+	public static HashMap<Project, Userlist> checkProjectListandgiveProjectsback(String userName) throws JAXBException, DatatypeConfigurationException
 	{
+		HashMap<Project, Userlist> wlist = new HashMap<Project, Userlist>
 		ArrayList<Project> proList = new ArrayList<Project>();
+		ArrayList<Userlist> usList = new ArrayList<Userlist>();
 		Projectlist data = unmarshalFromProjectlistFile();
 		
-		//ProjectOverview pOver = new ProjectOverview("Testprojekt", "Das ist ein Testprojekt", "blabliblubkey");
+		
 		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
 		while (iterator.hasNext()) 
 		{
 			
 			Userlist userlist = iterator.next().getUserlist();
-			//User us = new User();
+			
 			
 			@SuppressWarnings("unchecked")
 			Iterator<User> ite = (Iterator<User>) userlist.getUser();
@@ -235,6 +237,8 @@ public class Xml_Server {
 				{
 					Project pro = unmarshalFromProjectFile("src/xml/files/" + iterator.next().getProjectname().toString() + ".xml");
 					proList.add(pro);
+					usList.add(userlist);
+					wlist.put(pro, userlist);
 					
 		
 				}
@@ -244,10 +248,10 @@ public class Xml_Server {
 		
 		
 		
-		return proList;
+		return wlist;
 	}
 
-
+	
 	
 	
 	public static void main(String[] args) throws Exception 

@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -104,6 +105,16 @@ public class Projektmanager implements RMI_Projektmanager
 		xmlTask.setTaskname(orginalTask.getName());
 		
 		Xml_Server.addTasktoProject(orginalProjekt.getProjektname(), xmlTask);
+	}
+	
+	public List<Projekt> gibtProjektedesUserszurück(User orginaluser) throws JAXBException, DatatypeConfigurationException
+	{
+		String userName = orginaluser.getNutzername();
+		HashMap<Project, Userlist> pList = Xml_Server.checkProjectListandgiveProjectsback(userName);
+		
+		
+		
+		
 	}
 	@Override
 	public void erstelleProjekt(User u, String projektname, String beschreibung) throws RemoteException, JAXBException {
