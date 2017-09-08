@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.07 um 11:57:21 AM CEST 
+// Generiert: 2017.09.08 um 10:52:20 AM CEST 
 //
 
 
@@ -29,34 +29,23 @@ import javax.xml.bind.annotation.XmlValue;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="projectOverview" maxOccurs="unbounded" minOccurs="0">
+ *         &lt;element name="projectOverviewEntries" maxOccurs="unbounded" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
  *                   &lt;element name="projectname" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                   &lt;element name="created_on" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                   &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="creator" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="createdOn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="lastMod" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                   &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                   &lt;element name="userlist">
+ *                   &lt;element name="userEntries" maxOccurs="unbounded" minOccurs="0">
  *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="user" maxOccurs="unbounded" minOccurs="0">
- *                               &lt;complexType>
- *                                 &lt;simpleContent>
- *                                   &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *                                     &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *                                   &lt;/extension>
- *                                 &lt;/simpleContent>
- *                               &lt;/complexType>
- *                             &lt;/element>
- *                           &lt;/sequence>
- *                           &lt;attribute name="count" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
+ *                       &lt;simpleContent>
+ *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+ *                           &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
+ *                         &lt;/extension>
+ *                       &lt;/simpleContent>
  *                     &lt;/complexType>
  *                   &lt;/element>
  *                 &lt;/sequence>
@@ -66,7 +55,6 @@ import javax.xml.bind.annotation.XmlValue;
  *           &lt;/complexType>
  *         &lt;/element>
  *       &lt;/sequence>
- *       &lt;attribute name="count" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -76,66 +64,40 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "projectOverview"
+    "projectOverviewEntries"
 })
 @XmlRootElement(name = "projectlist")
 public class Projectlist {
 
-    protected List<Projectlist.ProjectOverview> projectOverview;
-    @XmlAttribute(name = "count")
-    protected Integer count;
+    protected List<Projectlist.ProjectOverviewEntries> projectOverviewEntries;
 
     /**
-     * Gets the value of the projectOverview property.
+     * Gets the value of the projectOverviewEntries property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the projectOverview property.
+     * This is why there is not a <CODE>set</CODE> method for the projectOverviewEntries property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getProjectOverview().add(newItem);
+     *    getProjectOverviewEntries().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Projectlist.ProjectOverview }
+     * {@link Projectlist.ProjectOverviewEntries }
      * 
      * 
      */
-    public List<Projectlist.ProjectOverview> getProjectOverview() {
-        if (projectOverview == null) {
-            projectOverview = new ArrayList<Projectlist.ProjectOverview>();
+    public List<Projectlist.ProjectOverviewEntries> getProjectOverviewEntries() {
+        if (projectOverviewEntries == null) {
+            projectOverviewEntries = new ArrayList<Projectlist.ProjectOverviewEntries>();
         }
-        return this.projectOverview;
-    }
-
-    /**
-     * Ruft den Wert der count-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getCount() {
-        return count;
-    }
-
-    /**
-     * Legt den Wert der count-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setCount(Integer value) {
-        this.count = value;
+        return this.projectOverviewEntries;
     }
 
 
@@ -150,28 +112,17 @@ public class Projectlist {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;element name="projectname" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="created_on" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="creator" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="createdOn" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="lastMod" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="userlist">
+     *         &lt;element name="userEntries" maxOccurs="unbounded" minOccurs="0">
      *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="user" maxOccurs="unbounded" minOccurs="0">
-     *                     &lt;complexType>
-     *                       &lt;simpleContent>
-     *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *                           &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
-     *                         &lt;/extension>
-     *                       &lt;/simpleContent>
-     *                     &lt;/complexType>
-     *                   &lt;/element>
-     *                 &lt;/sequence>
-     *                 &lt;attribute name="count" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
+     *             &lt;simpleContent>
+     *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+     *                 &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
+     *               &lt;/extension>
+     *             &lt;/simpleContent>
      *           &lt;/complexType>
      *         &lt;/element>
      *       &lt;/sequence>
@@ -186,26 +137,25 @@ public class Projectlist {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "projectname",
+        "creator",
         "createdOn",
-        "lastmod",
+        "lastMod",
         "description",
-        "key",
-        "userlist"
+        "userEntries"
     })
-    public static class ProjectOverview {
+    public static class ProjectOverviewEntries {
 
         @XmlElement(required = true)
         protected String projectname;
-        @XmlElement(name = "created_on", required = true)
+        @XmlElement(required = true)
+        protected String creator;
+        @XmlElement(required = true)
         protected String createdOn;
         @XmlElement(required = true)
-        protected String lastmod;
+        protected String lastMod;
         @XmlElement(required = true)
         protected String description;
-        @XmlElement(required = true)
-        protected String key;
-        @XmlElement(required = true)
-        protected Projectlist.ProjectOverview.Userlist userlist;
+        protected List<Projectlist.ProjectOverviewEntries.UserEntries> userEntries;
         @XmlAttribute(name = "ID", required = true)
         protected int id;
 
@@ -234,6 +184,30 @@ public class Projectlist {
         }
 
         /**
+         * Ruft den Wert der creator-Eigenschaft ab.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getCreator() {
+            return creator;
+        }
+
+        /**
+         * Legt den Wert der creator-Eigenschaft fest.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setCreator(String value) {
+            this.creator = value;
+        }
+
+        /**
          * Ruft den Wert der createdOn-Eigenschaft ab.
          * 
          * @return
@@ -258,27 +232,27 @@ public class Projectlist {
         }
 
         /**
-         * Ruft den Wert der lastmod-Eigenschaft ab.
+         * Ruft den Wert der lastMod-Eigenschaft ab.
          * 
          * @return
          *     possible object is
          *     {@link String }
          *     
          */
-        public String getLastmod() {
-            return lastmod;
+        public String getLastMod() {
+            return lastMod;
         }
 
         /**
-         * Legt den Wert der lastmod-Eigenschaft fest.
+         * Legt den Wert der lastMod-Eigenschaft fest.
          * 
          * @param value
          *     allowed object is
          *     {@link String }
          *     
          */
-        public void setLastmod(String value) {
-            this.lastmod = value;
+        public void setLastMod(String value) {
+            this.lastMod = value;
         }
 
         /**
@@ -306,51 +280,32 @@ public class Projectlist {
         }
 
         /**
-         * Ruft den Wert der key-Eigenschaft ab.
+         * Gets the value of the userEntries property.
          * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getKey() {
-            return key;
-        }
-
-        /**
-         * Legt den Wert der key-Eigenschaft fest.
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the userEntries property.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setKey(String value) {
-            this.key = value;
-        }
-
-        /**
-         * Ruft den Wert der userlist-Eigenschaft ab.
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getUserEntries().add(newItem);
+         * </pre>
          * 
-         * @return
-         *     possible object is
-         *     {@link Projectlist.ProjectOverview.Userlist }
-         *     
-         */
-        public Projectlist.ProjectOverview.Userlist getUserlist() {
-            return userlist;
-        }
-
-        /**
-         * Legt den Wert der userlist-Eigenschaft fest.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link Projectlist.ProjectOverview.Userlist }
-         *     
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link Projectlist.ProjectOverviewEntries.UserEntries }
+         * 
+         * 
          */
-        public void setUserlist(Projectlist.ProjectOverview.Userlist value) {
-            this.userlist = value;
+        public List<Projectlist.ProjectOverviewEntries.UserEntries> getUserEntries() {
+            if (userEntries == null) {
+                userEntries = new ArrayList<Projectlist.ProjectOverviewEntries.UserEntries>();
+            }
+            return this.userEntries;
         }
 
         /**
@@ -377,22 +332,11 @@ public class Projectlist {
          * 
          * <pre>
          * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="user" maxOccurs="unbounded" minOccurs="0">
-         *           &lt;complexType>
-         *             &lt;simpleContent>
-         *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *                 &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
-         *               &lt;/extension>
-         *             &lt;/simpleContent>
-         *           &lt;/complexType>
-         *         &lt;/element>
-         *       &lt;/sequence>
-         *       &lt;attribute name="count" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
+         *   &lt;simpleContent>
+         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+         *       &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
+         *     &lt;/extension>
+         *   &lt;/simpleContent>
          * &lt;/complexType>
          * </pre>
          * 
@@ -400,128 +344,53 @@ public class Projectlist {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "user"
+            "value"
         })
-        public static class Userlist {
+        public static class UserEntries {
 
-            protected List<Projectlist.ProjectOverview.Userlist.User> user;
-            @XmlAttribute(name = "count", required = true)
-            protected int count;
+            @XmlValue
+            protected String value;
+            @XmlAttribute(name = "Admin", required = true)
+            protected boolean admin;
 
             /**
-             * Gets the value of the user property.
+             * Ruft den Wert der value-Eigenschaft ab.
              * 
-             * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the user property.
-             * 
-             * <p>
-             * For example, to add a new item, do as follows:
-             * <pre>
-             *    getUser().add(newItem);
-             * </pre>
-             * 
-             * 
-             * <p>
-             * Objects of the following type(s) are allowed in the list
-             * {@link Projectlist.ProjectOverview.Userlist.User }
-             * 
-             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
              */
-            public List<Projectlist.ProjectOverview.Userlist.User> getUser() {
-                if (user == null) {
-                    user = new ArrayList<Projectlist.ProjectOverview.Userlist.User>();
-                }
-                return this.user;
+            public String getValue() {
+                return value;
             }
 
             /**
-             * Ruft den Wert der count-Eigenschaft ab.
+             * Legt den Wert der value-Eigenschaft fest.
              * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
              */
-            public int getCount() {
-                return count;
+            public void setValue(String value) {
+                this.value = value;
             }
 
             /**
-             * Legt den Wert der count-Eigenschaft fest.
+             * Ruft den Wert der admin-Eigenschaft ab.
              * 
              */
-            public void setCount(int value) {
-                this.count = value;
+            public boolean isAdmin() {
+                return admin;
             }
 
-
             /**
-             * <p>Java-Klasse für anonymous complex type.
-             * 
-             * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
-             * 
-             * <pre>
-             * &lt;complexType>
-             *   &lt;simpleContent>
-             *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-             *       &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
-             *     &lt;/extension>
-             *   &lt;/simpleContent>
-             * &lt;/complexType>
-             * </pre>
-             * 
+             * Legt den Wert der admin-Eigenschaft fest.
              * 
              */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "value"
-            })
-            public static class User {
-
-                @XmlValue
-                protected String value;
-                @XmlAttribute(name = "Admin", required = true)
-                protected boolean admin;
-
-                /**
-                 * Ruft den Wert der value-Eigenschaft ab.
-                 * 
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
-                 */
-                public String getValue() {
-                    return value;
-                }
-
-                /**
-                 * Legt den Wert der value-Eigenschaft fest.
-                 * 
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
-                 */
-                public void setValue(String value) {
-                    this.value = value;
-                }
-
-                /**
-                 * Ruft den Wert der admin-Eigenschaft ab.
-                 * 
-                 */
-                public boolean isAdmin() {
-                    return admin;
-                }
-
-                /**
-                 * Legt den Wert der admin-Eigenschaft fest.
-                 * 
-                 */
-                public void setAdmin(boolean value) {
-                    this.admin = value;
-                }
-
+            public void setAdmin(boolean value) {
+                this.admin = value;
             }
 
         }

@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.07 um 11:57:21 AM CEST 
+// Generiert: 2017.09.08 um 10:52:20 AM CEST 
 //
 
 
@@ -45,27 +45,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Projectlist.ProjectOverview }
+     * Create an instance of {@link Projectlist.ProjectOverviewEntries }
      * 
      */
-    public Projectlist.ProjectOverview createProjectlistProjectOverview() {
-        return new Projectlist.ProjectOverview();
+    public Projectlist.ProjectOverviewEntries createProjectlistProjectOverviewEntries() {
+        return new Projectlist.ProjectOverviewEntries();
     }
 
     /**
-     * Create an instance of {@link Projectlist.ProjectOverview.Userlist }
+     * Create an instance of {@link Projectlist.ProjectOverviewEntries.UserEntries }
      * 
      */
-    public Projectlist.ProjectOverview.Userlist createProjectlistProjectOverviewUserlist() {
-        return new Projectlist.ProjectOverview.Userlist();
-    }
-
-    /**
-     * Create an instance of {@link Projectlist.ProjectOverview.Userlist.User }
-     * 
-     */
-    public Projectlist.ProjectOverview.Userlist.User createProjectlistProjectOverviewUserlistUser() {
-        return new Projectlist.ProjectOverview.Userlist.User();
+    public Projectlist.ProjectOverviewEntries.UserEntries createProjectlistProjectOverviewEntriesUserEntries() {
+        return new Projectlist.ProjectOverviewEntries.UserEntries();
     }
 
 }

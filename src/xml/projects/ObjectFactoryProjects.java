@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.07 um 02:11:08 PM CEST 
+// Generiert: 2017.09.08 um 10:52:33 AM CEST 
 //
 
 
@@ -45,27 +45,27 @@ public class ObjectFactoryProjects {
     }
 
     /**
-     * Create an instance of {@link Project.Tasklist }
+     * Create an instance of {@link Project.TaskEntries }
      * 
      */
-    public Project.Tasklist createProjectTasklist() {
-        return new Project.Tasklist();
+    public Project.TaskEntries createProjectTaskEntries() {
+        return new Project.TaskEntries();
     }
 
     /**
-     * Create an instance of {@link Project.Statuslist }
+     * Create an instance of {@link Project.StatusEntries }
      * 
      */
-    public Project.Statuslist createProjectStatuslist() {
-        return new Project.Statuslist();
+    public Project.StatusEntries createProjectStatusEntries() {
+        return new Project.StatusEntries();
     }
 
     /**
-     * Create an instance of {@link Project.Tasklist.Task }
+     * Create an instance of {@link Project.TaskEntries.Tags }
      * 
      */
-    public Project.Tasklist.Task createProjectTasklistTask() {
-        return new Project.Tasklist.Task();
+    public Project.TaskEntries.Tags createProjectTaskEntriesTags() {
+        return new Project.TaskEntries.Tags();
     }
 
 }

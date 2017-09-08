@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.07 um 02:11:08 PM CEST 
+// Generiert: 2017.09.08 um 10:52:33 AM CEST 
 //
 
 
@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
 
 
 /**
@@ -29,43 +30,39 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="projectname" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="creator" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="created_on" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="lastMod" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="tasklist">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence maxOccurs="unbounded" minOccurs="0">
- *                   &lt;element name="task">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *                           &lt;/sequence>
- *                           &lt;attribute name="ID" type="{http://www.w3.org/2001/XMLSchema}int" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *                 &lt;attribute name="count" type="{http://www.w3.org/2001/XMLSchema}int" />
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="statuslist">
+ *         &lt;element name="taskEntries" maxOccurs="unbounded" minOccurs="0">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *                   &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="lastMod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *                   &lt;element name="lastUser" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="tags">
+ *                     &lt;complexType>
+ *                       &lt;simpleContent>
+ *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+ *                         &lt;/extension>
+ *                       &lt;/simpleContent>
+ *                     &lt;/complexType>
+ *                   &lt;/element>
+ *                 &lt;/sequence>
+ *                 &lt;attribute name="ID" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="statusEntries" maxOccurs="unbounded" minOccurs="0">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                 &lt;/sequence>
  *                 &lt;attribute name="length" type="{http://www.w3.org/2001/XMLSchema}int" />
  *               &lt;/restriction>
@@ -84,12 +81,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "projectname",
-    "creator",
-    "createdOn",
-    "lastmod",
+    "lastMod",
     "description",
-    "tasklist",
-    "statuslist"
+    "taskEntries",
+    "statusEntries"
 })
 @XmlRootElement(name = "project")
 public class Project {
@@ -97,17 +92,11 @@ public class Project {
     @XmlElement(required = true)
     protected String projectname;
     @XmlElement(required = true)
-    protected String creator;
-    @XmlElement(name = "created_on", required = true)
-    protected String createdOn;
-    @XmlElement(required = true)
-    protected String lastmod;
+    protected String lastMod;
     @XmlElement(required = true)
     protected String description;
-    @XmlElement(required = true)
-    protected Project.Tasklist tasklist;
-    @XmlElement(required = true)
-    protected Project.Statuslist statuslist;
+    protected List<Project.TaskEntries> taskEntries;
+    protected List<Project.StatusEntries> statusEntries;
     @XmlAttribute(name = "ID")
     protected Integer id;
 
@@ -136,75 +125,27 @@ public class Project {
     }
 
     /**
-     * Ruft den Wert der creator-Eigenschaft ab.
+     * Ruft den Wert der lastMod-Eigenschaft ab.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getCreator() {
-        return creator;
+    public String getLastMod() {
+        return lastMod;
     }
 
     /**
-     * Legt den Wert der creator-Eigenschaft fest.
+     * Legt den Wert der lastMod-Eigenschaft fest.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setCreator(String value) {
-        this.creator = value;
-    }
-
-    /**
-     * Ruft den Wert der createdOn-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCreatedOn() {
-        return createdOn;
-    }
-
-    /**
-     * Legt den Wert der createdOn-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCreatedOn(String value) {
-        this.createdOn = value;
-    }
-
-    /**
-     * Ruft den Wert der lastmod-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getLastmod() {
-        return lastmod;
-    }
-
-    /**
-     * Legt den Wert der lastmod-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setLastmod(String value) {
-        this.lastmod = value;
+    public void setLastMod(String value) {
+        this.lastMod = value;
     }
 
     /**
@@ -232,51 +173,61 @@ public class Project {
     }
 
     /**
-     * Ruft den Wert der tasklist-Eigenschaft ab.
+     * Gets the value of the taskEntries property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Project.Tasklist }
-     *     
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the taskEntries property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getTaskEntries().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Project.TaskEntries }
+     * 
+     * 
      */
-    public Project.Tasklist getTasklist() {
-        return tasklist;
+    public List<Project.TaskEntries> getTaskEntries() {
+        if (taskEntries == null) {
+            taskEntries = new ArrayList<Project.TaskEntries>();
+        }
+        return this.taskEntries;
     }
 
     /**
-     * Legt den Wert der tasklist-Eigenschaft fest.
+     * Gets the value of the statusEntries property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Project.Tasklist }
-     *     
-     */
-    public void setTasklist(Project.Tasklist value) {
-        this.tasklist = value;
-    }
-
-    /**
-     * Ruft den Wert der statuslist-Eigenschaft ab.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the statusEntries property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Project.Statuslist }
-     *     
-     */
-    public Project.Statuslist getStatuslist() {
-        return statuslist;
-    }
-
-    /**
-     * Legt den Wert der statuslist-Eigenschaft fest.
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getStatusEntries().add(newItem);
+     * </pre>
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Project.Statuslist }
-     *     
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Project.StatusEntries }
+     * 
+     * 
      */
-    public void setStatuslist(Project.Statuslist value) {
-        this.statuslist = value;
+    public List<Project.StatusEntries> getStatusEntries() {
+        if (statusEntries == null) {
+            statusEntries = new ArrayList<Project.StatusEntries>();
+        }
+        return this.statusEntries;
     }
 
     /**
@@ -314,7 +265,7 @@ public class Project {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+     *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *       &lt;/sequence>
      *       &lt;attribute name="length" type="{http://www.w3.org/2001/XMLSchema}int" />
      *     &lt;/restriction>
@@ -328,39 +279,35 @@ public class Project {
     @XmlType(name = "", propOrder = {
         "status"
     })
-    public static class Statuslist {
+    public static class StatusEntries {
 
-        protected List<String> status;
+        @XmlElement(required = true)
+        protected String status;
         @XmlAttribute(name = "length")
         protected Integer length;
 
         /**
-         * Gets the value of the status property.
+         * Ruft den Wert der status-Eigenschaft ab.
          * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the status property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getStatus().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link String }
-         * 
-         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
-        public List<String> getStatus() {
-            if (status == null) {
-                status = new ArrayList<String>();
-            }
-            return this.status;
+        public String getStatus() {
+            return status;
+        }
+
+        /**
+         * Legt den Wert der status-Eigenschaft fest.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setStatus(String value) {
+            this.status = value;
         }
 
         /**
@@ -399,25 +346,23 @@ public class Project {
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence maxOccurs="unbounded" minOccurs="0">
-     *         &lt;element name="task">
+     *       &lt;sequence>
+     *         &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="lastMod" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
+     *         &lt;element name="lastUser" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="tags">
      *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                   &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                   &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                   &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *                   &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
-     *                 &lt;/sequence>
-     *                 &lt;attribute name="ID" type="{http://www.w3.org/2001/XMLSchema}int" />
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
+     *             &lt;simpleContent>
+     *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+     *               &lt;/extension>
+     *             &lt;/simpleContent>
      *           &lt;/complexType>
      *         &lt;/element>
      *       &lt;/sequence>
-     *       &lt;attribute name="count" type="{http://www.w3.org/2001/XMLSchema}int" />
+     *       &lt;attribute name="ID" type="{http://www.w3.org/2001/XMLSchema}int" />
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -427,65 +372,214 @@ public class Project {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "task"
+        "taskname",
+        "statusname",
+        "lastMod",
+        "comment",
+        "color",
+        "lastUser",
+        "tags"
     })
-    public static class Tasklist {
+    public static class TaskEntries {
 
-        protected List<Project.Tasklist.Task> task;
-        @XmlAttribute(name = "count")
-        protected Integer count;
+        @XmlElement(required = true)
+        protected String taskname;
+        @XmlElement(required = true)
+        protected String statusname;
+        @XmlElement(required = true)
+        protected String lastMod;
+        @XmlElement(required = true)
+        protected String comment;
+        protected int color;
+        @XmlElement(required = true)
+        protected String lastUser;
+        @XmlElement(required = true)
+        protected Project.TaskEntries.Tags tags;
+        @XmlAttribute(name = "ID")
+        protected Integer id;
 
         /**
-         * Gets the value of the task property.
+         * Ruft den Wert der taskname-Eigenschaft ab.
          * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the task property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getTask().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Project.Tasklist.Task }
-         * 
-         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
          */
-        public List<Project.Tasklist.Task> getTask() {
-            if (task == null) {
-                task = new ArrayList<Project.Tasklist.Task>();
-            }
-            return this.task;
+        public String getTaskname() {
+            return taskname;
         }
 
         /**
-         * Ruft den Wert der count-Eigenschaft ab.
+         * Legt den Wert der taskname-Eigenschaft fest.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setTaskname(String value) {
+            this.taskname = value;
+        }
+
+        /**
+         * Ruft den Wert der statusname-Eigenschaft ab.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getStatusname() {
+            return statusname;
+        }
+
+        /**
+         * Legt den Wert der statusname-Eigenschaft fest.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setStatusname(String value) {
+            this.statusname = value;
+        }
+
+        /**
+         * Ruft den Wert der lastMod-Eigenschaft ab.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getLastMod() {
+            return lastMod;
+        }
+
+        /**
+         * Legt den Wert der lastMod-Eigenschaft fest.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setLastMod(String value) {
+            this.lastMod = value;
+        }
+
+        /**
+         * Ruft den Wert der comment-Eigenschaft ab.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getComment() {
+            return comment;
+        }
+
+        /**
+         * Legt den Wert der comment-Eigenschaft fest.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setComment(String value) {
+            this.comment = value;
+        }
+
+        /**
+         * Ruft den Wert der color-Eigenschaft ab.
+         * 
+         */
+        public int getColor() {
+            return color;
+        }
+
+        /**
+         * Legt den Wert der color-Eigenschaft fest.
+         * 
+         */
+        public void setColor(int value) {
+            this.color = value;
+        }
+
+        /**
+         * Ruft den Wert der lastUser-Eigenschaft ab.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getLastUser() {
+            return lastUser;
+        }
+
+        /**
+         * Legt den Wert der lastUser-Eigenschaft fest.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setLastUser(String value) {
+            this.lastUser = value;
+        }
+
+        /**
+         * Ruft den Wert der tags-Eigenschaft ab.
+         * 
+         * @return
+         *     possible object is
+         *     {@link Project.TaskEntries.Tags }
+         *     
+         */
+        public Project.TaskEntries.Tags getTags() {
+            return tags;
+        }
+
+        /**
+         * Legt den Wert der tags-Eigenschaft fest.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link Project.TaskEntries.Tags }
+         *     
+         */
+        public void setTags(Project.TaskEntries.Tags value) {
+            this.tags = value;
+        }
+
+        /**
+         * Ruft den Wert der id-Eigenschaft ab.
          * 
          * @return
          *     possible object is
          *     {@link Integer }
          *     
          */
-        public Integer getCount() {
-            return count;
+        public Integer getID() {
+            return id;
         }
 
         /**
-         * Legt den Wert der count-Eigenschaft fest.
+         * Legt den Wert der id-Eigenschaft fest.
          * 
          * @param value
          *     allowed object is
          *     {@link Integer }
          *     
          */
-        public void setCount(Integer value) {
-            this.count = value;
+        public void setID(Integer value) {
+            this.id = value;
         }
 
 
@@ -496,18 +590,10 @@ public class Project {
          * 
          * <pre>
          * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="lastmod" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
-         *       &lt;/sequence>
-         *       &lt;attribute name="ID" type="{http://www.w3.org/2001/XMLSchema}int" />
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
+         *   &lt;simpleContent>
+         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+         *     &lt;/extension>
+         *   &lt;/simpleContent>
          * &lt;/complexType>
          * </pre>
          * 
@@ -515,160 +601,35 @@ public class Project {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "taskname",
-            "statusname",
-            "lastmod",
-            "comment",
-            "color"
+            "value"
         })
-        public static class Task {
+        public static class Tags {
 
-            @XmlElement(required = true)
-            protected String taskname;
-            @XmlElement(required = true)
-            protected String statusname;
-            @XmlElement(required = true)
-            protected String lastmod;
-            @XmlElement(required = true)
-            protected String comment;
-            protected int color;
-            @XmlAttribute(name = "ID")
-            protected Integer id;
+            @XmlValue
+            protected String value;
 
             /**
-             * Ruft den Wert der taskname-Eigenschaft ab.
+             * Ruft den Wert der value-Eigenschaft ab.
              * 
              * @return
              *     possible object is
              *     {@link String }
              *     
              */
-            public String getTaskname() {
-                return taskname;
+            public String getValue() {
+                return value;
             }
 
             /**
-             * Legt den Wert der taskname-Eigenschaft fest.
+             * Legt den Wert der value-Eigenschaft fest.
              * 
              * @param value
              *     allowed object is
              *     {@link String }
              *     
              */
-            public void setTaskname(String value) {
-                this.taskname = value;
-            }
-
-            /**
-             * Ruft den Wert der statusname-Eigenschaft ab.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getStatusname() {
-                return statusname;
-            }
-
-            /**
-             * Legt den Wert der statusname-Eigenschaft fest.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setStatusname(String value) {
-                this.statusname = value;
-            }
-
-            /**
-             * Ruft den Wert der lastmod-Eigenschaft ab.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getLastmod() {
-                return lastmod;
-            }
-
-            /**
-             * Legt den Wert der lastmod-Eigenschaft fest.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setLastmod(String value) {
-                this.lastmod = value;
-            }
-
-            /**
-             * Ruft den Wert der comment-Eigenschaft ab.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getComment() {
-                return comment;
-            }
-
-            /**
-             * Legt den Wert der comment-Eigenschaft fest.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setComment(String value) {
-                this.comment = value;
-            }
-
-            /**
-             * Ruft den Wert der color-Eigenschaft ab.
-             * 
-             */
-            public int getColor() {
-                return color;
-            }
-
-            /**
-             * Legt den Wert der color-Eigenschaft fest.
-             * 
-             */
-            public void setColor(int value) {
-                this.color = value;
-            }
-
-            /**
-             * Ruft den Wert der id-Eigenschaft ab.
-             * 
-             * @return
-             *     possible object is
-             *     {@link Integer }
-             *     
-             */
-            public Integer getID() {
-                return id;
-            }
-
-            /**
-             * Legt den Wert der id-Eigenschaft fest.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link Integer }
-             *     
-             */
-            public void setID(Integer value) {
-                this.id = value;
+            public void setValue(String value) {
+                this.value = value;
             }
 
         }

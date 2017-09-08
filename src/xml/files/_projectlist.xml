@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectlist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/projectlist_schema.xsd">
+  <projectOverviewEntries ID="0">
+    <projectname>projectname</projectname>
+    <creator>creator</creator>
+    <createdOn>createdOn</createdOn>
+    <lastMod>lastMod</lastMod>
+    <description>description</description>
+    <userEntries Admin="true">userEntries</userEntries>
+  </projectOverviewEntries>
+</projectlist>
