@@ -215,7 +215,7 @@ public class Xml_Server {
 	
 	public static HashMap<Project, Userlist> checkProjectListandgiveProjectsback(String userName) throws JAXBException, DatatypeConfigurationException
 	{
-		HashMap<Project, Userlist> wlist = new HashMap<Project, Userlist>
+		HashMap<Project, Userlist> wlist = new HashMap<Project, Userlist>();
 		ArrayList<Project> proList = new ArrayList<Project>();
 		ArrayList<Userlist> usList = new ArrayList<Userlist>();
 		Projectlist data = unmarshalFromProjectlistFile();
@@ -256,56 +256,7 @@ public class Xml_Server {
 	
 	public static void main(String[] args) throws Exception 
 	{
-		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
-		ObjectFactoryProjects facPro = new ObjectFactoryProjects();
-		Task task1 = facPro.createProjectTasklistTask();
-		task1.setTaskname("dumme sau");
-		task1.setStatusname("todo");
-		task1.setColor(0);
-		task1.setComment("dumme sau sau");
-		task1.setLastmod(now.toString());
-		task1.setID(2);
-		Tasklist tList = facPro.createProjectTasklist();
-		tList.getTask().add(task1);
 		
-        
-		
-		Statuslist sList = facPro.createProjectStatuslist();
-		
-		sList.getStatus().add("todo");
-		
-		Project pro = facPro.createProject();
-		
-		pro.setTasklist(tList);
-		pro.setStatuslist(sList);
-		pro.setCreatedOn(now.toString());
-		pro.setCreator("hans");
-		pro.setID(007);
-		pro.setLastmod(now.toString());
-		pro.setProjectname("gogogirl");
-		pro.setDescription("Das is a Testprojekt");
-		
-		
-		
-		addtoprojectList(pro, "gib gas");
-		
-		/*
-		
-		User us = new User();
-		us.setIsAdmin(false);
-		us.setValue("Peter");
-		
-		
-	    ProjectOverview pr = new ProjectOverview("Testprojekt", "Das ist ein Testprojekt", "blabliblubkey");
-	    pr.setProjectname("kanban1");
-	    
-	    pr.setDescription("kauabanaga");
-	    pr.setLastmod(null);
-	    Userlist userlist = new Userlist();
-	    
-	    userlist = pr.getUserlist();
-	    userlist.getUser().add(us);
-	    */
 	}
 	 
 	
