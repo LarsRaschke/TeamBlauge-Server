@@ -3,7 +3,9 @@ package model;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 
-public class Projekt {
+import model.interfaces.RMI_Projekt;
+
+public class Projekt implements RMI_Projekt{
 	
 	private int id;
 	private User ersteller;
@@ -126,14 +128,9 @@ public class Projekt {
 	public void deleteUserFromHashMap(User user){
 		users.remove(user.getNutzername());
 	}
-
-	/**
-	 * 
-	 * @param name
-	 * @param kommentar
-	 * @param u
-	 */
-	public void createTask(String name, String kommentar, User u) {
+	
+	public void taskHinzufügen(String name, String kommentar, User u)
+	{
 		Task task = new Task(name,kommentar,u);
 		this.addTaskToHashMap(task);
 	}

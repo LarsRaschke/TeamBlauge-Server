@@ -5,7 +5,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import model.Projekt;
 import model.Projektmanager;
+import model.interfaces.RMI_Projekt;
 import model.interfaces.RMI_Projektmanager;
 
 public class Server {
@@ -44,6 +46,19 @@ public class Server {
 			RMI_Projektmanager stub_manager = (RMI_Projektmanager) UnicastRemoteObject.exportObject(manager, 0);
 			Registry registry = LocateRegistry.getRegistry();
 			registry.rebind(identifier, stub_manager);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void bindProjekt(String identifier, Projekt projekt)
+	{
+		try {
+			
+			RMI_Projekt stub_projekt = (RMI_Projekt) UnicastRemoteObject.exportObject(projekt, 0);
+			Registry registry = LocateRegistry.getRegistry();
+			registry.rebind(identifier, stub_projekt);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
