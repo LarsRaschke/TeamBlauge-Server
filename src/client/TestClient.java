@@ -20,7 +20,7 @@ public class TestClient {
 			
 			TaskRMI testTask = (TaskRMI) registry.lookup("TestTask");
 			
-			testTask.ändereName("Peter2");
+			System.out.println(testTask.ändereFarbe(1).toString());
 			
 			System.out.println("Methode aufgerufen.");
 			
