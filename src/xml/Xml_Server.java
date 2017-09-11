@@ -31,12 +31,10 @@ import com.sun.jmx.snmp.tasks.TaskServer;
 
 import xml.projects.Project;
 import xml.projectlist.Projectlist;
-import xml.projects.Project.Statuslist;
-import xml.projects.Project.Tasklist;
-import xml.projects.Project.Tasklist.Task;
-import xml.projectlist.Projectlist.ProjectOverview;
-import xml.projectlist.Projectlist.ProjectOverview.Userlist;
-import xml.projectlist.Projectlist.ProjectOverview.Userlist.User;
+import xml.projects.Project.StatusEntries;
+import xml.projects.Project.TaskEntries;
+import xml.projectlist.Projectlist.ProjectOverviewEntries;
+import xml.projectlist.Projectlist.ProjectOverviewEntries.UserEntries;
 import xml.projectlist.ObjectFactory;
 import xml.projects.ObjectFactoryProjects;
 import xml.XsdValidation;
@@ -48,7 +46,7 @@ public class Xml_Server {
 	   
      
    //fügt neues Projekt an die Projektlist und erzeugt neue xml Datei
-	public static void addtoprojectList(Project pr, Userlist usList) throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException
+	public static void addtoprojectList(Project pr, UserEntries usList) throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException
 	{	
 		    
 		    marshalToProjectFile(pr, pr.getProjectname());		   
@@ -59,11 +57,10 @@ public class Xml_Server {
 			
 			ObjectFactory obFacProjectList = new ObjectFactory();
 
-			ProjectOverview proo = obFacProjectList.createProjectlistProjectOverview();
-			proo.setCreatedOn(pr.getCreatedOn());
+			ProjectOverviewEntries proo = obFacProjectList.createProjectlistProjectOverview();
+			proo.setCreatedOn();
 			proo.setDescription(pr.getDescription());
 			proo.setID(pr.getID());
-			proo.setKey(null);
 			proo.setLastmod(pr.getLastmod());
 			proo.setProjectname(pr.getProjectname());
 			proo.setUserlist(usList);
