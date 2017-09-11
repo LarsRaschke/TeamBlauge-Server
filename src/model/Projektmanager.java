@@ -15,13 +15,14 @@ import org.xml.sax.SAXException;
 
 import model.interfaces.RMI_Projektmanager;
 import xml.Xml_Server;
-import xml.projectlist.Projectlist.ProjectOverview.Userlist;
+import xml.projectlist.Projectlist.ProjectOverviewEntries.UserEntries;
+import xml.projectlist.Projectlist.ProjectOverviewEntries;
 import xml.projects.ObjectFactoryProjects;
 import xml.projectlist.ObjectFactory;
 import xml.projects.Project;
-import xml.projects.Project.Statuslist;
-import xml.projects.Project.Tasklist;
-import xml.projects.Project.Tasklist.Task;
+import xml.projects.Project.StatusEntries;
+import xml.projects.Project.TaskEntries.TagEntries;
+import xml.projects.Project.TaskEntries;
 import model.Projekt;
 import model.User;
 import xml.projectlist.Projectlist;
@@ -39,55 +40,65 @@ public class Projektmanager implements RMI_Projektmanager
 	{
 		ObjectFactory ocFac = new ObjectFactory();
 		HashMap<String, User> users = orginalProjekt.getUsers();
-		Userlist usList = ocFac.createProjectlistProjectOverviewUserlist();
+		ProjectOverviewEntries prooverentries = ocFac.createProjectlistProjectOverviewEntries();
+		
+		ProjectOverviewEntries.UserEntries  usList = ocFac.createProjectlistProjectOverviewEntriesUserEntries();
 		
 		for (User us:users.values()) 
 		{
-			xml.projectlist.Projectlist.ProjectOverview.Userlist.User xmlUser = ocFac.createProjectlistProjectOverviewUserlistUser();
+			ProjectOverviewEntries.UserEntries xmlUser = ocFac.createProjectlistProjectOverviewEntriesUserEntries();
 			xmlUser.setValue(us.getNutzername());
 			xmlUser.setAdmin(us.isAdmin());
-			usList.getUser().add(xmlUser);			
+			prooverentries.getUserEntries().add(xmlUser);
+					
 		}
 		
 		ObjectFactoryProjects ocFachPro = new ObjectFactoryProjects();
-		Tasklist tList = ocFachPro.createProjectTasklist();
+		Project xmlProject = ocFachPro.createProject();
+		//Tasklist tList = ocFachPro.createProjectTasklist();
 		HashMap<String, model.Task> tasks = new HashMap<String, model.Task>();
 		tasks = orginalProjekt.getTasks();
 		
 		for(model.Task ta:tasks.values())
 		{
-			xml.projects.Project.Tasklist.Task xmlTask = ocFachPro.createProjectTasklistTask();
+			xml.projects.Project.TaskEntries xmlTask = ocFachPro.createProjectTaskEntries();
 			xmlTask.setColor(ta.getFarbe());
 			xmlTask.setComment(ta.getKommentar());
 			xmlTask.setID(ta.getId());
-			xmlTask.setLastmod(ta.getLetzteAenderung().toString());
+			xmlTask.setLastMod(ta.getLetzteAenderung().toString());
 			xmlTask.setStatusname(ta.getStatus().getName());
 			xmlTask.setTaskname(ta.getName());
-			tList.getTask().add(xmlTask);
-			
+			xmlProject.getTaskEntries().add(xmlTask);
+
 		}
-		tList.setCount(tasks.size());
+		
 		
 		Statusliste orginalStatusListe = orginalProjekt.getStatusliste();
-		Statuslist sListe = ocFachPro.createProjectStatuslist();
+		
+		
+		//Statuslist sListe = ocFachPro.createProjectStatuslist();
 		
 		for(Status st:orginalStatusListe.getAll())
 		{
-			sListe.getStatus().add(st.getName());
+			StatusEntries stat = ocFachPro.createProjectStatusEntries();
+			stat.setStatus(st.getName());
+			xmlProject.getStatusEntries().add(stat);
+			//sListe.getStatus().add(st.getName());
 		}
 				
 		
-		Project xmlProject = ocFachPro.createProject();
-		xmlProject.setCreatedOn(orginalProjekt.getErstellungsDatum().toString());
-		xmlProject.setCreator(orginalProjekt.getErsteller().getNutzername());
+		
+		prooverentries.setCreatedOn(orginalProjekt.getErstellungsDatum().toString());
+		prooverentries.setCreator(orginalProjekt.getErsteller().getNutzername());
 		xmlProject.setDescription(orginalProjekt.getBeschreibung());
 		xmlProject.setID(orginalProjekt.getId());
-		xmlProject.setLastmod(orginalProjekt.getLetzteAenderung().toString());
+		xmlProject.setLastMod(orginalProjekt.getLetzteAenderung().toString());
 		xmlProject.setProjectname(orginalProjekt.getProjektname());
-		xmlProject.setStatuslist(sListe);
-		xmlProject.setTasklist(tList);
+		//xmlProject.setStatuslist(sListe);
+		//xmlProject.setTasklist(tList)
+		prooverentries.setID(orginalProjekt.getId());
 		
-		Xml_Server.addtoprojectList(xmlProject, usList);
+		Xml_Server.addtoprojectList(xmlProject, prooverentries);
 
 	}
 
@@ -95,7 +106,7 @@ public class Projektmanager implements RMI_Projektmanager
 	public void fügeTaskhinzu(Projekt orginalProjekt,model.Task orginalTask) throws JAXBException
 	{
 		ObjectFactoryProjects ocFachPro = new ObjectFactoryProjects();
-		xml.projects.Project.Tasklist.Task xmlTask = ocFachPro.createProjectTasklistTask();
+		xml.projects.Project.Tasklist.Task xmlTask = ocFachPro.createProjectTaskEntries();
 		
 		xmlTask.setColor(orginalTask.getFarbe());
 		xmlTask.setComment(orginalTask.getKommentar());
