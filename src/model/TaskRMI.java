@@ -9,6 +9,6 @@ public interface TaskRMI extends Remote{
 	
 	void fügeKommentarHinzu(String kommentar) throws RemoteException;
 	
-	void ändereFarbe(int farbe) throws RemoteException;
+	Boolean ändereFarbe(int farbe) throws RemoteException;
 	
 }

@@ -45,9 +45,16 @@ public class Task implements TaskRMI{
 	}
 
 	@Override
-	public void ändereFarbe(int farbe) throws RemoteException {
-		this.setFarbe(farbe);
-		System.out.println(this.farbe);
+	public Boolean ändereFarbe(int farbe) throws RemoteException {
+		try {
+			if(farbe == 0) {
+				throw new Exception();
+			}
+			this.setFarbe(farbe);
+			System.out.println(this.farbe);
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
 	}
-	
 }
