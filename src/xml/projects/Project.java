@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.08 um 10:55:05 AM CEST 
+// Generiert: 2017.09.11 um 02:06:23 PM CEST 
 //
 
 
@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlValue;
  *                   &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *                   &lt;element name="lastUser" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                   &lt;element name="tags">
+ *                   &lt;element name="tagEntries" maxOccurs="unbounded" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;simpleContent>
  *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
@@ -353,7 +353,7 @@ public class Project {
      *         &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
      *         &lt;element name="lastUser" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="tags">
+     *         &lt;element name="tagEntries" maxOccurs="unbounded" minOccurs="0">
      *           &lt;complexType>
      *             &lt;simpleContent>
      *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
@@ -378,7 +378,7 @@ public class Project {
         "comment",
         "color",
         "lastUser",
-        "tags"
+        "tagEntries"
     })
     public static class TaskEntries {
 
@@ -393,8 +393,7 @@ public class Project {
         protected int color;
         @XmlElement(required = true)
         protected String lastUser;
-        @XmlElement(required = true)
-        protected Project.TaskEntries.Tags tags;
+        protected List<Project.TaskEntries.TagEntries> tagEntries;
         @XmlAttribute(name = "ID")
         protected Integer id;
 
@@ -535,27 +534,32 @@ public class Project {
         }
 
         /**
-         * Ruft den Wert der tags-Eigenschaft ab.
+         * Gets the value of the tagEntries property.
          * 
-         * @return
-         *     possible object is
-         *     {@link Project.TaskEntries.Tags }
-         *     
-         */
-        public Project.TaskEntries.Tags getTags() {
-            return tags;
-        }
-
-        /**
-         * Legt den Wert der tags-Eigenschaft fest.
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the tagEntries property.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link Project.TaskEntries.Tags }
-         *     
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getTagEntries().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link Project.TaskEntries.TagEntries }
+         * 
+         * 
          */
-        public void setTags(Project.TaskEntries.Tags value) {
-            this.tags = value;
+        public List<Project.TaskEntries.TagEntries> getTagEntries() {
+            if (tagEntries == null) {
+                tagEntries = new ArrayList<Project.TaskEntries.TagEntries>();
+            }
+            return this.tagEntries;
         }
 
         /**
@@ -603,7 +607,7 @@ public class Project {
         @XmlType(name = "", propOrder = {
             "value"
         })
-        public static class Tags {
+        public static class TagEntries {
 
             @XmlValue
             protected String value;

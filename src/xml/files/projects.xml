@@ -10,7 +10,7 @@
     <comment>comment</comment>
     <color>0</color>
     <lastUser>lastUser</lastUser>
-    <tags>tags</tags>
+    <tagEntries>tagEntries</tagEntries>
   </taskEntries>
   <statusEntries length="0">
     <status>status</status>
