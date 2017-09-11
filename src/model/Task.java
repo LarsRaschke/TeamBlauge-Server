@@ -3,7 +3,9 @@ package model;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-public class Task {
+import model.interfaces.RMI_Task;
+
+public class Task implements RMI_Task{
 	
 	private Status status;
 	private String name;

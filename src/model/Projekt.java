@@ -1,7 +1,11 @@
 package model;
 
+import java.rmi.RemoteException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import model.interfaces.RMI_Projekt;
 
@@ -129,12 +133,6 @@ public class Projekt implements RMI_Projekt{
 		users.remove(user.getNutzername());
 	}
 	
-	public void taskHinzufügen(String name, String kommentar, User u)
-	{
-		Task task = new Task(name,kommentar,u);
-		this.addTaskToHashMap(task);
-	}
-	
 	/**
 	 * 
 	 * @param tagname
@@ -154,6 +152,31 @@ public class Projekt implements RMI_Projekt{
 					break;
 				}
 			}
+		}
+		return taskList;
+	}
+	
+	public void taskHinzufügen(String name, String kommentar, User u)
+	{
+		Task task = new Task(name,kommentar,u);
+		this.addTaskToHashMap(task);
+	}
+
+	public List<User> userListe() throws RemoteException {
+		List<User> userList = new ArrayList<>();
+		for(Map.Entry<String, User> entry : this.users.entrySet())
+		{
+			userList.add(entry.getValue());
+		}
+		return userList;
+	}
+
+	public List<String[]> taskListe() throws RemoteException {
+		List<String[]> taskList = new ArrayList<>();
+		for(Map.Entry<String, Task> entry : this.tasks.entrySet())
+		{
+			String[] postIt = new String[] {entry.getValue().getName(), entry.getValue().getStatus().getName()};
+			taskList.add(postIt);
 		}
 		return taskList;
 	}
