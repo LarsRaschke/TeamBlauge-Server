@@ -9,11 +9,6 @@ import model.*;
 
 import java.time.ZonedDateTime;
 import java.util.HashMap;
-import java.util.Map;
-
-/**
- * Hashmap Funktionen müssen noch getestet werden 
- */
 
 /**
  * Test class for Projekt.
@@ -41,6 +36,7 @@ public class Test_Projekt {
 		HashMap<String, Task> map = new HashMap<>();
 		Task task1 = new Task("", "", null);
 		Task task2 = new Task("", "", null);
+		projekt1.setTasks(map);
 		map.put("Teststring1", task1);
 		map.put("Teststring2", task2);
 		HashMap<String, Task> expected = new HashMap<>();
@@ -90,5 +86,58 @@ public class Test_Projekt {
 		projekt1.setErstellungsDatum(datum1);
 		assertEquals(datum1, projekt1.getErstellungsDatum());
 	}
-
+	@Test
+	public void testAddTaskToHashMap(){
+		HashMap<String, Task> map = new HashMap<>();
+		projekt1.setTasks(map);
+		Task task1 = new Task("Teststring1", "", null);
+		projekt1.addTaskToHashMap(task1);
+		HashMap<String, Task> expected = new HashMap<>();
+		expected.put("Teststring1", task1);
+		assertEquals(expected, projekt1.getTasks());
+	}
+	@Test
+	public void testDeleteTaskFromHashMap(){
+		HashMap<String, Task> map = new HashMap<>();
+		Task task1 = new Task("Teststring1", "", null);
+		Task task2 = new Task("Teststring2", "", null);
+		map.put("Teststring1", task1);
+		map.put("Teststring2", task2);
+		projekt1.setTasks(map);
+		projekt1.deleteTaskFromHashMap(task2);
+		HashMap<String, Task> expected = new HashMap<>();
+		expected.put("Teststring1", task1);
+		assertEquals(expected, projekt1.getTasks());
+	}
+	@Test
+	public void testAddUserToHashMap(){
+		HashMap<String, User> map = new HashMap<>();
+		User user1 = new User(null, false, null, null);
+		projekt1.setUsers(map);
+		projekt1.addUserToHashMap(user1);
+		HashMap<String, User> expected = new HashMap<>();
+		expected.put(null, user1);
+		assertEquals(expected, projekt1.getUsers());
+	}
+	@Test
+	public void testDeleteUserFromHashMap(){
+		HashMap<String, User> map = new HashMap<>();
+		User user1 = new User("Nutzername1", false, "Nachname1", "Vorname1");
+		User user2 = new User("Nutzername2", false, "Nachname2", "Vorname2");
+		map.put("Nutzername1", user1);
+		map.put("Nutzername2", user2);
+		projekt1.setUsers(map);
+		projekt1.deleteUserFromHashMap(user2);
+		HashMap<String, User> expected = new HashMap<>();
+		expected.put("Nutzername1", user1);
+		assertEquals(expected, projekt1.getUsers());
+	}
+	@Test
+	public void testTaskHinzufügen(){
+		// coming soon...
+	}
+	@Test
+	public void testGetTasksOfTag(){
+		// coming soon...
+	}
 }
