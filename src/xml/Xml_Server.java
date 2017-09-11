@@ -50,34 +50,34 @@ public class Xml_Server {
 	{	
 		    
 		    marshalToProjectFile(pr, pr.getProjectname());		   
-		    
+		    ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
 		    XsdValidation.validateProjects(pr.getProjectname());
 
 			Projectlist data = unmarshalFromProjectlistFile();
 			
 			ObjectFactory obFacProjectList = new ObjectFactory();
 
-			ProjectOverviewEntries proo = obFacProjectList.createProjectlistProjectOverview();
-			proo.setCreatedOn();
+			ProjectOverviewEntries proo = obFacProjectList.createProjectlistProjectOverviewEntries();
+			proo.setCreatedOn(now.toString());
 			proo.setDescription(pr.getDescription());
 			proo.setID(pr.getID());
-			proo.setLastmod(pr.getLastmod());
+			proo.setLastMod(pr.getLastMod());
 			proo.setProjectname(pr.getProjectname());
-			proo.setUserlist(usList);
+			proo.getUserEntries().add(usList);
 			
-			data.getProjectOverview().add(proo);
+			data.getProjectOverviewEntries().add(proo);
 
 			marshalToProjectlistFile(data);
 
 	}
   
-	public static void addTasktoProject(String name, Task task) throws JAXBException 
+	public static void addTasktoProject(String name, TaskEntries task) throws JAXBException 
 	{
 		ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
 		ObjectFactoryProjects facPro = new ObjectFactoryProjects();
 		Project project = unmarshalFromProjectFile(name);
-		Tasklist tsList = facPro.createProjectTasklist();
-		tsList.getTask().add(task);
+		TaskEntries tsList = facPro.createProjectTaskEntries();
+		tsList.setTags(value);
 		
 		project.setTasklist(tsList);
 		
@@ -89,8 +89,8 @@ public class Xml_Server {
 		ObjectFactory facProList = new ObjectFactory();
 		List<Project> proList = new ArrayList<Project>();
 		
-		ProjectOverview pro = facProList.createProjectlistProjectOverview();
-		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
+		ProjectOverview pro = facProList.createProjectlistProjectOverviewEntries();
+		Iterator<ProjectOverview> iterator = data.getProjectOverviewEntries().iterator();
         while (iterator.hasNext()) 
         {
 		    if (name.equals(iterator.next().getProjectname())) 
@@ -98,7 +98,7 @@ public class Xml_Server {
 		         pro =  iterator.next();
 		         iterator.remove();
 		         pro.setLastmod(task.getLastmod());
-		         data.getProjectOverview().add(pro);
+		         data.getProjectOverviewEntries().add(pro);
 
 		    }
         }
@@ -111,9 +111,9 @@ public class Xml_Server {
 		ObjectFactory obFacProjectList = new ObjectFactory();
 		Projectlist data = unmarshalFromProjectlistFile();
 		List<Project> proList = new ArrayList<Project>();
-		ProjectOverview pro = obFacProjectList.createProjectlistProjectOverview();
+		ProjectOverview pro = obFacProjectList.createProjectlistProjectOverviewEntries();
 		
-		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
+		Iterator<ProjectOverview> iterator = data.getProjectOverviewEntries().iterator();
         while (iterator.hasNext()) {
 		    if (name.equals(iterator.next().getProjectname())) 
 		    {
@@ -172,7 +172,7 @@ public class Xml_Server {
 	{
 		Projectlist data = unmarshalFromProjectlistFile();
 		
-		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
+		Iterator<ProjectOverview> iterator = data.getProjectOverviewEntries().iterator();
 		while (iterator.hasNext()) {
 		    if (deleteword.equals(iterator.next().getProjectname())) {
 		         iterator.remove();
@@ -218,7 +218,7 @@ public class Xml_Server {
 		Projectlist data = unmarshalFromProjectlistFile();
 		
 		
-		Iterator<ProjectOverview> iterator = data.getProjectOverview().iterator();
+		Iterator<ProjectOverview> iterator = data.getProjectOverviewEntries().iterator();
 		while (iterator.hasNext()) 
 		{
 			
