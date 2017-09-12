@@ -43,52 +43,54 @@ import xml.XsdValidation;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Xml_Server {
 	// fügt neues Projekt an die Projektlist und erzeugt neue xml Datei
-	public static void saveProject(Project project, ProjectOverviewEntries projectOverviewEntries) throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException
-		{
-			marshalToProjectFile(project, project.getID(), project.getProjectname());
-			XsdValidation.validateProjects(project.getID(), project.getProjectname());
-			
-			deleteEntryInProjectlist(projectOverviewEntries.getID());
-			Projectlist xmlProjectlist = unmarshalFromProjectlistFile();
-			xmlProjectlist.getProjectOverviewEntries().add(projectOverviewEntries);
-			marshalToProjectlistFile(xmlProjectlist);
-		}
-	
-	public static void deleteProjectPermanently(Project project) throws JAXBException
-	{
+	public static void saveProject(Project project, ProjectOverviewEntries projectOverviewEntries)
+			throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException {
+		marshalToProjectFile(project, project.getID(), project.getProjectname());
+		XsdValidation.validateProjects(project.getID(), project.getProjectname());
+
+		deleteEntryInProjectlist(projectOverviewEntries.getID());
+		Projectlist xmlProjectlist = unmarshalFromProjectlistFile();
+		xmlProjectlist.getProjectOverviewEntries().add(projectOverviewEntries);
+		marshalToProjectlistFile(xmlProjectlist);
+	}
+
+	public static void deleteProjectPermanently(Project project) throws JAXBException {
 		File file = new File("src/xml/files/" + project.getID() + "_" + project.getProjectname() + ".xml");
-	       
-	        //Zuvor alle mit dem File assoziierten Streams schließen...
-	       
-	        if(file.exists()){
-	            file.delete();
-	        }
-	        
+
+		// Zuvor alle mit dem File assoziierten Streams schließen...
+
+		if (file.exists()) {
+			file.delete();
+		}
+
 		deleteEntryInProjectlist(project.getID());
 	}
 
 	// in Projectlist suchenp
-//	public static List<Project> searchinxml(String name) throws JAXBException, XMLStreamException {
-//		ObjectFactory obFacProjectList = new ObjectFactory();
-//		Projectlist data = unmarshalFromProjectlistFile();
-//		List<Project> proList = new ArrayList<Project>();
-//		ProjectOverview pro = obFacProjectList.createProjectlistProjectOverviewEntries();
-//
-//		Iterator<ProjectOverview> iterator = data.getProjectOverviewEntries().iterator();
-//		while (iterator.hasNext()) {
-//			if (name.equals(iterator.next().getProjectname())) {
-//				pro = iterator.next();
-//
-//				String projectname = pro.getProjectname();
-//				Project project = unmarshalFromProjectFile(projectname);
-//				proList.add(project);
-//
-//			}
-//		}
-//
-//		return proList;
-//
-//	}
+	// public static List<Project> searchinxml(String name) throws JAXBException,
+	// XMLStreamException {
+	// ObjectFactory obFacProjectList = new ObjectFactory();
+	// Projectlist data = unmarshalFromProjectlistFile();
+	// List<Project> proList = new ArrayList<Project>();
+	// ProjectOverview pro =
+	// obFacProjectList.createProjectlistProjectOverviewEntries();
+	//
+	// Iterator<ProjectOverview> iterator =
+	// data.getProjectOverviewEntries().iterator();
+	// while (iterator.hasNext()) {
+	// if (name.equals(iterator.next().getProjectname())) {
+	// pro = iterator.next();
+	//
+	// String projectname = pro.getProjectname();
+	// Project project = unmarshalFromProjectFile(projectname);
+	// proList.add(project);
+	//
+	// }
+	// }
+	//
+	// return proList;
+	//
+	// }
 
 	// Projectlist aus xml erzeugen
 	public static Projectlist unmarshalFromProjectlistFile() throws JAXBException {
@@ -135,26 +137,27 @@ public class Xml_Server {
 
 	// Durchsucht die ProjectList nach einem bestimmten Projecktnamen, dann das
 	// Projekt nach einem Bestimmten Task und ändert den Status und die lastmod
-//	public static void changeEntryinxml_Status(String name, String Status, String Taskname)
-//			throws JAXBException, XMLStreamException {
-//		List<Project> proList = searchinxml(name);
-//		Project pro = new Project();
-//		for (Project proIterator : proList) {
-//			Tasklist tlist = proIterator.getTasklist();
-//
-//			for (Task tIterator : tlist.getTask()) {
-//				if (tIterator.getTaskname().equals(Taskname)) {
-//					ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
-//					tIterator.setStatusname(Status);
-//					tIterator.setLastmod(now.toString());
-//				}
-//			}
-//
-//			marshalToProjectFile(proIterator, proIterator.getProjectname() + ".xml");
-//
-//		}
-//
-//	}
+	// public static void changeEntryinxml_Status(String name, String Status, String
+	// Taskname)
+	// throws JAXBException, XMLStreamException {
+	// List<Project> proList = searchinxml(name);
+	// Project pro = new Project();
+	// for (Project proIterator : proList) {
+	// Tasklist tlist = proIterator.getTasklist();
+	//
+	// for (Task tIterator : tlist.getTask()) {
+	// if (tIterator.getTaskname().equals(Taskname)) {
+	// ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
+	// tIterator.setStatusname(Status);
+	// tIterator.setLastmod(now.toString());
+	// }
+	// }
+	//
+	// marshalToProjectFile(proIterator, proIterator.getProjectname() + ".xml");
+	//
+	// }
+	//
+	// }
 
 	public static HashMap<Project, ProjectOverviewEntries> getProjectsByUser(String userName)
 			throws JAXBException, DatatypeConfigurationException {
@@ -165,10 +168,11 @@ public class Xml_Server {
 		while (projectIterator.hasNext()) {
 
 			Iterator<UserEntries> userIterator = projectIterator.next().getUserEntries().iterator();
-			
+
 			while (userIterator.hasNext()) {
 				if (userName.equals(userIterator.next().getValue())) {
-					Project projectMatch = unmarshalFromProjectFile(projectIterator.next().getID(), projectIterator.next().getProjectname());
+					Project projectMatch = unmarshalFromProjectFile(projectIterator.next().getID(),
+							projectIterator.next().getProjectname());
 					wlist.put(projectMatch, projectIterator.next());
 
 				}
@@ -179,8 +183,21 @@ public class Xml_Server {
 		return wlist;
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static HashMap<Project, ProjectOverviewEntries> getProjectByID(int id)
+			throws JAXBException, DatatypeConfigurationException {
+		HashMap<Project, ProjectOverviewEntries> wlist = new HashMap<Project, ProjectOverviewEntries>();
+		Projectlist projectList = unmarshalFromProjectlistFile();
 
+		Iterator<ProjectOverviewEntries> projectIterator = projectList.getProjectOverviewEntries().iterator();
+		while (projectIterator.hasNext()) {
+			if (projectIterator.next().getID() == id) {
+				Project projectMatch = unmarshalFromProjectFile(projectIterator.next().getID(),
+						projectIterator.next().getProjectname());
+				wlist.put(projectMatch, projectIterator.next());
+			}
+
+		}
+
+		return wlist;
 	}
-
 }
