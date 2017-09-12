@@ -7,7 +7,7 @@ import org.xml.sax.*;
 
 public class XsdValidation 
 {
-	public static void validateProjectlist(String xmlDocumentWithoutFileEnding) throws SAXException, IOException, FileNotFoundException 
+	public static void validateProjectlist() throws SAXException, IOException, FileNotFoundException 
 	{
 		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		try 
@@ -15,13 +15,13 @@ public class XsdValidation
 			Schema schema = schemaFactory.newSchema(new File("src/xml/schemas/projectlist_schema.xsd"));
 			Validator validator = schema.newValidator();
 			validator.setErrorHandler(new XsdValidationLoggingErrorHandler());
-			validator.validate(new StreamSource(new File("src/xml/files/" + xmlDocumentWithoutFileEnding + ".xml")));
+			validator.validate(new StreamSource(new File("src/xml/files/_projectlist.xml")));
 		} catch (Exception e)
 		{
 			System.out.println("Fehler: " + e.getMessage());
 		}
 	}
-		public static void validateProjects(String xmlDocumentWithoutFileEnding) throws SAXException, IOException, FileNotFoundException 
+		public static void validateProjects(int id, String xmlFilename) throws SAXException, IOException, FileNotFoundException 
 		{
 			SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 			try 
@@ -29,7 +29,7 @@ public class XsdValidation
 				Schema schema = schemaFactory.newSchema(new File("src/xml/schemas/projects_schema.xsd"));
 				Validator validator = schema.newValidator();
 				validator.setErrorHandler(new XsdValidationLoggingErrorHandler());
-				validator.validate(new StreamSource(new File("src/xml/files/" + xmlDocumentWithoutFileEnding + ".xml")));
+				validator.validate(new StreamSource(new File("src/xml/files/" + id + "_" + xmlFilename + ".xml")));
 			} catch (Exception e) 
 			{
 				System.out.println("Fehler: " + e.getMessage());
