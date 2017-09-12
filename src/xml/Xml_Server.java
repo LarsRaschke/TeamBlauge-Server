@@ -169,9 +169,7 @@ public class Xml_Server {
 			while (userIterator.hasNext()) {
 				if (userName.equals(userIterator.next().getValue())) {
 					Project projectMatch = unmarshalFromProjectFile(projectIterator.next().getID(), projectIterator.next().getProjectname());
-					proList.add(projectMatch);
-					usList.add(userIterator.next());
-					wlist.put(, );
+					wlist.put(projectMatch, projectIterator.next());
 
 				}
 			}
