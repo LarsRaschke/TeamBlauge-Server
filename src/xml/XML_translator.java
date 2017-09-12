@@ -1,4 +1,4 @@
-package model;
+package xml;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -14,7 +15,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import org.xml.sax.SAXException;
 
 import model.interfaces.RMI_Projektmanager;
-import xml.Xml_Server;
 import xml.projectlist.Projectlist.ProjectOverviewEntries.UserEntries;
 import xml.projectlist.Projectlist.ProjectOverviewEntries;
 import xml.projects.ObjectFactoryProjects;
@@ -24,19 +24,22 @@ import xml.projects.Project.StatusEntries;
 import xml.projects.Project.TaskEntries.TagEntries;
 import xml.projects.Project.TaskEntries;
 import model.Projekt;
+import model.Status;
+import model.Statusliste;
+import model.Task;
 import model.User;
 import xml.projectlist.Projectlist;
 
 
-public class Projektmanager implements RMI_Projektmanager 
+public class XML_translator  
 {
 	
-	public Projektmanager()
+	public XML_translator()
 	{
 		
 	}
 	
-	public void erstelleProjekt(Projekt orginalProjekt) throws JAXBException, FileNotFoundException, DatatypeConfigurationException, SAXException, IOException
+	public void createProject(Projekt orginalProjekt) throws JAXBException, FileNotFoundException, DatatypeConfigurationException, SAXException, IOException
 	{
 		ObjectFactory ocFac = new ObjectFactory();
 		HashMap<String, User> users = orginalProjekt.getUsers();
@@ -85,9 +88,7 @@ public class Projektmanager implements RMI_Projektmanager
 			xmlProject.getStatusEntries().add(stat);
 			//sListe.getStatus().add(st.getName());
 		}
-				
-		
-		
+
 		prooverentries.setCreatedOn(orginalProjekt.getErstellungsDatum().toString());
 		prooverentries.setCreator(orginalProjekt.getErsteller().getNutzername());
 		xmlProject.setDescription(orginalProjekt.getBeschreibung());
@@ -102,7 +103,7 @@ public class Projektmanager implements RMI_Projektmanager
 
 	}
 
-	
+	//**not in use
 	public void fügeTaskhinzu(Projekt orginalProjekt,model.Task orginalTask) throws JAXBException
 	{
 		ObjectFactoryProjects ocFachPro = new ObjectFactoryProjects();
@@ -118,60 +119,114 @@ public class Projektmanager implements RMI_Projektmanager
 		Xml_Server.addTasktoProject(orginalProjekt.getProjektname(), xmlTask);
 	}
 	
-	public List<Projekt> gibtProjektedesUserszurück(User orginaluser) throws JAXBException, DatatypeConfigurationException
+	
+	public List<Projekt> multiProject(User orginaluser) throws JAXBException, DatatypeConfigurationException
 	{
 		String userName = orginaluser.getNutzername();
-		HashMap<Project, Userlist> pList = Xml_Server.checkProjectListandgiveProjectsback(userName);
+		HashMap<Project, ProjectOverviewEntries> pList = Xml_Server.checkProjectListandgiveProjectsback(userName);
 		
-		for (HashMap.Entry<Project, Userlist> entry :pList.entrySet()) 
+		for (Entry<Project, ProjectOverviewEntries> entry :pList.entrySet()) 
 		{
 			xml.projects.Project pro = entry.getKey();
-			xml.projectlist.Projectlist.ProjectOverview.Userlist usList = entry.getValue();
+			ProjectOverviewEntries Over = entry.getValue();
 			
 			Projekt orginalProjekt = new Projekt(orginaluser,pro.getProjectname(),pro.getDescription());
-			User orgiUser = new User(pro.getCreator(), true, null, null);
+			User orgiUser = new User(Over.getCreator(), true, null, null);
 			orginalProjekt.setErsteller(orgiUser);
 			orginalProjekt.setId(pro.getID());
 			
-			orginalProjekt.setErstellungsDatum(ZonedDateTime.parse(pro.getCreatedOn()));
+			orginalProjekt.setErstellungsDatum(ZonedDateTime.parse(Over.getCreatedOn()));
 			
-			orginalProjekt.setLetzteAenderung(ZonedDateTime.parse(pro.getLastmod()));
+			orginalProjekt.setLetzteAenderung(ZonedDateTime.parse(Over.getLastMod()));
 			
 			Statusliste slist = new Statusliste();
 			
-			for(String stat: pro.getStatuslist().getStatus())
+			for(StatusEntries stat: pro.getStatusEntries())
 			{
-				Status orgistat = new Status(stat);
+				Status orgistat = new Status(stat.getStatus());
 				slist.insertStatus(orgistat);
 			}
 			
 			orginalProjekt.setStatusliste(slist);
 			
-			for( xml.projects.Project.Tasklist.Task tAs : pro.getTasklist().getTask())
+			for( TaskEntries tAs : pro.getTaskEntries())
 			{
-				Task orgiTask = new Task()
+				ZonedDateTime lasttime = ZonedDateTime.parse(tAs.getLastMod());
+				Task orgiTask = new Task(tAs.getTaskname(), null, null);
+				orgiTask.setFarbe(tAs.getColor());
+				orgiTask.setId(tAs.getID());
+				orgiTask.setKommentar(tAs.getComment());
+				orgiTask.setLetzteAenderung(lasttime);
+				User oris = new User(tAs.getLastUser(), true, null, null);
+				orgiTask.setLetzterNutzer(oris);
+				Status orStat = new Status(tAs.getStatusname());
+				orgiTask.setStatus(orStat);
+				
 			}
 			
-			for(xml.projectlist.Projectlist.ProjectOverview.Userlist.User usa:usList.getUser())
+			for(UserEntries usa:Over.getUserEntries())
 			{
 				User orUser = new User(usa.getValue(), usa.isAdmin(), null, null);
 				orginalProjekt.addUserToHashMap(orUser);
 			}
-			
-			
+	
 		}
+
+	}
+	public Project singelProject(Integer ID) throws JAXBException, DatatypeConfigurationException
+	{
 		
+		
+		HashMap<Project, ProjectOverviewEntries> pList = Xml_Server.checkProjectListandgiveProjectsbackSingel(ID);
+		
+		for (Entry<Project, ProjectOverviewEntries> entry :pList.entrySet()) 
+		{
+			xml.projects.Project pro = entry.getKey();
+			ProjectOverviewEntries Over = entry.getValue();
+			
+			Projekt orginalProjekt = new Projekt(Over.getCreator(),pro.getProjectname(),pro.getDescription());
+			User orgiUser = new User(Over.getCreator(), true, null, null);
+			orginalProjekt.setErsteller(orgiUser);
+			orginalProjekt.setId(pro.getID());
+			
+			orginalProjekt.setErstellungsDatum(ZonedDateTime.parse(Over.getCreatedOn()));
+			
+			orginalProjekt.setLetzteAenderung(ZonedDateTime.parse(Over.getLastMod()));
+			
+			Statusliste slist = new Statusliste();
+			
+			for(StatusEntries stat: pro.getStatusEntries())
+			{
+				Status orgistat = new Status(stat.getStatus());
+				slist.insertStatus(orgistat);
+			}
+			
+			orginalProjekt.setStatusliste(slist);
+			
+			for( TaskEntries tAs : pro.getTaskEntries())
+			{
+				ZonedDateTime lasttime = ZonedDateTime.parse(tAs.getLastMod());
+				Task orgiTask = new Task(tAs.getTaskname(), null, null);
+				orgiTask.setFarbe(tAs.getColor());
+				orgiTask.setId(tAs.getID());
+				orgiTask.setKommentar(tAs.getComment());
+				orgiTask.setLetzteAenderung(lasttime);
+				User oris = new User(tAs.getLastUser(), true, null, null);
+				orgiTask.setLetzterNutzer(oris);
+				Status orStat = new Status(tAs.getStatusname());
+				orgiTask.setStatus(orStat);
 				
-		
-		
-		
-		
+			}
+			
+			for(UserEntries usa:Over.getUserEntries())
+			{
+				User orUser = new User(usa.getValue(), usa.isAdmin(), null, null);
+				orginalProjekt.addUserToHashMap(orUser);
+			}
+	
+		}
 	}
-	@Override
-	public void erstelleProjekt(User u, String projektname, String beschreibung) throws RemoteException, JAXBException {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 
 
