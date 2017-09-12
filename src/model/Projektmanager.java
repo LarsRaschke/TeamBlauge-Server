@@ -12,6 +12,12 @@ public class Projektmanager implements RMI_Projektmanager {
 		
 	}
 	
+	/**
+	 * @param u
+	 * @param projektname
+	 * @param beschreibung
+	 * creates project
+	 */
 	public void erstelleProjekt(User u, String projektname, String beschreibung)
 	{
 		Projekt projekt = new Projekt(u, projektname, beschreibung);
@@ -20,6 +26,10 @@ public class Projektmanager implements RMI_Projektmanager {
 		System.out.println("Erstellt!");
 	}
 	
+	/**
+	 * @param username
+	 * @return returns a list of projects
+	 */
 	public ArrayList<String> ladeProjekte(String username)
 	{
 		ArrayList<String> projektliste = new ArrayList<>();

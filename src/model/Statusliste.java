@@ -32,7 +32,7 @@ public class Statusliste {
 
 	/**
 	 * 
-	 * @param status
+	 * @param status - status to be inserted
 	 */
 	public void insertStatus(Status status) {
 		this.laenge ++;
@@ -50,9 +50,9 @@ public class Statusliste {
 	
 	/**
 	 * 
-	 * @param status
-	 * @param vorg
-	 * @param nachf
+	 * @param status - status to be inserted
+	 * @param vorg - status before inserted
+	 * @param nachf - status after inserted
 	 */
 	public void insertBetween(Status status, Status vorg, Status nachf) {
 		if (this.search(vorg) && this.search(nachf)) {
@@ -83,6 +83,9 @@ public class Statusliste {
 		return (erg);
 	}
 	
+	/**
+	 * @param status - status to search for
+	 */
 	public boolean search(Status status) {
 		Status lauf = this.head;
 		while (lauf != null && !lauf.equals(status)) {
