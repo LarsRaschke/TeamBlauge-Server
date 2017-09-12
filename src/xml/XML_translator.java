@@ -34,7 +34,7 @@ import xml.projectlist.Projectlist;
 /*
  * Übersetzungklasse
  * XML to Projekt and back
- * 
+ * Tingar und Wohlrab
  * 
  * 
  */
@@ -112,9 +112,6 @@ public class XML_translator
 		Xml_Server.saveProject(xmlProject, prooverentries); // speichert das Projekt
 
 	}
-
-	
-	
 	/**
 	 * Erhält einen User, gibt eine Hashmap wieder und übersetzt in das OrginalProjekt und gibt liste davon wieder
 	 * @param orginaluser
