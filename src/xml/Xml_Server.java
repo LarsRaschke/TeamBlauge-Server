@@ -43,7 +43,7 @@ import xml.XsdValidation;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Xml_Server {
 	// fügt neues Projekt an die Projektlist und erzeugt neue xml Datei
-	public static void addProject(ProjectOverviewEntries projectOverviewEntries, Project project) throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException
+	public static void saveProject(Project project, ProjectOverviewEntries projectOverviewEntries) throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException
 		{
 			marshalToProjectFile(project, project.getID(), project.getProjectname());
 			XsdValidation.validateProjects(project.getID(), project.getProjectname());
@@ -66,34 +66,6 @@ public class Xml_Server {
 	        
 		deleteEntryInProjectlist(project.getID());
 	}
-
-//	public static void addTasktoProject(String name, TaskEntries task) throws JAXBException {
-//		Project project = unmarshalFromProjectFile();
-//		TaskEntries tsList = facPro.createProjectTaskEntries();
-//		tsList.setTags(value);
-//
-//		project.setTasklist(tsList);
-//
-//		marshalToProjectFile(project, project.getProjectname());
-//
-//		Projectlist data = unmarshalFromProjectlistFile();
-//
-//		ObjectFactory facProList = new ObjectFactory();
-//		List<Project> proList = new ArrayList<Project>();
-//
-//		ProjectOverview pro = facProList.createProjectlistProjectOverviewEntries();
-//		Iterator<ProjectOverview> iterator = data.getProjectOverviewEntries().iterator();
-//		while (iterator.hasNext()) {
-//			if (name.equals(iterator.next().getProjectname())) {
-//				pro = iterator.next();
-//				iterator.remove();
-//				pro.setLastmod(task.getLastmod());
-//				data.getProjectOverviewEntries().add(pro);
-//
-//			}
-//		}
-//
-//	}
 
 	// in Projectlist suchenp
 //	public static List<Project> searchinxml(String name) throws JAXBException, XMLStreamException {
@@ -184,28 +156,27 @@ public class Xml_Server {
 //
 //	}
 
-	public static HashMap<Project, Userlist> checkProjectListandgiveProjectsback(String userName)
+	public static HashMap<Project, ProjectOverviewEntries> getProjectsByUser(String userName)
 			throws JAXBException, DatatypeConfigurationException {
-		HashMap<Project, Userlist> wlist = new HashMap<Project, Userlist>();
+		HashMap<Project, ProjectOverviewEntries> wlist = new HashMap<Project, ProjectOverviewEntries>();
 		ArrayList<Project> proList = new ArrayList<Project>();
-		ArrayList<Userlist> usList = new ArrayList<Userlist>();
+		ArrayList<ProjectOverviewEntries> proOverList = new ArrayList<ProjectOverviewEntries>();
 		Projectlist data = unmarshalFromProjectlistFile();
 
-		Iterator<ProjectOverview> iterator = data.getProjectOverviewEntries().iterator();
+		Iterator<ProjectOverviewEntries> iterator = data.getProjectOverviewEntries().iterator();
 		while (iterator.hasNext()) {
-
-			Userlist userlist = iterator.next().getUserlist();
+			
+			List<UserEntries> userEntries = iterator.next().getUserEntries();
 
 			@SuppressWarnings("unchecked")
-			Iterator<User> ite = (Iterator<User>) userlist.getUser();
+			Iterator<UserEntries> ite = (Iterator<UserEntries>) userEntries;
 
 			while (ite.hasNext()) {
 				if (userName.equals(ite.next().getValue())) {
-					Project pro = unmarshalFromProjectFile(
-							"src/xml/files/" + iterator.next().getProjectname().toString() + ".xml");
-					proList.add(pro);
-					usList.add(userlist);
-					wlist.put(pro, userlist);
+					Project projectMatch = unmarshalFromProjectFile(iterator.next().getID(), iterator.next().getProjectname());
+					proList.add(projectMatch);
+					usList.add(userEntries);
+					wlist.put(projectMatch, userEntries);
 
 				}
 			}
