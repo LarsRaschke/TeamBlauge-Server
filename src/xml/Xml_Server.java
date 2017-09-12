@@ -171,12 +171,14 @@ public class Xml_Server {
 			@SuppressWarnings("unchecked")
 			Iterator<UserEntries> ite = (Iterator<UserEntries>) userEntries;
 
+			while(iterator.next().getUserEntries().iterator())
+			
 			while (ite.hasNext()) {
 				if (userName.equals(ite.next().getValue())) {
 					Project projectMatch = unmarshalFromProjectFile(iterator.next().getID(), iterator.next().getProjectname());
 					proList.add(projectMatch);
 					usList.add(userEntries);
-					wlist.put(projectMatch, userEntries);
+					wlist.put(, );
 
 				}
 			}
