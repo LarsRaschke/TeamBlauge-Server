@@ -141,27 +141,40 @@ public class Projekt implements RMI_Projekt{
 	public HashMap<String, Task> getTasksOfTag(String tagname)
 	{
 		HashMap<String, Task> taskList = new HashMap<String, Task>();
-		for(int i=0; i<this.getTasks().size(); i++)
-		{
-			for(int j=0; j<this.getTasks().get(i).getTags().size(); j++)
+		try{
+			for(int i=0; i<this.getTasks().size(); i++)
 			{
-				if(this.getTasks().get(i).getTags().get(j) == tagname)
+				for(int j=0; j<this.getTasks().get(i).getTags().size(); j++)
 				{
-					//System.out.println("Tag \"" + tagname + "\" gefunden in " + this.getTasks().get(i).getName() + ".");
-					taskList.put(tagname, this.getTasks().get(i));
-					break;
+					if(this.getTasks().get(i).getTags().get(j) == tagname)
+					{
+						//System.out.println("Tag \"" + tagname + "\" gefunden in " + this.getTasks().get(i).getName() + ".");
+						taskList.put(tagname, this.getTasks().get(i));
+						break;
+					}
 				}
 			}
 		}
+		catch(NullPointerException npe){
+			System.out.println("NullPointerException gefunden bei getTasksOfTag"); // Error Log fehlt noch
+		}
 		return taskList;
 	}
-	
+	/**
+	 * 
+	 * @param name
+	 * @param kommentar
+	 * @param u
+	 * adds a task to the projects HashMap with name, comment and user
+	 */
 	public void taskHinzufügen(String name, String kommentar, User u)
 	{
 		Task task = new Task(name,kommentar,u);
 		this.addTaskToHashMap(task);
 	}
-
+	/**
+	 * @return returns a list of users
+	 */
 	public List<User> userListe() throws RemoteException {
 		List<User> userList = new ArrayList<>();
 		for(Map.Entry<String, User> entry : this.users.entrySet())
@@ -170,7 +183,9 @@ public class Projekt implements RMI_Projekt{
 		}
 		return userList;
 	}
-
+	/**
+	 * @return returns a list of tasks
+	 */
 	public List<String[]> taskListe() throws RemoteException {
 		List<String[]> taskList = new ArrayList<>();
 		for(Map.Entry<String, Task> entry : this.tasks.entrySet())

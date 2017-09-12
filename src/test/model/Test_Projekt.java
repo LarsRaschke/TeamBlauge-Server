@@ -8,6 +8,7 @@ import org.junit.Test;
 import model.*;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -134,10 +135,25 @@ public class Test_Projekt {
 	}
 	@Test
 	public void testTaskHinzufügen(){
-		// coming soon...
+		// already tested in testAddTaskToHashMap
 	}
 	@Test
 	public void testGetTasksOfTag(){
-		// coming soon...
+		String tagname = "tag1";
+		ArrayList<String> taglist = new ArrayList<>();
+		taglist.add("tag1");
+		Task task1 = new Task("Task1", "Kommentar1", user1);
+		task1.setTags(taglist);
+		Task task2 = new Task("Task2", "Kommentar2", user1);
+		task2.setTags(taglist);
+		HashMap<String, Task> taskmap = new HashMap<>();
+		taskmap.put("Task1", task1);
+		taskmap.put("Task2", task2);
+		projekt1.setTasks(taskmap);
+		HashMap<String, Task> expected = new HashMap<>();
+		expected.put("Task1", task1);
+		expected.put("Task2", task2);
+		assertEquals(expected, projekt1.getTasksOfTag(tagname));
+		// still failing because of NullPointerException in function
 	}
 }
