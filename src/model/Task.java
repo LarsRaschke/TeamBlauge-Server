@@ -1,60 +1,360 @@
 package model;
 
 import java.rmi.RemoteException;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 
-public class Task implements TaskRMI{
+import model.interfaces.RMI_Task;
+
+/**
+ * Model-Klasse für einen Task.
+ */
+public class Task implements RMI_Task{
 	
+	private Status status;
 	private String name;
+	private ZonedDateTime letzteAenderung;
 	private String kommentar;
 	private int farbe;
-	
-	public Task(String name, String kommentar){
+	private int id;
+	private ArrayList<String> tags;
+	private User letzterNutzer;
+
+	/**
+	 * Konstruktor.
+	 * 
+	 * @param name - Der Taskname.
+	 * @param kommentar - Kommentar zum Task.
+	 * @param user - Der Ersteller
+	 */
+	public Task(String name, String kommentar, User user){
 		this.name = name;
 		this.kommentar = kommentar + "\n";
+		this.setLetzterNutzer(user);
+	}
+	
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Die Task-ID.
+	 */
+	public int getId() {
+		return id;
 	}
 
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param id - Die Task-ID.
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Den Status.
+	 */
+	public Status getStatus() {
+		return status;
+	}
+	
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param status - Den Status.
+	 */
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Den Namen.
+	 */
+	@Override
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param name - Den Namen.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Den letzten Nutzer.
+	 */
+	@Override
+	public User getLetzterNutzer() {
+		return letzterNutzer;
+	}
+
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param letzterNutzer -  Den letzten Nutzer.
+	 */
+	public void setLetzterNutzer(User letzterNutzer) {
+		this.letzterNutzer = letzterNutzer;
+	}
+
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Das letzte Änderungsdatum.
+	 */
+	@Override
+	public ZonedDateTime getLetzteAenderung() {
+		return letzteAenderung;
+	}
+	
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param letzteAenderung - Das letzte Änderungsdatum.
+	 */
+	public void setLetzteAenderung(ZonedDateTime letzteAenderung) {
+		this.letzteAenderung = letzteAenderung;
+	}
+	
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Den Kommentar.
+	 */
+	@Override
 	public String getKommentar() {
 		return kommentar;
 	}
+	
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param kommentar - Den Kommentar.
+	 */
 	public void setKommentar(String kommentar) {
 		this.kommentar = kommentar;
 	}
+	
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Die Farbe.
+	 */
+	@Override
 	public int getFarbe() {
 		return farbe;
 	}
+	
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param farbe - Die Farbe.
+	 */
 	public void setFarbe(int farbe) {
 		this.farbe = farbe;
 	}
-
+	
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Die Tags.
+	 */
 	@Override
-	public void ändereName(String name) throws RemoteException {
-		this.setName(name);
-		System.out.println(this.name);
+	public ArrayList<String> getTags()
+	{
+		return this.tags;
 	}
-
-	@Override
-	public void fügeKommentarHinzu(String kommentar) throws RemoteException {
-		this.setKommentar(this.getKommentar() + kommentar + "\n");
-		System.out.println(this.kommentar);
+	
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param tags - Die Tags.
+	 */
+	public void setTags(ArrayList<String> tags)
+	{
+		this.tags = tags;
 	}
-
-	@Override
-	public Boolean ändereFarbe(int farbe) throws RemoteException {
-		try {
-			if(farbe == 0) {
-				throw new Exception();
-			}
-			this.setFarbe(farbe);
-			System.out.println(this.farbe);
-			return true;
-		}catch(Exception e) {
-			return false;
+	
+	/**
+	 * Gibt den gesuchten Tag aus.
+	 * 
+	 * @param nr - Die gesuchte Stelle.
+	 * 
+	 * @return Den Tag an der gesuchten Stelle.
+	 */
+	public String getSingleTag(int nr)
+	{
+		if(this.getTags().get(nr) != null)
+		{
+			return this.getTags().get(nr);
+		}
+		else
+		{
+			System.out.println("ERROR: Tag does not exist");
+			return null;
 		}
 	}
+	
+	/**
+	 * Sucht einen bestimmten Tag.
+	 * 
+	 * @param bezeichnung - Der Name des gesuchten Tags.
+	 * 
+	 * @return True, wenn der Tag vorhanden ist, andernfalls False.
+	 */
+	public boolean sucheTag(String bezeichnung)
+	{
+		for(int i=0; i<this.getTags().size(); i++)
+		{
+			if(this.getTags().get(i).equals(bezeichnung))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Löscht den Tag an einer bestimmten Stelle.
+	 * 
+	 * @param nr - Die Stelle des zu löschenden Tags.
+	 */
+	public void loescheTag(int nr)
+	{
+		if(nr > this.tags.size())
+		{
+			System.out.println("ERROR: Tag not found");
+		}
+		else
+		{
+			this.getTags().remove(nr);
+		}
+	}
+	
+	/**
+	 * Löscht einen gesuchten Tag.
+	 * 
+	 * @param bezeichnung - Der Name des zu löschenden Tags.
+	 */
+	public void loescheTag(String bezeichnung)
+	{
+		boolean found = false;
+		for(int i=0; i<this.getTags().size(); i++)
+		{
+			if(this.tags.get(i).equals(bezeichnung))
+			{
+				this.getTags().remove(i);
+				found = true;
+			}
+		}
+		if(found == false)
+			System.out.println("ERROR: Tag not found.");
+	}
+	
+	/**
+	 * Fügt einen Tag zum Task hinzu.
+	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
+	 * 
+	 * @param bezeichnung - Der Name des Tags.
+	 * @param user - Der User, der die Änderung eingegeben hat.
+	 */
+	@Override
+	public synchronized void fügeTagHinzu(String bezeichnung, User user)
+	{
+		this.getTags().add(bezeichnung);
+		this.setLetzterNutzer(user);
+	}
+
+	/**
+	 * Fügt einen Kommentar hinzu.
+	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
+	 * 
+	 * @param kommentar - Der Kommentar, der angefügt wird.
+	 * @param user - Der User, der die Änderung eingegeben hat.
+	 */
+	@Override
+	public synchronized void fügeKommentarHinzu(String kommentar, User user) 
+	{
+		this.setKommentar(this.getKommentar() + kommentar + "\n");
+		this.setLetzterNutzer(user);
+	}
+
+	/**
+	 * Setzt eine neue Farbe.
+	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
+	 * 
+	 * @param farbe - Die neue Farbe.
+	 * @param user - Der User, der die Änderung eingegeben hat.
+	 */
+	@Override
+	public synchronized void ändereFarbe(int farbe , User user)
+	{
+		this.setFarbe(farbe);
+		this.setLetzterNutzer(user);
+	}
+	
+	/**
+	 * Verschiebt den Task in den nächsten Status.
+	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
+	 */
+	@Override
+	public synchronized boolean taskNachVorneVerschieben()
+	{
+		/**
+		 * Task can be moved by any user
+		 */
+		try{
+			Status temp;
+			temp = this.getStatus().getNachfolger().getNachfolger();
+			if(this.getStatus().getNachfolger() != null)
+			{
+				this.getStatus().setVorgaenger(this.status);
+				this.setStatus(this.getStatus().getNachfolger());
+				this.getStatus().setNachfolger(temp);
+				return true;
+			}
+		}
+		catch(NullPointerException npe){
+			System.out.println("NullPointerException gefunden bei taskNachVorne"); // Error Log fehlt noch
+		}
+		return false;
+	}
+	
+	/**
+	 * Verschiebt den Status in den vorherigen Status.
+	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
+	 */
+	@Override
+	public synchronized boolean taskNachHintenVerschieben()
+	{
+		/**
+		 * TODO: Implement admin-only in this method
+		 */
+		try{
+			Status temp;
+		temp = this.getStatus().getVorgaenger().getVorgaenger();
+		if(this.getStatus().getVorgaenger() != null)
+		{
+			this.getStatus().setNachfolger(this.getStatus());
+			this.setStatus(this.getStatus().getVorgaenger());
+			this.getStatus().setVorgaenger(temp);
+			return true;
+		}
+		}
+		catch(NullPointerException npe){
+			System.out.println("NullPointerException gefunden bei taskNachHinten"); // Error Log fehlt noch
+		}
+		return false;
+	}
+
 }
