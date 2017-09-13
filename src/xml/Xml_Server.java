@@ -57,8 +57,8 @@ public class Xml_Server {
 	 * @param project 
 	 * @throws JAXBException
 	 */
-	public static void deleteProjectPermanently(Project project) throws JAXBException {
-		File file = new File("src/xml/files/" + project.getID() + "_" + project.getProjectname() + ".xml");
+	public static void deleteProjectPermanently(int id, String projectname) throws JAXBException {
+		File file = new File("src/xml/files/" + id + "_" + projectname + ".xml");
 
 		// Zuvor alle mit dem File assoziierten Streams schlieﬂen...
 
@@ -66,7 +66,7 @@ public class Xml_Server {
 			file.delete();
 		}
 
-		deleteEntryInProjectlist(project.getID());
+		deleteEntryInProjectlist(id);
 	}
 
 	/**

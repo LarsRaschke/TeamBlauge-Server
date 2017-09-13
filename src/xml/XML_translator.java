@@ -243,6 +243,24 @@ public class XML_translator
 		}
 		return orginalProjekt;
 	}
+	/**
+	 * löscht das Projekt aus der Projektliste 
+	 * @param orginalProjekt
+	 * @return
+	 */
+	public boolean deleteProjekt(Projekt orginalProjekt)
+	{
+		boolean check = true;
+		try {
+			Xml_Server.deleteProjectPermanently(orginalProjekt.getId(), orginalProjekt.getProjektname());
+			check = true;
+		} catch (JAXBException e) 
+		{
+			check = false;
+		}
+		return check;
+		
+	}
 	
 
 
