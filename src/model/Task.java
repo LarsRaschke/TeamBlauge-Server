@@ -1,16 +1,19 @@
 package model;
 
 import java.rmi.RemoteException;
+import server.ServerController;;
 
 public class Task implements TaskRMI{
 	
 	private String name;
 	private String kommentar;
 	private int farbe;
+	private ServerController ts;
 	
-	public Task(String name, String kommentar){
+	public Task(String name, String kommentar, ServerController ts){
 		this.name = name;
 		this.kommentar = kommentar + "\n";
+		this.ts = ts;
 	}
 
 	public String getName() {
@@ -51,6 +54,7 @@ public class Task implements TaskRMI{
 				throw new Exception();
 			}
 			this.setFarbe(farbe);
+			ts.printSomething();
 			System.out.println(this.farbe);
 			return true;
 		}catch(Exception e) {

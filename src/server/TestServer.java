@@ -18,11 +18,11 @@ public class TestServer {
 		
 		try {
 			
-			System.setProperty("java.rmi.server.hostname", "192.168.1.153");
+			System.setProperty("java.rmi.server.hostname", "localhost");
 			LocateRegistry.createRegistry(1099);
 
-			Task testTask = new Task("TestTask", "Test");
-			TaskRMI taskStub = (TaskRMI) UnicastRemoteObject.exportObject(testTask, 0);
+			ServerController s = new ServerController("TestTask","test");
+			TaskRMI taskStub = (TaskRMI) UnicastRemoteObject.exportObject(s.testTask, 0);
 
 			Registry registry = LocateRegistry.getRegistry();
 			registry.bind("TestTask", taskStub);

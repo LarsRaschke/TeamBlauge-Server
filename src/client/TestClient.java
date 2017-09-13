@@ -16,7 +16,7 @@ public class TestClient {
 		
 		try {
 			
-			Registry registry = LocateRegistry.getRegistry("192.168.1.153");
+			Registry registry = LocateRegistry.getRegistry(null);
 			
 			TaskRMI testTask = (TaskRMI) registry.lookup("TestTask");
 			
