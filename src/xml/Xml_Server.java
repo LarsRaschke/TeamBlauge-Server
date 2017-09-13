@@ -32,9 +32,10 @@ import xml.XsdValidation;
 public class Xml_Server {
 	
 	/**
-	 *  fügt neues Projekt an die Projektlist und erzeugt neue xml Datei
-	 * @param project
-	 * @param projectOverviewEntries
+	 *  Fügt ein neues oder geändertes Projekt an die _projectlist.xml an und erzeugt neue spezifische id_projektname.xml Datei.
+	 *  
+	 * @param project - Das spezifische Projekt.
+	 * @param projectOverviewEntries  - Die Overview des Projektes.
 	 * @throws JAXBException
 	 * @throws DatatypeConfigurationException
 	 * @throws FileNotFoundException
@@ -43,7 +44,7 @@ public class Xml_Server {
 	 */
 	public static void saveProject(Project project, ProjectOverviewEntries projectOverviewEntries)
 			throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException {
-		marshalToProjectFile(project, project.getID(), project.getProjectname());
+		marshalToProjectFile(project);
 		XsdValidation.validateProjects(project.getID(), project.getProjectname());
 
 		deleteEntryInProjectlist(projectOverviewEntries.getID());
@@ -53,8 +54,10 @@ public class Xml_Server {
 	}
 	
 	/**
-	 * Löscht ein Projekt
-	 * @param project 
+	 * Löscht den Eintrag des Projektes in der _projectlist.xml sowie seine spezifische XML-Dateie unwiderruflich.
+	 * 
+	 * @param id - Die einzigartige ID des Projektes, das gelöscht werden soll.
+	 * @param projectname - Der Name des Projektes, das gelöscht werden soll.
 	 * @throws JAXBException
 	 */
 	public static void deleteProjectPermanently(int id, String projectname) throws JAXBException {
@@ -70,8 +73,9 @@ public class Xml_Server {
 	}
 
 	/**
-	 *  Projectlist aus xml erzeugen
-	 * @return
+	 * Projectlist aus _projectlist.xml laden und Objekt erzeugen.
+	 * 
+	 * @return Die Projectlist aus allen Projekten.
 	 * @throws JAXBException
 	 */
 	public static Projectlist unmarshalFromProjectlistFile() throws JAXBException {
@@ -81,46 +85,48 @@ public class Xml_Server {
 	}
 
 	/**
-	 * Project aus XML erzeugen
-	 * @param id
-	 * @param fileName
-	 * @return
+	 * Project aus id_projectname.xml laden und Objekt erzeugen.
+	 * 
+	 * @param id - Die einzigartige ID des Projektes, das geladen werden soll.
+	 * @param projectname - Der Name des Projektes, das geladen werden soll.
+	 * @return Das spezifische Project.
 	 * @throws JAXBException
 	 */
-	public static Project unmarshalFromProjectFile(int id, String fileName) throws JAXBException {
+	public static Project unmarshalFromProjectFile(int id, String projectname) throws JAXBException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
 		javax.xml.bind.Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		return (Project) jaxbUnmarshaller.unmarshal(new File("src/xml/files/" + id + "_" + fileName + ".xml"));
+		return (Project) jaxbUnmarshaller.unmarshal(new File("src/xml/files/" + id + "_" + projectname + ".xml"));
 	}
 	/**
-	 * Project in XML speichern
-	 * @param data Project
-	 * @param id  Projekt ID
-	 * @param fileName Projektname
+	 * Project aus Objekt in id_projectname.xml speichern.
+	 * 
+	 * @param project - Das spezifische Projekt, das gespeichert werden soll.
 	 * @throws JAXBException
 	 */
-	public static void marshalToProjectFile(Project data, int id, String fileName) throws JAXBException {
+	public static void marshalToProjectFile(Project project) throws JAXBException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(Project.class);
 		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
 		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		jaxbMarshaller.marshal(data, new File("src/xml/files/" + id + "_" + fileName + ".xml"));
+		jaxbMarshaller.marshal(project, new File("src/xml/files/" + project.getID() + "_" + project.getProjectname() + ".xml"));
 	}
 	/**
-	 * Projectlist in XML speichern
-	 * @param data
+	 * Projectlist aus Objekt in _projectlist.xml speichern.
+	 * 
+	 * @param projectname - Der Name des Projektes, das geladen werden soll.
 	 * @throws JAXBException
 	 */
-	public static void marshalToProjectlistFile(Projectlist data) throws JAXBException {
+	public static void marshalToProjectlistFile(Projectlist projectlist) throws JAXBException {
 		JAXBContext jaxbContext = JAXBContext.newInstance(Projectlist.class);
 		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
 		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		jaxbMarshaller.marshal(data, new File("src/xml/files/_projectlist.xml"));
+		jaxbMarshaller.marshal(projectlist, new File("src/xml/files/_projectlist.xml"));
 	}
 	/**
-	 * Löscht eintrag in Projectliste
-	 * @param id
+	 * Löscht Eintrag in _projectlist.xml, um ihn danach nochmal anzuhängen.
+	 * 
+	 * @param id - Die ID des Projekts, das aus der _projectlist.xml gelöscht werden soll.
 	 * @throws JAXBException
 	 */
 	private static void deleteEntryInProjectlist(int id) throws JAXBException {
@@ -130,16 +136,16 @@ public class Xml_Server {
 		while (iterator.hasNext()) {
 			if (id == iterator.next().getID()) {
 				iterator.remove();
+				marshalToProjectlistFile(xmlProjectlist);
 			}
 		}
-
-		marshalToProjectlistFile(xmlProjectlist);
 	}
 
 	/**
-	 * Erhält Username und gibt eine Hashmap von Project und ProjectOverview wieder
-	 * @param userName
-	 * @return
+	 * Erhält Username und gibt eine Hashmap von mehreren Projects und mehreren ProjectOverviewEntries wieder.
+	 * 
+	 * @param userName - Der Username, nach dem in Projekten gesucht wird.
+	 * @return Eine Hashmap aus mehreren Projects und mehreren ProjectOverviewEntries.
 	 * @throws JAXBException
 	 * @throws DatatypeConfigurationException
 	 */
@@ -167,9 +173,10 @@ public class Xml_Server {
 		return wlist;
 	}
 	/**
-	 * Erhält eine ID und gibt ein Projekt wieder
-	 * @param id ID vom Projekt
-	 * @return
+	 * Erhält eine ID und gibt eine Hashmap aus einem Projekt und einem ProjectOverviewEntries zurück.
+	 * 
+	 * @param id - ID des Projektes.
+	 * @return Eine Hashmap aus einem Projekt und einem ProjectOverviewEntries zurück.
 	 * @throws JAXBException
 	 * @throws DatatypeConfigurationException
 	 */

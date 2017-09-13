@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project ID="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/projects_schema.xsd">
-  <projectname>projectname</projectname>
-  <lastMod>lastMod</lastMod>
+  <projectname>Testprojekt Blauge</projectname>
+  <lastMod>2017-09-13T10:03:59.513+02:00[Europe/Paris]</lastMod>
   <description>description</description>
   <taskEntries ID="0">
-    <taskname>taskname</taskname>
-    <statusname>statusname</statusname>
+    <taskname>XML erstellen</taskname>
+    <statusname>done</statusname>
     <lastMod>lastMod</lastMod>
     <comment>comment</comment>
     <color>0</color>
     <lastUser>lastUser</lastUser>
     <tagEntries>tagEntries</tagEntries>
   </taskEntries>
-  <statusEntries length="0">
+  <statusEntries length="3">
     <status>status</status>
   </statusEntries>
 </project>
