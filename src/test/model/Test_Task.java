@@ -96,11 +96,11 @@ public class Test_Task {
 		task.setStatus(status1);
 		status1.setNachfolger(status2);
 		status2.setNachfolger(status3);
-		task.taskNachVorne();
+		task.taskNachVorneVerschieben();
 		assertEquals(status2, task.getStatus());
-		task.taskNachVorne();
+		task.taskNachVorneVerschieben();
 		assertEquals(status3, task.getStatus());
-		assertEquals(false, task.taskNachVorne());	 		
+		assertEquals(false, task.taskNachVorneVerschieben());	 		
 	}
 	
 	@Test
@@ -111,11 +111,11 @@ public class Test_Task {
 		task.setStatus(status3);
 		status3.setVorgaenger(status2);
 		status2.setVorgaenger(status1);
-		task.taskNachHinten();
+		task.taskNachHintenVerschieben();
 		assertEquals(status2, task.getStatus());
-		task.taskNachHinten();
+		task.taskNachHintenVerschieben();
 		assertEquals(status1, task.getStatus());
-		assertEquals(false, task.taskNachHinten());			
+		assertEquals(false, task.taskNachHintenVerschieben());			
 	}
 	
 	@Test
@@ -136,7 +136,7 @@ public class Test_Task {
 		tags.add("tag1");
 		tags.add("tag2");
 		task.setTags(tags);
-		assertEquals("tag2", task.getSingleTag("tag2"));
+		assertTrue("tag2", task.sucheTag("tag2"));
 		/*
 		 *	Error Fall muss noch rein 
 		 */

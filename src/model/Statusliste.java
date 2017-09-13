@@ -2,37 +2,70 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Model-Klasse für die Statusliste eine Projekts.
+ */
 public class Statusliste {
+	
 	private Status head;
 	private int laenge;
 
+	/**
+	 * Konstruktor.
+	 */
 	public Statusliste() {
 		this.head = null;
 	}
 
+	/**
+	 * Konstruktor.
+	 * 
+	 * @param head - Den ersten Status (Head).
+	 */
 	public Statusliste(Status head) {
 		this.head = head;
 	}
 
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Den Head-Status.
+	 */
 	public Status getHead() {
 		return head;
 	}
 
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param head - Der Head-Status.
+	 */
 	public void setHead(Status head) {
 		this.head = head;
 	}
 
+	/**
+	 * Getter-Methode.
+	 * 
+	 * @return Die Länge der Statusliste.
+	 */
 	public int getLaenge() {
 		return laenge;
 	}
 
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param laenge - Die Länge der Statusliste.
+	 */
 	public void setLaenge(int laenge) {
 		this.laenge = laenge;
 	}
 
 	/**
+	 * Fügt einen Status am Ende der Liste ein.
 	 * 
-	 * @param status - status to be inserted
+	 * @param status - Der Status, der eingefügt wird.
 	 */
 	public void insertStatus(Status status) {
 		this.laenge ++;
@@ -49,10 +82,11 @@ public class Statusliste {
 	}
 	
 	/**
+	 * Fügt einen Status zwischen zwei ausgewählten Stati ein.
 	 * 
-	 * @param status - status to be inserted
-	 * @param vorg - status before inserted
-	 * @param nachf - status after inserted
+	 * @param status - Der Status, der eingefügt wird.
+	 * @param vorg - Der Vorgänger-Status.
+	 * @param nachf - Der Nachfolger-Status.
 	 */
 	public void insertBetween(Status status, Status vorg, Status nachf) {
 		if (this.search(vorg) && this.search(nachf)) {
@@ -70,8 +104,9 @@ public class Statusliste {
 	}
 
 	/**
+	 * Gibt alle in der Liste enthaltenen Stati zurück.
 	 * 
-	 * @return all elements of the list
+	 * @return Eine ArrayList mit allen Stati.
 	 */
 	public ArrayList<Status> getAll() {
 		ArrayList<Status> erg = new ArrayList<>();
@@ -84,7 +119,11 @@ public class Statusliste {
 	}
 	
 	/**
-	 * @param status - status to search for
+	 * Sucht einen Status in der Liste.
+	 * 
+	 * @param status - Der gesuchte Status
+	 * 
+	 * @return True, falls der Status in der Liste enthalten ist, andernfalls False.
 	 */
 	public boolean search(Status status) {
 		Status lauf = this.head;
