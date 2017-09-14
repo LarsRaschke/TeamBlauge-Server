@@ -356,12 +356,17 @@ public class Projekt implements RMI_Projekt{
 	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
 	 */
 	@Override
-	public synchronized void speichereProjekt()
+	public synchronized boolean speichereProjekt()
 	{
+		boolean isWorking = false;
+		
 		try {
 			XML_translator.createProject(this);
+			isWorking = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return isWorking;
 	}
 }

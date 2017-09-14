@@ -35,5 +35,5 @@ public interface RMI_Projekt extends Remote {
 	
 	public void ändereBeschreibung(String beschreibung) throws RemoteException;
 	
-	public void speichereProjekt() throws RemoteException;
+	public boolean speichereProjekt() throws RemoteException;
 }

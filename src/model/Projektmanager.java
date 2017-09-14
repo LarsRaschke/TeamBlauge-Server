@@ -30,11 +30,11 @@ public class Projektmanager implements RMI_Projektmanager {
 	 * @param projektname - Der Projektname.
 	 * @param beschreibung - Die Projektbeschreibung.
 	 */
-	public void erstelleProjekt(User user, String projektname, String beschreibung)
+	public boolean erstelleProjekt(User user, String projektname, String beschreibung)
 	{
 		Projekt projekt = new Projekt(user, projektname, beschreibung);
 		Server.server.bindProjekt(projekt.getProjektname(), projekt);
-		projekt.speichereProjekt();
+		return projekt.speichereProjekt();
 	}
 	
 	/**
