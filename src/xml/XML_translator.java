@@ -91,13 +91,15 @@ public class XML_translator
 		Statusliste orginalStatusListe = orginalProjekt.getStatusliste();
 		
 		
-		
-		for(Status st:orginalStatusListe.getAll()) // übergibt StatusList
+		if( orginalStatusListe !=null)
 		{
-			StatusEntries stat = ocFachPro.createProjectStatusEntries();
-			stat.setStatus(st.getName());
-			xmlProject.getStatusEntries().add(stat);
+			for(Status st:orginalStatusListe.getAll()) // übergibt StatusList
+			{
+				StatusEntries stat = ocFachPro.createProjectStatusEntries();
+				stat.setStatus(st.getName());
+				xmlProject.getStatusEntries().add(stat);
 			
+			}
 		}
 
 		prooverentries.setCreatedOn(orginalProjekt.getErstellungsDatum().toString());
