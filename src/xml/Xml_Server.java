@@ -73,15 +73,21 @@ public class Xml_Server {
 	}
 
 	/**
-	 * Projectlist aus _projectlist.xml laden und Objekt erzeugen.
+	 * Projectlist aus _projectlist.xml laden und Objekt erzeugen. Sollte _projectlist.xml nicht existieren, wird eine leere Projectlist zurückgegeben.
 	 * 
 	 * @return Die Projectlist aus allen Projekten.
 	 * @throws JAXBException
 	 */
 	public static Projectlist unmarshalFromProjectlistFile() throws JAXBException {
-		JAXBContext jaxbContext = JAXBContext.newInstance(Projectlist.class);
-		javax.xml.bind.Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		return (Projectlist) jaxbUnmarshaller.unmarshal(new File("src/xml/files/_projectlist.xml"));
+		File file = new File("src/xml/files/_projectlist.xml");
+		if (file.exists()) {
+			JAXBContext jaxbContext = JAXBContext.newInstance(Projectlist.class);
+			javax.xml.bind.Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			return (Projectlist) jaxbUnmarshaller.unmarshal(new File("src/xml/files/_projectlist.xml"));	
+		}
+		else {
+			return new Projectlist();
+		}
 	}
 
 	/**
