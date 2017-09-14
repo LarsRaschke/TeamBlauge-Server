@@ -1,9 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.datatype.DatatypeConfigurationException;
 
 import communication.Server;
 import model.interfaces.RMI_Projektmanager;
+import xml.XML_translator;
 
 /**
  * Model-Klasse für den Projektmanager.
@@ -39,11 +44,21 @@ public class Projektmanager implements RMI_Projektmanager {
 	 * 
 	 * @return Eine Liste mit den Projektnamen
 	 */
-	public ArrayList<String> ladeProjekte(String username)
+	public ArrayList<String> ladeProjekte(User user)
 	{
 		ArrayList<String> projektliste = new ArrayList<>();
 		
-		// ToDo: aus XML
+		List<Projekt> projekte = new ArrayList<>();
+		try {
+			projekte = XML_translator.multiProject(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		for(Projekt projekt : projekte)
+		{
+			projektliste.add(projekt.getProjektname());
+		}
 		
 		return projektliste;
 	}

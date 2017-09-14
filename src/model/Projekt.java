@@ -1,5 +1,7 @@
 package model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -7,7 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.datatype.DatatypeConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import model.interfaces.RMI_Projekt;
+import xml.XML_translator;
 
 /**
  * Model-Klasse für ein Projekt.
@@ -350,6 +358,10 @@ public class Projekt implements RMI_Projekt{
 	@Override
 	public synchronized void speichereProjekt()
 	{
-		//ToDo
+		try {
+			XML_translator.createProject(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
