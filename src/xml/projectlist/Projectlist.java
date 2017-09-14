@@ -1,4 +1,10 @@
-//Tingar und Wohlrab
+//
+// Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
+// Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
+// Generiert: 2017.09.14 um 10:53:48 AM CEST 
+//
+
 
 package xml.projectlist;
 
@@ -37,13 +43,13 @@ import javax.xml.bind.annotation.XmlValue;
  *                     &lt;complexType>
  *                       &lt;simpleContent>
  *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *                           &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
+ *                           &lt;attribute name="Admin" type="{http://www.w3.org/2001/XMLSchema}boolean" />
  *                         &lt;/extension>
  *                       &lt;/simpleContent>
  *                     &lt;/complexType>
  *                   &lt;/element>
  *                 &lt;/sequence>
- *                 &lt;attribute name="ID" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *                 &lt;attribute name="ID" type="{http://www.w3.org/2001/XMLSchema}int" />
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
@@ -114,13 +120,13 @@ public class Projectlist {
      *           &lt;complexType>
      *             &lt;simpleContent>
      *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *                 &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
+     *                 &lt;attribute name="Admin" type="{http://www.w3.org/2001/XMLSchema}boolean" />
      *               &lt;/extension>
      *             &lt;/simpleContent>
      *           &lt;/complexType>
      *         &lt;/element>
      *       &lt;/sequence>
-     *       &lt;attribute name="ID" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
+     *       &lt;attribute name="ID" type="{http://www.w3.org/2001/XMLSchema}int" />
      *     &lt;/restriction>
      *   &lt;/complexContent>
      * &lt;/complexType>
@@ -150,8 +156,8 @@ public class Projectlist {
         @XmlElement(required = true)
         protected String description;
         protected List<Projectlist.ProjectOverviewEntries.UserEntries> userEntries;
-        @XmlAttribute(name = "ID", required = true)
-        protected int id;
+        @XmlAttribute(name = "ID")
+        protected Integer id;
 
         /**
          * Ruft den Wert der projectname-Eigenschaft ab.
@@ -305,16 +311,24 @@ public class Projectlist {
         /**
          * Ruft den Wert der id-Eigenschaft ab.
          * 
+         * @return
+         *     possible object is
+         *     {@link Integer }
+         *     
          */
-        public int getID() {
+        public Integer getID() {
             return id;
         }
 
         /**
          * Legt den Wert der id-Eigenschaft fest.
          * 
+         * @param value
+         *     allowed object is
+         *     {@link Integer }
+         *     
          */
-        public void setID(int value) {
+        public void setID(Integer value) {
             this.id = value;
         }
 
@@ -328,7 +342,7 @@ public class Projectlist {
          * &lt;complexType>
          *   &lt;simpleContent>
          *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-         *       &lt;attribute name="Admin" use="required" type="{http://www.w3.org/2001/XMLSchema}boolean" />
+         *       &lt;attribute name="Admin" type="{http://www.w3.org/2001/XMLSchema}boolean" />
          *     &lt;/extension>
          *   &lt;/simpleContent>
          * &lt;/complexType>
@@ -344,8 +358,8 @@ public class Projectlist {
 
             @XmlValue
             protected String value;
-            @XmlAttribute(name = "Admin", required = true)
-            protected boolean admin;
+            @XmlAttribute(name = "Admin")
+            protected Boolean admin;
 
             /**
              * Ruft den Wert der value-Eigenschaft ab.
@@ -374,16 +388,24 @@ public class Projectlist {
             /**
              * Ruft den Wert der admin-Eigenschaft ab.
              * 
+             * @return
+             *     possible object is
+             *     {@link Boolean }
+             *     
              */
-            public boolean isAdmin() {
+            public Boolean isAdmin() {
                 return admin;
             }
 
             /**
              * Legt den Wert der admin-Eigenschaft fest.
              * 
+             * @param value
+             *     allowed object is
+             *     {@link Boolean }
+             *     
              */
-            public void setAdmin(boolean value) {
+            public void setAdmin(Boolean value) {
                 this.admin = value;
             }
 

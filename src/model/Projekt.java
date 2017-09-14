@@ -2,6 +2,7 @@ package model;
 
 import java.rmi.RemoteException;
 import java.time.ZonedDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,6 @@ import model.interfaces.RMI_Projekt;
  * Model-Klasse für ein Projekt.
  */
 public class Projekt implements RMI_Projekt{
-	
 	private int id;
 	private User ersteller;
 	private String projektname;
@@ -36,7 +36,7 @@ public class Projekt implements RMI_Projekt{
 		this.projektname = projektname;
 		this.beschreibung = beschreibung;
 		users.put(user.getNutzername(), user);
-		
+		this.erstellungsDatum = ZonedDateTime.now(ZoneId.of("Europe/Paris"));
 	}
 
 	/**
