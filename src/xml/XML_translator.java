@@ -101,14 +101,28 @@ public class XML_translator
 			
 			}
 		}
-
+		if(orginalProjekt.getErstellungsDatum() !=null)
+		{
 		prooverentries.setCreatedOn(orginalProjekt.getErstellungsDatum().toString());
+		}
+		if (orginalProjekt.getErsteller().getNutzername()!=null)
+		{
 		prooverentries.setCreator(orginalProjekt.getErsteller().getNutzername());
+		}
+		if(orginalProjekt.getErsteller().getNutzername() !=null)
+		{
 		xmlProject.setDescription(orginalProjekt.getBeschreibung());
+		}
+		if(orginalProjekt.getId() !=0)
+		{
 		xmlProject.setID(orginalProjekt.getId());
+		}
+		if(orginalProjekt.getLetzteAenderung() !=null)
+		{
 		xmlProject.setLastMod(orginalProjekt.getLetzteAenderung().toString());
+		}
 		xmlProject.setProjectname(orginalProjekt.getProjektname());
-	
+		
 		prooverentries.setID(orginalProjekt.getId());
 		
 		Xml_Server.saveProject(xmlProject, prooverentries); // speichert das Projekt
