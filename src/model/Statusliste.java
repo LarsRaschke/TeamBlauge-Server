@@ -11,10 +11,12 @@ public class Statusliste {
 	private int laenge;
 
 	/**
-	 * Konstruktor.
+	 * Konstruktor für Standart-Statusliste.
 	 */
 	public Statusliste() {
-		this.head = null;
+		this.head = new Status("ToDo");
+		this.insertStatus(new Status("Doing"));
+		this.insertStatus(new Status("Finished"));
 	}
 
 	/**

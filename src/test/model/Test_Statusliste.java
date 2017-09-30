@@ -22,55 +22,68 @@ import java.util.ArrayList;
 public class Test_Statusliste {
 	
 	Statusliste list = null;
-	Status toDo = null;
-	Status doing = null;
-	Status finished = null;
-	Status testing = null;
 	
 	/**
 	 * set up for the test cases.
 	 */
 	@Before
 	public void setUp() {
+		
 		list = new Statusliste();
-		toDo = new Status("toDo");
-		doing = new Status("doing");
-		finished = new Status("finished");
-		testing = new Status("testing");
-		list.insertStatus(toDo);
-		list.insertStatus(doing);
-		list.insertStatus(finished);
+		
+	}
+	
+	@Test
+	public void listeTest() {
+		
+		assertTrue(list.getHead().equals((new Status("ToDo"))));
+		assertTrue(list.getHead().getNachfolger().equals((new Status("Doing"))));
+		assertTrue(list.getHead().getNachfolger().getNachfolger().equals((new Status("Finished"))));
+		assertTrue(list.getHead().getNachfolger().getNachfolger().getNachfolger() == null);
 	}
 	
 	@Test
 	public void searchTest() {
-		assertTrue(list.search(toDo));
-		assertFalse(list.search(testing));
+		
+		assertTrue(list.search(new Status("ToDo")));
+		assertTrue(list.search(new Status("Doing")));
+		assertTrue(list.search(new Status("Finished")));
+		
+		assertFalse(list.search(new Status("Testing")));
+		
 	}
 	
 	@Test
 	public void insertStatusTest() {
-		assertFalse(list.search(testing));
-		list.insertStatus(testing);
-		assertTrue(list.search(testing));
+		
+		assertFalse(list.search(new Status("Closed")));
+		
+		list.insertStatus(new Status("Closed"));
+		
+		assertTrue(list.search(new Status("Closed")));
+		assertTrue(list.getHead().getNachfolger().getNachfolger().getNachfolger().equals((new Status("Closed"))));
+		
 	}
 	
 	@Test
 	public void insertBetweenTest() {
-		assertFalse(list.search(testing));
-		list.insertBetween(testing, doing, finished);
-		assertTrue(list.search(testing));
-		assertTrue(doing == testing.getVorgaenger());
-		assertTrue(finished == testing.getNachfolger());
+		
+		assertFalse(list.search(new Status("Testing")));
+		
+		list.insertBetween(new Status("Testing"), new Status("Doing"), new Status("Finished"));
+		
+		assertTrue(list.search(new Status("Testing")));
+		assertTrue(list.getHead().getNachfolger().getNachfolger().equals((new Status("Testing"))));
+		assertTrue(list.getHead().getNachfolger().getNachfolger().getNachfolger().equals((new Status("Finished"))));
 	}
 	
 	@Test
 	public void getAllTest(){
 		ArrayList<Status> testliste = list.getAll();
-		assertTrue(testliste.contains(toDo));
-		assertTrue(testliste.contains(doing));
-		assertTrue(testliste.contains(finished));
-		assertFalse(testliste.contains(testing));
+		assertTrue(testliste.contains(new Status("ToDo")));
+		assertTrue(testliste.contains(new Status("Doing")));
+		assertTrue(testliste.contains(new Status("Finished")));
+		assertFalse(testliste.contains(new Status("Testing")));
 	}
 
 }

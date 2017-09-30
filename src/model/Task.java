@@ -1,6 +1,7 @@
 package model;
 
 import java.rmi.RemoteException;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
@@ -273,6 +274,7 @@ public class Task implements RMI_Task{
 	{
 		this.getTags().add(bezeichnung);
 		this.setLetzterNutzer(user);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}
 
 	/**
@@ -287,6 +289,7 @@ public class Task implements RMI_Task{
 	{
 		this.setKommentar(this.getKommentar() + kommentar + "\n");
 		this.setLetzterNutzer(user);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}
 
 	/**
@@ -301,6 +304,7 @@ public class Task implements RMI_Task{
 	{
 		this.setFarbe(farbe);
 		this.setLetzterNutzer(user);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}
 	
 	/**
@@ -321,6 +325,7 @@ public class Task implements RMI_Task{
 				this.getStatus().setVorgaenger(this.status);
 				this.setStatus(this.getStatus().getNachfolger());
 				this.getStatus().setNachfolger(temp);
+				this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 				return true;
 			}
 		}
@@ -348,6 +353,7 @@ public class Task implements RMI_Task{
 			this.getStatus().setNachfolger(this.getStatus());
 			this.setStatus(this.getStatus().getVorgaenger());
 			this.getStatus().setVorgaenger(temp);
+			this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 			return true;
 		}
 		}

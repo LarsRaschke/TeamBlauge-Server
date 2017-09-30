@@ -3,6 +3,7 @@ package model;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,8 +41,28 @@ public class Projekt implements RMI_Projekt{
 	 * @param beschreibung - Projektbeschreibung.
 	 */
 	public Projekt(User user, String projektname, String beschreibung) {
+		
+		this.erstellungsDatum = ZonedDateTime.now(ZoneId.systemDefault());
 		this.ersteller = user;
 		this.projektname = projektname;
+		this.statusliste = new Statusliste();
+		this.beschreibung = beschreibung;
+		users.put(user.getNutzername(), user);
+		this.letzteAenderung = ZonedDateTime.now(ZoneId.systemDefault());
+	}
+	
+	/**
+	 * Konstruktor.
+	 * 
+	 * @param user - Der User, der das Projekt anlegt.
+	 * @param projektname - Name des Projekts.
+	 * @param statusliste - Statusliste des Projekts.
+	 * @param beschreibung - Projektbeschreibung.
+	 */
+	public Projekt(User user, String projektname, Statusliste statusliste, String beschreibung) {
+		this.ersteller = user;
+		this.projektname = projektname;
+		this.statusliste = statusliste;
 		this.beschreibung = beschreibung;
 		users.put(user.getNutzername(), user);
 		
@@ -325,6 +346,7 @@ public class Projekt implements RMI_Projekt{
 	{
 		Task task = new Task(name, kommentar, user);
 		this.addTaskToHashMap(task);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}
 
 	/**
@@ -337,6 +359,7 @@ public class Projekt implements RMI_Projekt{
 	public synchronized void userHinzufügen(User user) 
 	{
 		this.addUserToHashMap(user);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}
 	
 	/**
@@ -349,6 +372,7 @@ public class Projekt implements RMI_Projekt{
 	public synchronized void ändereBeschreibung(String beschreibung)
 	{
 		this.setBeschreibung(beschreibung);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}
 	
 	/**
