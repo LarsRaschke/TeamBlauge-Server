@@ -40,6 +40,7 @@ public class Task implements RMI_Task{
 	 * Konstruktor.
 	 * 
 	 * @param name - Der Taskname.
+	 * @param status - Der Status zum Task.
 	 * @param bescheibung - Beschreibung zum Task.
 	 * @param user - Der Ersteller
 	 */
