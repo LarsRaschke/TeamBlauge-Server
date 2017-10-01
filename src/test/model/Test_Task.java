@@ -29,23 +29,11 @@ public class Test_Task {
 
 	}
 	
-	
 	@Test
-	public void testName() {
-		User user1 = new User("TestNutzername",false, "TestNachname","TestVorname");
-		Task task = new Task("","", user1);
-		assertEquals("", task.getName());
-		task.setName("TestTask");
-		assertEquals("TestTask", task.getName());
-	}
-	@Test
-	public void testKommentar()
+	public void testID()
 	{
-		User user1 = new User("TestNutzername",false, "TestNachname","TestVorname");
-		Task task = new Task("","", user1);
-		assertEquals("", task.getKommentar());
-		task.setKommentar("Test");
-		assertEquals("Test", task.getKommentar());
+		task.setId(9348357);
+		assertEquals(9348357, task.getId());
 	}
 	@Test
 	public void testStatus()
@@ -58,27 +46,12 @@ public class Test_Task {
 		
 	}
 	@Test
-	public void testLetzteAenderung() {
-		ZonedDateTime datum1 = ZonedDateTime.now();
-		task.setLetzteAenderung(datum1);
-		assertEquals(datum1, task.getLetzteAenderung());
-	}
-	@Test
-	public void testFarbe()
-	{
-		task.setFarbe(5);
-		assertEquals(5, task.getFarbe());
-	}
-	@Test
-	public void testID()
-	{
-		task.setId(9348357);
-		assertEquals(9348357, task.getId());
-	}
-	@Test
-	public void testTags()
-	{
-		// fehlt in aktuellstem UML
+	public void testName() {
+		User user1 = new User("TestNutzername",false, "TestNachname","TestVorname");
+		Task task = new Task("","", user1);
+		assertEquals("", task.getName());
+		task.setName("TestTask");
+		assertEquals("TestTask", task.getName());
 	}
 	@Test
 	public void testLetzterNutzer()
@@ -87,53 +60,116 @@ public class Test_Task {
 		task.setLetzterNutzer(user2);
 		assertEquals(user2, task.getLetzterNutzer());
 	}
-	
 	@Test
-	public void testTaskNachVorne(){
-		
-		Statusliste status = new Statusliste();
-		
-		task.setStatus(status.getHead());
-		assertEquals("To Do", task.getStatus().getName());
-		
-		task.taskNachVorneVerschieben();
-		assertEquals("Doing", task.getStatus().getName());
-		
-		task.taskNachVorneVerschieben();
-		assertEquals("Finished", task.getStatus().getName());
-		
-		assertEquals(false, task.taskNachVorneVerschieben());	 		
+	public void testLetzteAenderung() {
+		ZonedDateTime datum1 = ZonedDateTime.now();
+		task.setLetzteAenderung(datum1);
+		assertEquals(datum1, task.getLetzteAenderung());
 	}
-	
 	@Test
-	public void testTaskNachHinten(){
-
-		Statusliste status = new Statusliste();
-		
-		task.setStatus(status.getHead().getNachfolger().getNachfolger());
-		assertEquals("Finished", task.getStatus().getName());
-		
-		task.taskNachHintenVerschieben();
-		assertEquals("Doing", task.getStatus().getName());
-		
-		task.taskNachHintenVerschieben();
-		assertEquals("To Do", task.getStatus().getName());
-		
-		assertEquals(false, task.taskNachHintenVerschieben());			
+	public void testKommentar()
+	{
+		User user1 = new User("TestNutzername",false, "TestNachname","TestVorname");
+		Task task = new Task("","", user1);
+		task.setKommentar("Test");
+		assertEquals("Test", task.getKommentar());
+	}	
+	@Test
+	public void testFarbe()
+	{
+		task.setFarbe(5);
+		assertEquals(5, task.getFarbe());
 	}
-	
 	@Test
-	public void testGetSingleTagNr(){
+	public void testGetSingleTag(){
 		ArrayList<String> tags = new ArrayList<String>();
 		tags.add("tag1");
 		tags.add("tag2");
 		task.setTags(tags);
 		assertEquals("tag1", task.getSingleTag(0));
-		/*
-		 *	Error Fall muss noch rein 
-		 */
 	}
-	
+	@Test
+	public void testSucheTag(){
+		ArrayList<String> tags = new ArrayList<String>();
+		tags.add("tag1");
+		tags.add("tag2");
+		task.setTags(tags);
+		assertEquals(true, task.sucheTag("tag1"));
+		assertEquals(false, task.sucheTag("tag4939"));
+	}
+	@Test
+	public void testLoescheTagByNr(){
+		ArrayList<String> tags = new ArrayList<String>();
+		tags.add("tag1");
+		tags.add("tag2");
+		task.setTags(tags);
+		task.loescheTag(1);
+		assertFalse(task.getTags().contains("tag2"));
+	}
+	@Test
+	public void testLoescheTagByBezeichnung(){
+		ArrayList<String> tags = new ArrayList<String>();
+		tags.add("tag1");
+		tags.add("tag2");
+		task.setTags(tags);
+		task.loescheTag("tag1");
+		assertFalse(task.getTags().contains("tag1"));
+	}
+	@Test
+	public void testFügeTagHinzu(){
+		ArrayList<String> tags = new ArrayList<String>();
+		tags.add("tag1");
+		tags.add("tag2");
+		task.setTags(tags);
+		task.getTags().add("tag3");
+		assertTrue(task.getTags().contains("tag3"));
+	}
+	@Test
+	public void testFügeKommentarHinzu(){
+		String kommentar1 = "Kommentar1";
+		String kommentar2 = "Kommentar2";
+		User user1 = new User(null, false, null, null);
+		task.setKommentar(kommentar1);
+		task.fügeKommentarHinzu(kommentar2, user1);
+		assertEquals(kommentar1 + kommentar2 + "\n", task.getKommentar());
+		assertEquals(user1, task.getLetzterNutzer());
+	}
+	@Test
+	public void testÄndereFarbe(){
+		int farbe = 232425;
+		User user1 = new User(null, false, null, null);
+		task.ändereFarbe(farbe, user1);
+		assertEquals(232425, task.getFarbe());
+		assertEquals(user1, task.getLetzterNutzer());
+	}
+	@Test
+	public void testTaskNachVorneVerschieben(){
+		Status status1 = new Status("toDo");
+		Status status2 = new Status("doing");
+		Status status3 = new Status("finished");
+		task.setStatus(status1);
+		status1.setNachfolger(status2);
+		status2.setNachfolger(status3);
+		task.taskNachVorneVerschieben();
+		assertEquals(status2, task.getStatus());
+		task.taskNachVorneVerschieben();
+		assertEquals(status3, task.getStatus());
+		assertEquals(false, task.taskNachVorneVerschieben());	 		
+	}	
+	@Test
+	public void testTaskNachHintenVerschieben(){
+		Status status1 = new Status("toDo");
+		Status status2 = new Status("doing");
+		Status status3 = new Status("finished");
+		task.setStatus(status3);
+		status3.setVorgaenger(status2);
+		status2.setVorgaenger(status1);
+		task.taskNachHintenVerschieben();
+		assertEquals(status2, task.getStatus());
+		task.taskNachHintenVerschieben();
+		assertEquals(status1, task.getStatus());
+		assertEquals(false, task.taskNachHintenVerschieben());			
+	}		
 	@Test
 	public void testGetSingleTagBezeichnung(){
 		ArrayList<String> tags = new ArrayList<String>();
@@ -141,44 +177,5 @@ public class Test_Task {
 		tags.add("tag2");
 		task.setTags(tags);
 		assertTrue("tag2", task.sucheTag("tag2"));
-		/*
-		 *	Error Fall muss noch rein 
-		 */
-	}
-	
-	@Test
-	public void testLoescheTagNr(){
-		ArrayList<String> tags = new ArrayList<String>();
-		tags.add("tag1");
-		tags.add("tag2");
-		task.setTags(tags);
-		task.loescheTag(1);
-		assertFalse(task.getTags().contains("tag2"));
-		/*
-		 *	Error Fall muss noch rein 
-		 */
-	}
-	
-	@Test
-	public void testLoescheTagBezeichnung(){
-		ArrayList<String> tags = new ArrayList<String>();
-		tags.add("tag1");
-		tags.add("tag2");
-		task.setTags(tags);
-		task.loescheTag("tag1");
-		assertFalse(task.getTags().contains("tag1"));
-		/*
-		 *	Error Fall muss noch rein 
-		 */
-	}
-	
-	@Test
-	public void testErstelleTag(){
-		ArrayList<String> tags = new ArrayList<String>();
-		tags.add("tag1");
-		tags.add("tag2");
-		task.setTags(tags);
-		task.getTags().add("tag3");
-		assertTrue(task.getTags().contains("tag3"));
 	}
 }
