@@ -15,6 +15,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import communication.Server;
 import model.interfaces.RMI_Projekt;
 import xml.XML_translator;
 
@@ -342,11 +343,14 @@ public class Projekt implements RMI_Projekt{
 	 * @param user - Der User, der den Task angelegt hat.
 	 */
 	@Override
-	public synchronized void taskHinzufügen(String name, String kommentar, User user)
+	public synchronized boolean taskHinzufügen(String name, String kommentar, User user)
 	{
-		Task task = new Task(name, kommentar, user);
+		Task task = new Task(name, this.statusliste.getHead(), kommentar, user);
 		this.addTaskToHashMap(task);
 		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
+		Server.server.bindTask(task.getName(), task);
+		
+		return this.speichereProjekt();
 	}
 
 	/**
@@ -356,10 +360,12 @@ public class Projekt implements RMI_Projekt{
 	 * @param user - Der User, der zum Projekt hinzugefügt wird. 
 	 */
 	@Override
-	public synchronized void userHinzufügen(User user) 
+	public synchronized boolean userHinzufügen(User user) 
 	{
 		this.addUserToHashMap(user);
 		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
+		
+		return this.speichereProjekt();
 	}
 	
 	/**

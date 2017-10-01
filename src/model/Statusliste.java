@@ -14,7 +14,7 @@ public class Statusliste {
 	 * Konstruktor für Standart-Statusliste.
 	 */
 	public Statusliste() {
-		this.head = new Status("ToDo");
+		this.head = new Status("To Do");
 		this.insertStatus(new Status("Doing"));
 		this.insertStatus(new Status("Finished"));
 	}

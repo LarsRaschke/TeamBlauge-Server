@@ -36,7 +36,7 @@ public class Test_Statusliste {
 	@Test
 	public void listeTest() {
 		
-		assertTrue(list.getHead().equals((new Status("ToDo"))));
+		assertTrue(list.getHead().equals((new Status("To Do"))));
 		assertTrue(list.getHead().getNachfolger().equals((new Status("Doing"))));
 		assertTrue(list.getHead().getNachfolger().getNachfolger().equals((new Status("Finished"))));
 		assertTrue(list.getHead().getNachfolger().getNachfolger().getNachfolger() == null);
@@ -45,7 +45,7 @@ public class Test_Statusliste {
 	@Test
 	public void searchTest() {
 		
-		assertTrue(list.search(new Status("ToDo")));
+		assertTrue(list.search(new Status("To Do")));
 		assertTrue(list.search(new Status("Doing")));
 		assertTrue(list.search(new Status("Finished")));
 		
@@ -80,7 +80,7 @@ public class Test_Statusliste {
 	@Test
 	public void getAllTest(){
 		ArrayList<Status> testliste = list.getAll();
-		assertTrue(testliste.contains(new Status("ToDo")));
+		assertTrue(testliste.contains(new Status("To Do")));
 		assertTrue(testliste.contains(new Status("Doing")));
 		assertTrue(testliste.contains(new Status("Finished")));
 		assertFalse(testliste.contains(new Status("Testing")));

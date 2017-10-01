@@ -90,31 +90,35 @@ public class Test_Task {
 	
 	@Test
 	public void testTaskNachVorne(){
-		Status status1 = new Status("toDo");
-		Status status2 = new Status("doing");
-		Status status3 = new Status("finished");
-		task.setStatus(status1);
-		status1.setNachfolger(status2);
-		status2.setNachfolger(status3);
+		
+		Statusliste status = new Statusliste();
+		
+		task.setStatus(status.getHead());
+		assertEquals("To Do", task.getStatus().getName());
+		
 		task.taskNachVorneVerschieben();
-		assertEquals(status2, task.getStatus());
+		assertEquals("Doing", task.getStatus().getName());
+		
 		task.taskNachVorneVerschieben();
-		assertEquals(status3, task.getStatus());
+		assertEquals("Finished", task.getStatus().getName());
+		
 		assertEquals(false, task.taskNachVorneVerschieben());	 		
 	}
 	
 	@Test
 	public void testTaskNachHinten(){
-		Status status1 = new Status("toDo");
-		Status status2 = new Status("doing");
-		Status status3 = new Status("finished");
-		task.setStatus(status3);
-		status3.setVorgaenger(status2);
-		status2.setVorgaenger(status1);
+
+		Statusliste status = new Statusliste();
+		
+		task.setStatus(status.getHead().getNachfolger().getNachfolger());
+		assertEquals("Finished", task.getStatus().getName());
+		
 		task.taskNachHintenVerschieben();
-		assertEquals(status2, task.getStatus());
+		assertEquals("Doing", task.getStatus().getName());
+		
 		task.taskNachHintenVerschieben();
-		assertEquals(status1, task.getStatus());
+		assertEquals("To Do", task.getStatus().getName());
+		
 		assertEquals(false, task.taskNachHintenVerschieben());			
 	}
 	
