@@ -43,9 +43,15 @@ public class Test_Statusliste {
 	}
 	
 	@Test
-	public void searchTest() {
-		assertTrue(list.search(toDo));
-		assertFalse(list.search(testing));
+	public void testHead(){
+		list.setHead(toDo);
+		assertEquals(toDo, list.getHead());
+	}
+	
+	@Test
+	public void testLaenge(){
+		list.setLaenge(4972);
+		assertEquals(4972, list.getLaenge());
 	}
 	
 	@Test
@@ -73,4 +79,9 @@ public class Test_Statusliste {
 		assertFalse(testliste.contains(testing));
 	}
 
+	@Test
+	public void searchTest() {
+		assertTrue(list.search(toDo));
+		assertFalse(list.search(testing));
+	}
 }

@@ -24,6 +24,7 @@ public class Test_Status {
 	public void setUp(){
 		
 	}
+	
 	@Test
 	public void testVorgaenger(){
 		status1.setVorgaenger(status2);
