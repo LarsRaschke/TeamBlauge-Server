@@ -172,7 +172,7 @@ public class XML_translator
 			orginalProjekt.setErstellungsDatum(ZonedDateTime.parse(Over.getCreatedOn()));
 			
 			orginalProjekt.setLetzteAenderung(ZonedDateTime.parse(Over.getLastMod()));
-			
+			orginalProjekt.setBeschreibung(pro.getDescription());
 			Statusliste slist = new Statusliste();
 			
 			for(StatusEntries stat: pro.getStatusEntries()) // übergibt Statuslist
@@ -251,7 +251,7 @@ public class XML_translator
 			User orgiUser = new User(Over.getCreator(), true, null, null);
 			orginalProjekt.setErsteller(orgiUser);
 			orginalProjekt.setId(pro.getID());
-			
+			orginalProjekt.setBeschreibung(pro.getDescription());
 			orginalProjekt.setErstellungsDatum(ZonedDateTime.parse(Over.getCreatedOn()));
 			
 			orginalProjekt.setLetzteAenderung(ZonedDateTime.parse(Over.getLastMod()));
