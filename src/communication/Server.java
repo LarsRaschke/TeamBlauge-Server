@@ -10,6 +10,7 @@ import model.Projektmanager;
 import model.Task;
 import model.interfaces.RMI_Projekt;
 import model.interfaces.RMI_Projektmanager;
+import model.interfaces.RMI_Task;
 
 /**
  * Server-Klasse.
@@ -99,7 +100,7 @@ public class Server {
 	{
 		try {
 			
-			RMI_Projekt stub_task = (RMI_Projekt) UnicastRemoteObject.exportObject(task, 0);
+			RMI_Task stub_task = (RMI_Task) UnicastRemoteObject.exportObject(task, 0);
 			Registry registry = LocateRegistry.getRegistry();
 			registry.rebind(identifier, stub_task);
 			

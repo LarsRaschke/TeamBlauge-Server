@@ -1,6 +1,6 @@
 package model;
 
-import java.rmi.RemoteException;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
@@ -11,25 +11,43 @@ import model.interfaces.RMI_Task;
  */
 public class Task implements RMI_Task{
 	
+	private int id;
 	private Status status;
 	private String name;
+	private String beschreibung;
 	private ZonedDateTime letzteAenderung;
-	private String kommentar;
+	private ArrayList<String> kommentar  = new ArrayList<>();
 	private int farbe;
-	private int id;
-	private ArrayList<String> tags;
+	private ArrayList<String> tags = new ArrayList<>();
 	private User letzterNutzer;
 
 	/**
 	 * Konstruktor.
 	 * 
 	 * @param name - Der Taskname.
-	 * @param kommentar - Kommentar zum Task.
+	 * @param bescheibung - Beschreibung zum Task.
 	 * @param user - Der Ersteller
 	 */
-	public Task(String name, String kommentar, User user){
+	public Task(String name, String beschreibung, User user){
 		this.name = name;
-		this.kommentar = kommentar + "\n";
+		this.beschreibung = beschreibung;
+		this.letzteAenderung = ZonedDateTime.now(ZoneId.systemDefault());
+		this.setLetzterNutzer(user);
+	}
+	
+	/**
+	 * Konstruktor.
+	 * 
+	 * @param name - Der Taskname.
+	 * @param status - Der Status zum Task.
+	 * @param bescheibung - Beschreibung zum Task.
+	 * @param user - Der Ersteller
+	 */
+	public Task(String name, Status status, String beschreibung, User user){
+		this.name = name;
+		this.status = status;
+		this.beschreibung = beschreibung;
+		this.letzteAenderung = ZonedDateTime.now(ZoneId.systemDefault());
 		this.setLetzterNutzer(user);
 	}
 	
@@ -91,6 +109,24 @@ public class Task implements RMI_Task{
 	/**
 	 * Getter-Methode.
 	 * 
+	 * @return Die Beschreibung.
+	 */
+	public String getBeschreibung() {
+		return beschreibung;
+	}
+
+	/**
+	 * Setter-Methode.
+	 * 
+	 * @param beschreibung - Die Beschreibung.
+	 */
+	public void setBeschreibung(String beschreibung) {
+		this.beschreibung = beschreibung;
+	}
+
+	/**
+	 * Getter-Methode.
+	 * 
 	 * @return Den letzten Nutzer.
 	 */
 	@Override
@@ -132,7 +168,7 @@ public class Task implements RMI_Task{
 	 * @return Den Kommentar.
 	 */
 	@Override
-	public String getKommentar() {
+	public ArrayList<String> getKommentar() {
 		return kommentar;
 	}
 	
@@ -141,7 +177,7 @@ public class Task implements RMI_Task{
 	 * 
 	 * @param kommentar - Den Kommentar.
 	 */
-	public void setKommentar(String kommentar) {
+	public void setKommentar(ArrayList<String> kommentar) {
 		this.kommentar = kommentar;
 	}
 	
@@ -273,6 +309,7 @@ public class Task implements RMI_Task{
 	{
 		this.getTags().add(bezeichnung);
 		this.setLetzterNutzer(user);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}
 
 	/**
@@ -285,10 +322,26 @@ public class Task implements RMI_Task{
 	@Override
 	public synchronized void fügeKommentarHinzu(String kommentar, User user) 
 	{
-		this.setKommentar(this.getKommentar() + kommentar + "\n");
+		this.kommentar.add(kommentar + " | " + user.getNachname() + ", " + user.getVorname());
 		this.setLetzterNutzer(user);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}
 
+	/**
+	 * Setzt eine neue Beschreibung.
+	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
+	 * 
+	 * @param beschreibung - Die neue Beschreibung.
+	 * @param user - Der User, der die Änderung eingegeben hat.
+	 */
+	@Override
+	public synchronized void ändereBeschreibung(String beschreibung , User user)
+	{
+		this.setBeschreibung(beschreibung);
+		this.setLetzterNutzer(user);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
+	}
+	
 	/**
 	 * Setzt eine neue Farbe.
 	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
@@ -301,6 +354,7 @@ public class Task implements RMI_Task{
 	{
 		this.setFarbe(farbe);
 		this.setLetzterNutzer(user);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}
 	
 	/**
@@ -321,11 +375,12 @@ public class Task implements RMI_Task{
 				this.getStatus().setVorgaenger(this.status);
 				this.setStatus(this.getStatus().getNachfolger());
 				this.getStatus().setNachfolger(temp);
+				this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 				return true;
 			}
 		}
 		catch(NullPointerException npe){
-			System.out.println("NullPointerException gefunden bei taskNachVorne"); // Error Log fehlt noch
+			npe.printStackTrace(); // Error Log fehlt noch
 		}
 		return false;
 	}
@@ -342,17 +397,18 @@ public class Task implements RMI_Task{
 		 */
 		try{
 			Status temp;
-		temp = this.getStatus().getVorgaenger().getVorgaenger();
-		if(this.getStatus().getVorgaenger() != null)
-		{
-			this.getStatus().setNachfolger(this.getStatus());
-			this.setStatus(this.getStatus().getVorgaenger());
-			this.getStatus().setVorgaenger(temp);
-			return true;
-		}
+			temp = this.getStatus().getVorgaenger().getVorgaenger();
+			if(this.getStatus().getVorgaenger() != null)
+			{
+				this.getStatus().setNachfolger(this.getStatus());
+				this.setStatus(this.getStatus().getVorgaenger());
+				this.getStatus().setVorgaenger(temp);
+				this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
+				return true;
+			}
 		}
 		catch(NullPointerException npe){
-			System.out.println("NullPointerException gefunden bei taskNachHinten"); // Error Log fehlt noch
+			npe.printStackTrace(); // Error Log fehlt noch
 		}
 		return false;
 	}

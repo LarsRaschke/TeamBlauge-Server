@@ -74,4 +74,22 @@ public class Status {
 		this.name = name;
 	}
 	
+	@Override
+	public boolean equals(Object object)
+	{
+		if(object == null)
+		{
+			return false;
+		}
+		else if(object instanceof Status == false)
+		{
+			return false;
+		}
+		else if(this == object)
+		{
+			return true;
+		}
+		
+		return this.name.equals(((Status) object).getName());
+	}
 }

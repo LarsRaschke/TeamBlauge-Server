@@ -3,9 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.datatype.DatatypeConfigurationException;
-
 import communication.Server;
 import model.interfaces.RMI_Projektmanager;
 import xml.XML_translator;
@@ -30,11 +27,11 @@ public class Projektmanager implements RMI_Projektmanager {
 	 * @param projektname - Der Projektname.
 	 * @param beschreibung - Die Projektbeschreibung.
 	 */
-	public void erstelleProjekt(User user, String projektname, String beschreibung)
+	public boolean erstelleProjekt(User user, String projektname, String beschreibung)
 	{
 		Projekt projekt = new Projekt(user, projektname, beschreibung);
 		Server.server.bindProjekt(projekt.getProjektname(), projekt);
-		projekt.speichereProjekt();
+		return projekt.speichereProjekt();
 	}
 	
 	/**
