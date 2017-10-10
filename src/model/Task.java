@@ -1,6 +1,5 @@
 package model;
 
-import java.rmi.RemoteException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class Task implements RMI_Task{
 	private String name;
 	private String beschreibung;
 	private ZonedDateTime letzteAenderung;
-	private String kommentar;
+	private ArrayList<String> kommentar  = new ArrayList<>();
 	private int farbe;
 	private ArrayList<String> tags = new ArrayList<>();
 	private User letzterNutzer;
@@ -169,7 +168,7 @@ public class Task implements RMI_Task{
 	 * @return Den Kommentar.
 	 */
 	@Override
-	public String getKommentar() {
+	public ArrayList<String> getKommentar() {
 		return kommentar;
 	}
 	
@@ -178,7 +177,7 @@ public class Task implements RMI_Task{
 	 * 
 	 * @param kommentar - Den Kommentar.
 	 */
-	public void setKommentar(String kommentar) {
+	public void setKommentar(ArrayList<String> kommentar) {
 		this.kommentar = kommentar;
 	}
 	
@@ -323,7 +322,7 @@ public class Task implements RMI_Task{
 	@Override
 	public synchronized void fügeKommentarHinzu(String kommentar, User user) 
 	{
-		this.setKommentar(this.getKommentar() + kommentar + "\n");
+		this.kommentar.add(kommentar + " | " + user.getNachname() + ", " + user.getVorname());
 		this.setLetzterNutzer(user);
 		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
 	}

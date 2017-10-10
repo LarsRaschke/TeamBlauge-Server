@@ -71,8 +71,10 @@ public class Test_Task {
 	{
 		User user1 = new User("TestNutzername",false, "TestNachname","TestVorname");
 		Task task = new Task("","", user1);
-		task.setKommentar("Test");
-		assertEquals("Test", task.getKommentar());
+		ArrayList<String> kommentar = new ArrayList<>();
+		kommentar.add("Test");
+		task.setKommentar(kommentar);
+		assertTrue(task.getKommentar().contains("Test"));
 	}	
 	@Test
 	public void testFarbe()
@@ -129,7 +131,7 @@ public class Test_Task {
 		String kommentar1 = "Kommentar1";
 		String kommentar2 = "Kommentar2";
 		User user1 = new User(null, false, null, null);
-		task.setKommentar(kommentar1);
+		task.fügeKommentarHinzu(kommentar1, user1);
 		task.fügeKommentarHinzu(kommentar2, user1);
 		assertEquals(kommentar1 + kommentar2 + "\n", task.getKommentar());
 		assertEquals(user1, task.getLetzterNutzer());

@@ -3,9 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.datatype.DatatypeConfigurationException;
-
 import communication.Server;
 import model.interfaces.RMI_Projektmanager;
 import xml.XML_translator;

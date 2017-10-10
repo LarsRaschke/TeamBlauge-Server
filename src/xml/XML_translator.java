@@ -78,7 +78,7 @@ public class XML_translator
 		{
 			xml.projects.Project.TaskEntries xmlTask = ocFachPro.createProjectTaskEntries();
 			xmlTask.setColor(ta.getFarbe());
-			xmlTask.setComment(ta.getKommentar());
+			//xmlTask.setComment(ta.getKommentar());
 			xmlTask.setID(ta.getId());
 			xmlTask.setLastMod(ta.getLetzteAenderung().toString());
 			xmlTask.setStatusname(ta.getStatus().getName());
@@ -156,7 +156,7 @@ public class XML_translator
 				Task orgiTask = new Task(tAs.getTaskname(), null, null);
 				orgiTask.setFarbe(tAs.getColor());
 				orgiTask.setId(tAs.getID());
-				orgiTask.setKommentar(tAs.getComment());
+				//orgiTask.setKommentar(tAs.getComment());
 				orgiTask.setLetzteAenderung(lasttime);
 				User oris = new User(tAs.getLastUser(), true, null, null);
 				orgiTask.setLetzterNutzer(oris);
@@ -222,7 +222,7 @@ public class XML_translator
 				Task orgiTask = new Task(tAs.getTaskname(), null, null);
 				orgiTask.setFarbe(tAs.getColor());
 				orgiTask.setId(tAs.getID());
-				orgiTask.setKommentar(tAs.getComment());
+				//orgiTask.setKommentar(tAs.getComment());
 				orgiTask.setLetzteAenderung(lasttime);
 				User oris = new User(tAs.getLastUser(), true, null, null);
 				orgiTask.setLetzterNutzer(oris);
