@@ -2,7 +2,7 @@
 // Diese Datei wurde mit der JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.8-b130911.1802 generiert 
 // Siehe <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Änderungen an dieser Datei gehen bei einer Neukompilierung des Quellschemas verloren. 
-// Generiert: 2017.09.14 um 10:56:25 AM CEST 
+// Generiert: 2017.10.10 um 12:58:17 PM CEST 
 //
 
 
@@ -40,10 +40,17 @@ import javax.xml.bind.annotation.XmlValue;
  *                   &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="lastMod" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                   &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *                   &lt;element name="lastUser" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="tagEntries" maxOccurs="unbounded" minOccurs="0">
+ *                     &lt;complexType>
+ *                       &lt;simpleContent>
+ *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+ *                         &lt;/extension>
+ *                       &lt;/simpleContent>
+ *                     &lt;/complexType>
+ *                   &lt;/element>
+ *                   &lt;element name="commentEntires" maxOccurs="unbounded" minOccurs="0">
  *                     &lt;complexType>
  *                       &lt;simpleContent>
  *                         &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
@@ -350,10 +357,17 @@ public class Project {
      *         &lt;element name="taskname" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="statusname" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="lastMod" type="{http://www.w3.org/2001/XMLSchema}string"/>
-     *         &lt;element name="comment" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="color" type="{http://www.w3.org/2001/XMLSchema}int"/>
      *         &lt;element name="lastUser" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="tagEntries" maxOccurs="unbounded" minOccurs="0">
+     *           &lt;complexType>
+     *             &lt;simpleContent>
+     *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+     *               &lt;/extension>
+     *             &lt;/simpleContent>
+     *           &lt;/complexType>
+     *         &lt;/element>
+     *         &lt;element name="commentEntires" maxOccurs="unbounded" minOccurs="0">
      *           &lt;complexType>
      *             &lt;simpleContent>
      *               &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
@@ -375,10 +389,10 @@ public class Project {
         "taskname",
         "statusname",
         "lastMod",
-        "comment",
         "color",
         "lastUser",
-        "tagEntries"
+        "tagEntries",
+        "commentEntires"
     })
     public static class TaskEntries {
 
@@ -388,12 +402,11 @@ public class Project {
         protected String statusname;
         @XmlElement(required = true)
         protected String lastMod;
-        @XmlElement(required = true)
-        protected String comment;
         protected int color;
         @XmlElement(required = true)
         protected String lastUser;
         protected List<Project.TaskEntries.TagEntries> tagEntries;
+        protected List<Project.TaskEntries.CommentEntires> commentEntires;
         @XmlAttribute(name = "ID")
         protected Integer id;
 
@@ -470,30 +483,6 @@ public class Project {
         }
 
         /**
-         * Ruft den Wert der comment-Eigenschaft ab.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getComment() {
-            return comment;
-        }
-
-        /**
-         * Legt den Wert der comment-Eigenschaft fest.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setComment(String value) {
-            this.comment = value;
-        }
-
-        /**
          * Ruft den Wert der color-Eigenschaft ab.
          * 
          */
@@ -563,6 +552,35 @@ public class Project {
         }
 
         /**
+         * Gets the value of the commentEntires property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the commentEntires property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getCommentEntires().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link Project.TaskEntries.CommentEntires }
+         * 
+         * 
+         */
+        public List<Project.TaskEntries.CommentEntires> getCommentEntires() {
+            if (commentEntires == null) {
+                commentEntires = new ArrayList<Project.TaskEntries.CommentEntires>();
+            }
+            return this.commentEntires;
+        }
+
+        /**
          * Ruft den Wert der id-Eigenschaft ab.
          * 
          * @return
@@ -584,6 +602,58 @@ public class Project {
          */
         public void setID(Integer value) {
             this.id = value;
+        }
+
+
+        /**
+         * <p>Java-Klasse für anonymous complex type.
+         * 
+         * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
+         * 
+         * <pre>
+         * &lt;complexType>
+         *   &lt;simpleContent>
+         *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+         *     &lt;/extension>
+         *   &lt;/simpleContent>
+         * &lt;/complexType>
+         * </pre>
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+            "value"
+        })
+        public static class CommentEntires {
+
+            @XmlValue
+            protected String value;
+
+            /**
+             * Ruft den Wert der value-Eigenschaft ab.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getValue() {
+                return value;
+            }
+
+            /**
+             * Legt den Wert der value-Eigenschaft fest.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setValue(String value) {
+                this.value = value;
+            }
+
         }
 
 

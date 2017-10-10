@@ -14,11 +14,11 @@ import javax.xml.bind.annotation.*;
 import javax.xml.datatype.DatatypeConfigurationException;
 import org.xml.sax.SAXException;
 
-import xml.projects.Project;
+import xml.XsdValidation;
 import xml.projectlist.Projectlist;
 import xml.projectlist.Projectlist.ProjectOverviewEntries;
 import xml.projectlist.Projectlist.ProjectOverviewEntries.UserEntries;
-import xml.XsdValidation;
+import xml.projects.Project;
 
 
 /*

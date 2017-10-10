@@ -16,20 +16,21 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import org.xml.sax.SAXException;
 
 import model.interfaces.RMI_Projektmanager;
-import xml.projectlist.Projectlist.ProjectOverviewEntries.UserEntries;
-import xml.projectlist.Projectlist.ProjectOverviewEntries;
-import xml.projects.ObjectFactoryProjects;
 import xml.projectlist.ObjectFactory;
+import xml.projectlist.Projectlist;
+import xml.projectlist.Projectlist.ProjectOverviewEntries;
+import xml.projectlist.Projectlist.ProjectOverviewEntries.UserEntries;
+import xml.projects.ObjectFactoryProjects;
 import xml.projects.Project;
 import xml.projects.Project.StatusEntries;
-import xml.projects.Project.TaskEntries.TagEntries;
 import xml.projects.Project.TaskEntries;
+import xml.projects.Project.TaskEntries.TagEntries;
+import xml.projects.Project.TaskEntries.CommentEntires;
 import model.Projekt;
 import model.Status;
 import model.Statusliste;
 import model.Task;
 import model.User;
-import xml.projectlist.Projectlist;
 
 /*
  * Übersetzungklasse
@@ -83,6 +84,21 @@ public class XML_translator
 			xmlTask.setLastMod(ta.getLetzteAenderung().toString());
 			xmlTask.setStatusname(ta.getStatus().getName());
 			xmlTask.setTaskname(ta.getName());
+			xml.projects.Project.TaskEntries.CommentEntires xmlcomment = ocFachPro.createProjectTaskEntriesCommentEntires();
+			for (String komm : ta.getKommentar())
+			{
+				xmlcomment.setValue(komm);
+			}
+			xmlTask.getCommentEntires().add(xmlcomment);
+			
+			xml.projects.Project.TaskEntries.TagEntries xmlTag = ocFachPro.createProjectTaskEntriesTagEntries();
+			
+			for(String tas: ta.getTags())
+			{
+				xmlTag.setValue(tas);
+			}
+			xmlTask.getTagEntries().add(xmlTag);
+			
 			xmlProject.getTaskEntries().add(xmlTask);
 
 		}
@@ -93,7 +109,8 @@ public class XML_translator
 		
 		if( orginalStatusListe !=null)
 		{
-			for(Status st:orginalStatusListe.getAll()) // übergibt StatusList
+			
+			for(model.Status st:orginalStatusListe.getAll()) // übergibt StatusList
 			{
 				StatusEntries stat = ocFachPro.createProjectStatusEntries();
 				stat.setStatus(st.getName());
@@ -172,12 +189,29 @@ public class XML_translator
 				Task orgiTask = new Task(tAs.getTaskname(), null, null);
 				orgiTask.setFarbe(tAs.getColor());
 				orgiTask.setId(tAs.getID());
-				//orgiTask.setKommentar(tAs.getComment());
+				
 				orgiTask.setLetzteAenderung(lasttime);
 				User oris = new User(tAs.getLastUser(), true, null, null);
 				orgiTask.setLetzterNutzer(oris);
 				Status orStat = new Status(tAs.getStatusname());
 				orgiTask.setStatus(orStat);
+				
+				ArrayList<String> orgitags = new ArrayList<>();
+				
+				for(TagEntries Tag: tAs.getTagEntries())
+				{
+					orgitags.add(Tag.getValue());			
+				}
+				orgiTask.setTags(orgitags);
+				
+				ArrayList<String> orgitComs = new ArrayList<>();
+				
+				for(CommentEntires com: tAs.getCommentEntires())
+				{
+					orgitComs.add(com.getValue());			
+				}
+				orgiTask.setTags(orgitComs);
+				
 				
 			}
 			
@@ -244,6 +278,22 @@ public class XML_translator
 				orgiTask.setLetzterNutzer(oris);
 				Status orStat = new Status(tAs.getStatusname());
 				orgiTask.setStatus(orStat);
+				
+				ArrayList<String> orgitags = new ArrayList<>();
+				
+				for(TagEntries Tag: tAs.getTagEntries())
+				{
+					orgitags.add(Tag.getValue());			
+				}
+				orgiTask.setTags(orgitags);
+				
+				ArrayList<String> orgitComs = new ArrayList<>();
+				
+				for(CommentEntires com: tAs.getCommentEntires())
+				{
+					orgitComs.add(com.getValue());			
+				}
+				orgiTask.setTags(orgitComs);
 				
 			}
 			
