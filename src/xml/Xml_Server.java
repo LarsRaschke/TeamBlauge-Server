@@ -45,7 +45,7 @@ public class Xml_Server {
 	public static void saveProject(Project project, ProjectOverviewEntries projectOverviewEntries)
 			throws JAXBException, DatatypeConfigurationException, FileNotFoundException, SAXException, IOException {
 		marshalToProjectFile(project);
-		XsdValidation.validateProjects(project.getID(), project.getProjectname());
+		//XsdValidation.validateProjects(project.getID(), project.getProjectname());
 
 		deleteEntryInProjectlist(projectOverviewEntries.getID());
 		Projectlist xmlProjectlist = unmarshalFromProjectlistFile();
