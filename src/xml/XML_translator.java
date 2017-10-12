@@ -55,10 +55,14 @@ public class XML_translator
 	public static void createProject(Projekt orginalProjekt) throws JAXBException, FileNotFoundException, DatatypeConfigurationException, SAXException, IOException
 	{
 		ObjectFactory ocFac = new ObjectFactory();
-		HashMap<String, User> users = orginalProjekt.getUsers();
+		
+		HashMap<String, User> users = null;
+	
+			users = orginalProjekt.getUsers();
+
 		ProjectOverviewEntries prooverentries = ocFac.createProjectlistProjectOverviewEntries();
 		
-		ProjectOverviewEntries.UserEntries  usList = ocFac.createProjectlistProjectOverviewEntriesUserEntries();
+		//ProjectOverviewEntries.UserEntries  usList = ocFac.createProjectlistProjectOverviewEntriesUserEntries();
 		
 		for (User us:users.values())   // übergibt User
 		{
@@ -82,7 +86,10 @@ public class XML_translator
 			//xmlTask.setComment(ta.getKommentar());
 			xmlTask.setID(ta.getId());
 			xmlTask.setLastMod(ta.getLetzteAenderung().toString());
+			if (ta.getStatus().getName() != null)
+			{
 			xmlTask.setStatusname(ta.getStatus().getName());
+			}
 			xmlTask.setTaskname(ta.getName());
 			xml.projects.Project.TaskEntries.CommentEntires xmlcomment = ocFachPro.createProjectTaskEntriesCommentEntires();
 			for (String komm : ta.getKommentar())

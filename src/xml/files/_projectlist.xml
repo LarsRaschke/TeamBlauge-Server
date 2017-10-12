@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<projectlist>
+    <projectOverviewEntries ID="0">
+        <creator>MCD</creator>
+        <userEntries Admin="false">MCD2</userEntries>
+        <userEntries Admin="false">MCD3</userEntries>
+        <userEntries Admin="false">MCD4</userEntries>
+        <userEntries Admin="false">MCD5</userEntries>
+        <userEntries Admin="true">MCD</userEntries>
+    </projectOverviewEntries>
+    <projectOverviewEntries ID="1">
+        <creator>MCD</creator>
+        <userEntries Admin="false">MCD2</userEntries>
+        <userEntries Admin="false">MCD3</userEntries>
+        <userEntries Admin="false">MCD4</userEntries>
+        <userEntries Admin="false">MCD5</userEntries>
+        <userEntries Admin="true">MCD</userEntries>
+    </projectOverviewEntries>
+    <projectOverviewEntries ID="3">
+        <creator>MCD</creator>
+        <userEntries Admin="false">MCD2</userEntries>
+        <userEntries Admin="false">MCD3</userEntries>
+        <userEntries Admin="false">MCD4</userEntries>
+        <userEntries Admin="false">MCD5</userEntries>
+        <userEntries Admin="true">MCD</userEntries>
+    </projectOverviewEntries>
+    <projectOverviewEntries ID="4">
+        <creator>MCD</creator>
+        <userEntries Admin="false">MCD2</userEntries>
+        <userEntries Admin="false">MCD3</userEntries>
+        <userEntries Admin="false">MCD4</userEntries>
+        <userEntries Admin="false">MCD5</userEntries>
+        <userEntries Admin="true">MCD</userEntries>
+    </projectOverviewEntries>
+</projectlist>
