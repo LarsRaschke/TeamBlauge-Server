@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -74,11 +75,32 @@ public class test_for_xml {
 
 	public static void main(String[] args) throws FileNotFoundException, JAXBException, DatatypeConfigurationException, SAXException, IOException
 	{
-		// TODO Auto-generated method stub
 		
-		Projekt pro = FakeProjekt("Beta", 4);
+		////Eingeben von Projekten
+		//Projekt pro = FakeProjekt("bll", 4);
 		
-		XML_translator.createProject(pro);
+		//XML_translator.createProject(pro);
+		
+		
+		
+		///Ausgabe von Mehreren Projekten
+		/*int i = 0;
+		User us1 = new User("MCD2", false, "hans", "Peter");
+		List<Projekt> list = XML_translator.multiProject(us1);
+		for (Projekt pro: list)
+		{
+			i++;
+		}
+		*/
+		
+		////Ausgabe ein Projekt
+		
+		Projekt pro = XML_translator.singelProject(1);
+		String dis = pro.getBeschreibung();
+		
+		
+		
+		
 		
 
 	}

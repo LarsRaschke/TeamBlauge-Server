@@ -148,6 +148,7 @@ public class XML_translator
 		xmlProject.setProjectname(orginalProjekt.getProjektname());
 		
 		prooverentries.setID(orginalProjekt.getId());
+		prooverentries.setProjectname(orginalProjekt.getProjektname());
 		
 		Xml_Server.saveProject(xmlProject, prooverentries); // speichert das Projekt
 
@@ -175,10 +176,23 @@ public class XML_translator
 			User orgiUser = new User(Over.getCreator(), true, null, null);
 			orginalProjekt.setErsteller(orgiUser);
 			orginalProjekt.setId(pro.getID());
-			
+			if(Over.getCreatedOn()!= null)
+			{
 			orginalProjekt.setErstellungsDatum(ZonedDateTime.parse(Over.getCreatedOn()));
-			
+			}
+			else
+			{
+				orginalProjekt.setErstellungsDatum(ZonedDateTime.now());
+			}
+			if(Over.getCreatedOn()!= null)
+			{	
 			orginalProjekt.setLetzteAenderung(ZonedDateTime.parse(Over.getLastMod()));
+			}
+			else
+			{
+			orginalProjekt.setErstellungsDatum(ZonedDateTime.now());
+			}
+			
 			orginalProjekt.setBeschreibung(pro.getDescription());
 			Statusliste slist = new Statusliste();
 			
@@ -241,7 +255,7 @@ public class XML_translator
 	 * @throws JAXBException
 	 * @throws DatatypeConfigurationException
 	 */
-	public Projekt singelProject(int ID) throws JAXBException, DatatypeConfigurationException
+	public static Projekt singelProject(int ID) throws JAXBException, DatatypeConfigurationException
 	{
 		
 		Projekt orginalProjekt = null;
@@ -258,10 +272,25 @@ public class XML_translator
 			User orgiUser = new User(Over.getCreator(), true, null, null);
 			orginalProjekt.setErsteller(orgiUser);
 			orginalProjekt.setId(pro.getID());
-			orginalProjekt.setBeschreibung(pro.getDescription());
+			if(Over.getCreatedOn()!= null)
+			{
 			orginalProjekt.setErstellungsDatum(ZonedDateTime.parse(Over.getCreatedOn()));
-			
+			}
+			else
+			{
+				orginalProjekt.setErstellungsDatum(ZonedDateTime.now());
+			}
+			if(Over.getCreatedOn()!= null)
+			{	
 			orginalProjekt.setLetzteAenderung(ZonedDateTime.parse(Over.getLastMod()));
+			}
+			else
+			{
+			orginalProjekt.setErstellungsDatum(ZonedDateTime.now());
+			}
+			
+			
+			
 			
 			Statusliste slist = new Statusliste();
 			

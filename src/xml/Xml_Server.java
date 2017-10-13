@@ -156,20 +156,27 @@ public class Xml_Server {
 	 * @throws DatatypeConfigurationException
 	 */
 	public static HashMap<Project, ProjectOverviewEntries> getProjectsByUser(String userName)
-			throws JAXBException, DatatypeConfigurationException {
+			throws JAXBException, DatatypeConfigurationException
+	{
 		HashMap<Project, ProjectOverviewEntries> wlist = new HashMap<Project, ProjectOverviewEntries>();
 		Projectlist projectList = unmarshalFromProjectlistFile();
 
-		Iterator<ProjectOverviewEntries> projectIterator = projectList.getProjectOverviewEntries().iterator();
-		while (projectIterator.hasNext()) {
+		//Iterator<ProjectOverviewEntries> projectIterator =    projectList.getProjectOverviewEntries().listIterator();
+		//	while (projectIterator.hasNext())
+	//		{
+				for(ProjectOverviewEntries en: projectList.getProjectOverviewEntries())
+				{
+				
+		
 
-			Iterator<UserEntries> userIterator = projectIterator.next().getUserEntries().iterator();
+			//Iterator<UserEntries> userIterator = en.getUserEntries();//				next().getUserEntries().iterator();
 
-			while (userIterator.hasNext()) {
-				if (userName.equals(userIterator.next().getValue())) {
-					Project projectMatch = unmarshalFromProjectFile(projectIterator.next().getID(),
-							projectIterator.next().getProjectname());
-					wlist.put(projectMatch, projectIterator.next());
+			for (UserEntries us : en.getUserEntries()) 
+			{
+				if (userName.equals(us.getValue())) 
+				{
+					Project projectMatch = unmarshalFromProjectFile(en.getID(),en.getProjectname());
+					wlist.put(projectMatch, en);
 
 				}
 			}
