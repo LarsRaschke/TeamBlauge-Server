@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<project ID="3">
-    <projectname>Beta</projectname>
+<project ID="2">
+    <projectname>bll</projectname>
     <description>Kauabanga</description>
     <taskEntries ID="0">
         <taskname>Hausaufgaben1</taskname>
         <statusname>Do</statusname>
-        <lastMod>2017-10-12T15:15:34.432+02:00[Europe/Berlin]</lastMod>
+        <lastMod>2017-10-12T15:26:26.477+02:00[Europe/Berlin]</lastMod>
         <color>0</color>
         <tagEntries>hans</tagEntries>
         <commentEntires>joj | hans, Peter</commentEntires>
@@ -13,7 +13,7 @@
     <taskEntries ID="0">
         <taskname>Hausaufgaben2</taskname>
         <statusname>Did</statusname>
-        <lastMod>2017-10-12T15:15:34.432+02:00[Europe/Berlin]</lastMod>
+        <lastMod>2017-10-12T15:26:26.477+02:00[Europe/Berlin]</lastMod>
         <color>0</color>
         <tagEntries>hans</tagEntries>
         <commentEntires>joj | hans, Peter</commentEntires>
@@ -21,7 +21,7 @@
     <taskEntries ID="0">
         <taskname>Hausaufgaben3</taskname>
         <statusname>Done</statusname>
-        <lastMod>2017-10-12T15:15:34.433+02:00[Europe/Berlin]</lastMod>
+        <lastMod>2017-10-12T15:26:26.477+02:00[Europe/Berlin]</lastMod>
         <color>0</color>
         <tagEntries>hans</tagEntries>
         <commentEntires>joj | hans, Peter</commentEntires>
@@ -29,7 +29,7 @@
     <taskEntries ID="0">
         <taskname>Hausaufgaben4</taskname>
         <statusname>Do</statusname>
-        <lastMod>2017-10-12T15:15:34.433+02:00[Europe/Berlin]</lastMod>
+        <lastMod>2017-10-12T15:26:26.477+02:00[Europe/Berlin]</lastMod>
         <color>0</color>
         <tagEntries>hans</tagEntries>
         <commentEntires>joj | hans, Peter</commentEntires>

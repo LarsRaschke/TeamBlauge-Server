@@ -16,6 +16,7 @@ import model.Statusliste;
 import model.Task;
 import model.User;
 import xml.XML_translator;
+import model.Projektmanager;
 
 public class test_for_xml {
 	
@@ -95,11 +96,21 @@ public class test_for_xml {
 		
 		////Ausgabe ein Projekt
 		
-		Projekt pro = XML_translator.singelProject(1);
-		String dis = pro.getBeschreibung();
+		//Projekt pro = XML_translator.singelProject(1);
+		//String dis = pro.getBeschreibung();
+		Projektmanager pro = new Projektmanager();
+		
+		User us1 = new User("MCD2", false, "hans", "Peter");
+		boolean jo = pro.erstelleProjekt(us1, "Anke Challenge", "das geht steil");
 		
 		
-		
+	/*	ArrayList<String> jo = pro.ladeProjekte(us1);
+		int i = 0;
+		for (String po: jo)
+		{
+			i++;
+		}
+		*/
 		
 		
 
