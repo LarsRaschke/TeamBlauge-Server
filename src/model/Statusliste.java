@@ -104,6 +104,30 @@ public class Statusliste {
 			}
 		}		
 	}
+	
+	/**
+	 * Fügt einen Status nach einem ausgewählten Stati ein.
+	 * 
+	 * @param status - Der Status, der eingefügt wird.
+	 * @param vorg - Der Vorgänger-Status.
+	 */
+	public void insertAfter(Status status, String vorg) {
+		if (this.search(vorg)) {
+			Status lauf = this.head;
+			while(lauf != null && !lauf.getName().equals(vorg)) {
+				lauf = lauf.getNachfolger();
+			}
+			if(lauf.getName().equals(vorg)) {
+				status.setNachfolger(lauf.getNachfolger());
+				if(lauf.getNachfolger() != null)
+				{
+					lauf.getNachfolger().setVorgaenger(status);
+				}
+				status.setVorgaenger(lauf);
+				lauf.setNachfolger(status);
+			}
+		}		
+	}
 
 	/**
 	 * Gibt alle in der Liste enthaltenen Stati zurück.
@@ -121,6 +145,21 @@ public class Statusliste {
 	}
 	
 	/**
+	 * Gibt alle in der Liste enthaltenen Stati zurück.
+	 * 
+	 * @return Eine ArrayList mit allen Stati.
+	 */
+	public ArrayList<String> getAllNames() {
+		ArrayList<String> erg = new ArrayList<>();
+		Status tmp = this.head;
+		while (tmp != null) {
+			erg.add(tmp.getName());
+			tmp = tmp.getNachfolger();
+		}
+		return (erg);
+	}
+	
+	/**
 	 * Sucht einen Status in der Liste.
 	 * 
 	 * @param status - Der gesuchte Status
@@ -130,6 +169,21 @@ public class Statusliste {
 	public boolean search(Status status) {
 		Status lauf = this.head;
 		while (lauf != null && !lauf.equals(status)) {
+			lauf = lauf.getNachfolger();
+		}
+		return (lauf != null);
+	}
+	
+	/**
+	 * Sucht einen Status in der Liste.
+	 * 
+	 * @param status - Der gesuchte Status
+	 * 
+	 * @return True, falls der Status in der Liste enthalten ist, andernfalls False.
+	 */
+	public boolean search(String status) {
+		Status lauf = this.head;
+		while (lauf != null && !lauf.getName().equals(status)) {
 			lauf = lauf.getNachfolger();
 		}
 		return (lauf != null);

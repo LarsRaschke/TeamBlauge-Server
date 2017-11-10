@@ -36,4 +36,10 @@
         <userEntries Admin="false">MCD5</userEntries>
         <userEntries Admin="true">MCD</userEntries>
     </projectOverviewEntries>
+    <projectOverviewEntries ID="0">
+        <projectname>Test</projectname>
+        <creator>dummy</creator>
+        <createdOn>2017-11-10T00:11:10.428+01:00[Europe/Berlin]</createdOn>
+        <userEntries Admin="true">dummy</userEntries>
+    </projectOverviewEntries>
 </projectlist>

@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import model.Projekt;
 import model.Projektmanager;
@@ -18,9 +19,11 @@ import model.interfaces.RMI_Task;
  * @author withakea
  *
  */
-public class Server {
+public class Server implements ServerComm{
 
 	public static Server server;
+	
+	private ArrayList<ClientComm> clients = new ArrayList<>();
 	
 	/**
 	 * Konstruktor.
@@ -43,6 +46,12 @@ public class Server {
 			
 			Projektmanager manager = new Projektmanager();
 			server.bindProjektmanager("manager", manager);
+			
+			System.out.println("2");
+			
+//			ServerComm stub_server = (ServerComm) UnicastRemoteObject.exportObject(server, 0);
+//			Registry registry = LocateRegistry.getRegistry();
+//			registry.rebind("Server", stub_server);
 			
 			System.out.println("2");
 
@@ -107,5 +116,35 @@ public class Server {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void register(ClientComm client) throws RemoteException {
+		
+		this.clients.add(client);
+	}
+
+	@Override
+	public void unregister(ClientComm client) throws RemoteException {
+		
+		this.clients.remove(client);
+	}
+
+	@Override
+	public void notifyClients(ClientComm client) throws RemoteException {
+
+		for(ClientComm notifyClient : this.clients)
+		{
+			if(!notifyClient.equals(client))
+			{
+				try {
+					client.notifyChanges();
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 }

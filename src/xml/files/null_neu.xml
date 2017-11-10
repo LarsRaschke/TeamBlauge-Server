@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project>
+    <projectname>neu</projectname>
+    <lastMod>2017-11-09T01:41:03.884+01:00[Europe/Berlin]</lastMod>
+    <description>testuser</description>
+    <statusEntries>
+        <status>To Do</status>
+    </statusEntries>
+    <statusEntries>
+        <status>Doing</status>
+    </statusEntries>
+    <statusEntries>
+        <status>Finished</status>
+    </statusEntries>
+</project>

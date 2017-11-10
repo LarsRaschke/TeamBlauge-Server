@@ -54,12 +54,14 @@ public class Projekt implements RMI_Projekt{
 	 * @param beschreibung - Projektbeschreibung.
 	 */
 	public Projekt(User user, String projektname, Statusliste statusliste, String beschreibung) {
+		
+		this.erstellungsDatum = ZonedDateTime.now(ZoneId.systemDefault());
 		this.ersteller = user;
 		this.projektname = projektname;
 		this.statusliste = statusliste;
 		this.beschreibung = beschreibung;
 		users.put(user.getNutzername(), user);
-		
+		this.letzteAenderung = ZonedDateTime.now(ZoneId.systemDefault());
 	}
 
 	/**
@@ -328,6 +330,18 @@ public class Projekt implements RMI_Projekt{
 	}
 	
 	/**
+	 * Gibt eine Liste aller Statusnamen in georneter Reihenfolge zurück.
+	 * Mehr Informationen werden für die erste Anzeige im KanbanBoard nicht benötigt.
+	 * 
+	 * @return Die Liste aller Stati in dem gegebenen Format.
+	 */
+	@Override
+	public List<String> statusListe() throws RemoteException {
+		List<String> statusList = this.statusliste.getAllNames();
+		return statusList;
+	}
+	
+	/**
 	 * Fügt einen Task aus den Eingaben in der GUI hinzu.
 	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
 	 * 
@@ -362,16 +376,35 @@ public class Projekt implements RMI_Projekt{
 	}
 	
 	/**
+	 * Fügt einen Status aus den Eingaben in der GUI hinzu.
+	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
+	 * 
+	 * @param statusname - Der Status, der zum Projekt hinzugefügt wird. 
+	 * @param vorgänger - Der Status, nach dem hinzugefügt wird. 
+	 */
+	@Override
+	public synchronized boolean statusHinzufügen(String statusname, String vorgänger) 
+	{
+		Status neuerStatus = new Status(statusname);
+		this.statusliste.insertAfter(neuerStatus, vorgänger);
+		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
+		
+		return this.speichereProjekt();
+	}
+	
+	/**
 	 * Ändert die Projektbeschreibung.
 	 * Synchronisiert um gleichzeitiges Schreiben zu verhindern.
 	 * 
 	 * @param beschreibung - Die neue Projektbeschreibung.
 	 */
 	@Override
-	public synchronized void ändereBeschreibung(String beschreibung)
+	public synchronized boolean ändereBeschreibung(String beschreibung)
 	{
 		this.setBeschreibung(beschreibung);
 		this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
+		
+		return this.speichereProjekt();
 	}
 	
 	/**
@@ -384,7 +417,7 @@ public class Projekt implements RMI_Projekt{
 		boolean isWorking = false;
 		
 		try {
-			XML_translator.createProject(this);
+//			XML_translator.createProject(this);
 			isWorking = true;
 		} catch (Exception e) {
 			e.printStackTrace();

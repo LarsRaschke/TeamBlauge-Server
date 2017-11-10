@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<project>
+    <projectname>Testing</projectname>
+    <lastMod>2017-11-09T00:05:53.518+01:00[Europe/Berlin]</lastMod>
+    <description>testing</description>
+    <statusEntries>
+        <status>To Do</status>
+    </statusEntries>
+    <statusEntries>
+        <status>Doing</status>
+    </statusEntries>
+    <statusEntries>
+        <status>Finished</status>
+    </statusEntries>
+</project>

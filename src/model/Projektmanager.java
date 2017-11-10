@@ -47,7 +47,7 @@ public class Projektmanager implements RMI_Projektmanager {
 		
 		List<Projekt> projekte = new ArrayList<>();
 		try {
-			projekte = XML_translator.multiProject(user);
+//			projekte = XML_translator.multiProject(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

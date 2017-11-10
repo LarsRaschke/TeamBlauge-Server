@@ -18,6 +18,8 @@ public class Test_Task {
 
 	Task task = null;
 	
+	Statusliste statusliste;
+	
 	/**
 	 * set up for the test cases.
 	 */
@@ -26,6 +28,12 @@ public class Test_Task {
 		
 		User user1 = new User("TestNutzername",false, "TestNachname","TestVorname");
 		task = new Task("3Pkt Contest", "nothing but net",user1);
+		
+		statusliste = new Statusliste();
+		statusliste.insertAfter(new Status("Testing"), "Doing");
+		statusliste.insertAfter(new Status("Verify"), "Finished");
+		
+		System.out.println(statusliste.getAllNames());
 
 	}
 	
@@ -172,6 +180,86 @@ public class Test_Task {
 		assertEquals(status1, task.getStatus());
 		assertEquals(false, task.taskNachHintenVerschieben());			
 	}		
+	
+	@Test
+	public void testVerschieben() {
+		
+		task.setStatus(statusliste.getHead());
+		assertEquals(task.getStatus().getName(), "To Do");
+		assertEquals(task.getStatus().getVorgaenger(), null);
+		assertEquals(task.getStatus().getNachfolger().getName(), "Doing");
+		
+		task.taskNachVorneVerschieben();
+		assertEquals(task.getStatus().getName(), "Doing");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "To Do");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Testing");
+		
+		task.taskNachVorneVerschieben();
+		assertEquals(task.getStatus().getName(), "Testing");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "Doing");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Finished");
+		
+		task.taskNachHintenVerschieben();
+		assertEquals(task.getStatus().getName(), "Doing");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "To Do");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Testing");
+		
+		task.taskNachVorneVerschieben();
+		assertEquals(task.getStatus().getName(), "Testing");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "Doing");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Finished");
+		
+		task.taskNachVorneVerschieben();
+		assertEquals(task.getStatus().getName(), "Finished");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "Testing");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Verify");
+		
+		task.taskNachVorneVerschieben();
+		assertEquals(task.getStatus().getName(), "Verify");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "Finished");
+		assertEquals(task.getStatus().getNachfolger(), null);
+		
+		task.taskNachHintenVerschieben();
+		assertEquals(task.getStatus().getName(), "Finished");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "Testing");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Verify");
+		
+		task.taskNachHintenVerschieben();
+		assertEquals(task.getStatus().getName(), "Testing");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "Doing");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Finished");
+		
+		task.taskNachVorneVerschieben();
+		assertEquals(task.getStatus().getName(), "Finished");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "Testing");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Verify");
+		
+		task.taskNachHintenVerschieben();
+		assertEquals(task.getStatus().getName(), "Testing");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "Doing");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Finished");
+		
+		task.taskNachHintenVerschieben();
+		assertEquals(task.getStatus().getName(), "Doing");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "To Do");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Testing");
+		
+		task.taskNachHintenVerschieben();
+		assertEquals(task.getStatus().getName(), "To Do");
+		assertEquals(task.getStatus().getVorgaenger(), null);
+		assertEquals(task.getStatus().getNachfolger().getName(), "Doing");
+		
+		task.taskNachVorneVerschieben();
+		assertEquals(task.getStatus().getName(), "Doing");
+		assertEquals(task.getStatus().getVorgaenger().getName(), "To Do");
+		assertEquals(task.getStatus().getNachfolger().getName(), "Testing");
+		
+		task.taskNachHintenVerschieben();
+		assertEquals(task.getStatus().getName(), "To Do");
+		assertEquals(task.getStatus().getVorgaenger(), null);
+		assertEquals(task.getStatus().getNachfolger().getName(), "Doing");
+	}
+	
 	@Test
 	public void testGetSingleTagBezeichnung(){
 		ArrayList<String> tags = new ArrayList<String>();

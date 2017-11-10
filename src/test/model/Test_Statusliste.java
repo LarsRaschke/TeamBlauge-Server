@@ -32,7 +32,7 @@ public class Test_Statusliste {
 	 */
 	@Before
 	public void setUp() {
-		list = new Statusliste();
+		list = new Statusliste(null);
 		toDo = new Status("toDo");
 		doing = new Status("doing");
 		finished = new Status("finished");
@@ -68,6 +68,16 @@ public class Test_Statusliste {
 		assertTrue(list.search(testing));
 		assertTrue(doing == testing.getVorgaenger());
 		assertTrue(finished == testing.getNachfolger());
+	}
+	
+	@Test
+	public void insertAfterTest() {
+		assertFalse(list.search(testing));
+		list.insertAfter(testing, "doing");
+		assertTrue(list.search(testing));
+		
+		assertTrue(doing.getNachfolger().getName().equals("testing"));
+		assertTrue(finished.getVorgaenger().getName().equals("testing"));
 	}
 	
 	@Test

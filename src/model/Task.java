@@ -222,6 +222,15 @@ public class Task implements RMI_Task{
 	}
 	
 	/**
+	 * Gets the name of the status.
+	 */
+	@Override
+	public String getStatusname()
+	{
+		return this.status.getName();
+	}
+	
+	/**
 	 * Gibt den gesuchten Tag aus.
 	 * 
 	 * @param nr - Die gesuchte Stelle.
@@ -367,20 +376,13 @@ public class Task implements RMI_Task{
 		/**
 		 * Task can be moved by any user
 		 */
-		try{
-			Status temp;
-			temp = this.getStatus().getNachfolger().getNachfolger();
-			if(this.getStatus().getNachfolger() != null)
-			{
-				this.getStatus().setVorgaenger(this.status);
-				this.setStatus(this.getStatus().getNachfolger());
-				this.getStatus().setNachfolger(temp);
-				this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
-				return true;
-			}
-		}
-		catch(NullPointerException npe){
-			npe.printStackTrace(); // Error Log fehlt noch
+		if(this.status.getNachfolger() != null)
+		{
+			this.status = this.status.getNachfolger();
+			
+			this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
+			
+			return true;
 		}
 		return false;
 	}
@@ -395,20 +397,12 @@ public class Task implements RMI_Task{
 		/**
 		 * TODO: Implement admin-only in this method
 		 */
-		try{
-			Status temp;
-			temp = this.getStatus().getVorgaenger().getVorgaenger();
-			if(this.getStatus().getVorgaenger() != null)
-			{
-				this.getStatus().setNachfolger(this.getStatus());
-				this.setStatus(this.getStatus().getVorgaenger());
-				this.getStatus().setVorgaenger(temp);
-				this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
-				return true;
-			}
-		}
-		catch(NullPointerException npe){
-			npe.printStackTrace(); // Error Log fehlt noch
+		if(this.status.getVorgaenger() != null)
+		{
+			this.status = this.status.getVorgaenger();
+			this.setLetzteAenderung(ZonedDateTime.now(ZoneId.systemDefault()));
+			
+			return true;
 		}
 		return false;
 	}
