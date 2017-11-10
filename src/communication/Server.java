@@ -131,14 +131,14 @@ public class Server implements ServerComm{
 	}
 
 	@Override
-	public void notifyClients(ClientComm client) throws RemoteException {
+	public void notifyClients(ClientComm client, String gui) throws RemoteException {
 
 		for(ClientComm notifyClient : this.clients)
 		{
 			if(!notifyClient.equals(client))
 			{
 				try {
-					client.notifyChanges();
+					client.notifyChanges(gui);
 					
 				} catch (Exception e) {
 					e.printStackTrace();

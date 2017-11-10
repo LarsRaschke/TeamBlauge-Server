@@ -10,7 +10,6 @@ import java.util.Map;
 
 import communication.Server;
 import model.interfaces.RMI_Projekt;
-import xml.XML_translator;
 
 /**
  * Model-Klasse für ein Projekt.
