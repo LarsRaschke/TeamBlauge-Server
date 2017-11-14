@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <projectlist>
     <projectOverviewEntries ID="1">
-        <projectname>bll</projectname>
-        <creator>MCD</creator>
-        <userEntries Admin="false">MCD2</userEntries>
-        <userEntries Admin="false">MCD3</userEntries>
-        <userEntries Admin="false">MCD4</userEntries>
-        <userEntries Admin="false">MCD5</userEntries>
-        <userEntries Admin="true">MCD</userEntries>
+        <projectname>Testprojekt</projectname>
+        <creator>dummy</creator>
+        <createdOn>2017-11-13T09:29:42.260+01:00[Europe/Berlin]</createdOn>
+        <userEntries Admin="true">dummy</userEntries>
     </projectOverviewEntries>
-    <projectOverviewEntries ID="2">
-        <projectname>bll</projectname>
-        <creator>MCD</creator>
-        <userEntries Admin="false">MCD2</userEntries>
-        <userEntries Admin="false">MCD3</userEntries>
-        <userEntries Admin="false">MCD4</userEntries>
-        <userEntries Admin="false">MCD5</userEntries>
-        <userEntries Admin="true">MCD</userEntries>
+    <projectOverviewEntries ID="7">
+        <projectname>TestUndSo</projectname>
+        <creator>dummy</creator>
+        <createdOn>2017-11-13T23:55:15.380+01:00[Europe/Berlin]</createdOn>
+        <userEntries Admin="true">dummy</userEntries>
+    </projectOverviewEntries>
+    <projectOverviewEntries ID="5">
+        <projectname>Projekt13</projectname>
+        <creator>dummy</creator>
+        <createdOn>2017-11-14T00:01:51.466+01:00[Europe/Berlin]</createdOn>
+        <userEntries Admin="true">dummy</userEntries>
+    </projectOverviewEntries>
+    <projectOverviewEntries ID="8">
+        <projectname>Test42</projectname>
+        <creator>dummy</creator>
+        <createdOn>2017-11-14T00:04:17.746+01:00[Europe/Berlin]</createdOn>
+        <userEntries Admin="true">dummy</userEntries>
     </projectOverviewEntries>
     <projectOverviewEntries ID="3">
-        <projectname>bll</projectname>
-        <creator>MCD</creator>
-        <userEntries Admin="false">MCD2</userEntries>
-        <userEntries Admin="false">MCD3</userEntries>
-        <userEntries Admin="false">MCD4</userEntries>
-        <userEntries Admin="false">MCD5</userEntries>
-        <userEntries Admin="true">MCD</userEntries>
+        <projectname>UndNochEinTest</projectname>
+        <creator>dummy</creator>
+        <createdOn>2017-11-14T00:28:33.958+01:00[Europe/Berlin]</createdOn>
+        <userEntries Admin="true">dummy</userEntries>
     </projectOverviewEntries>
-    <projectOverviewEntries ID="4">
-        <projectname>bll</projectname>
-        <creator>MCD</creator>
-        <userEntries Admin="false">MCD2</userEntries>
-        <userEntries Admin="false">MCD3</userEntries>
-        <userEntries Admin="false">MCD4</userEntries>
-        <userEntries Admin="false">MCD5</userEntries>
-        <userEntries Admin="true">MCD</userEntries>
-    </projectOverviewEntries>
-    <projectOverviewEntries ID="0">
+    <projectOverviewEntries ID="2">
         <projectname>Test</projectname>
         <creator>dummy</creator>
-        <createdOn>2017-11-10T00:11:10.428+01:00[Europe/Berlin]</createdOn>
+        <createdOn>2017-11-14T01:14:15.224+01:00[Europe/Berlin]</createdOn>
         <userEntries Admin="true">dummy</userEntries>
     </projectOverviewEntries>
 </projectlist>

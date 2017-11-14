@@ -10,11 +10,14 @@ import java.util.Map;
 
 import communication.Server;
 import model.interfaces.RMI_Projekt;
+import xml.XML_translator;
 
 /**
  * Model-Klasse für ein Projekt.
  */
 public class Projekt implements RMI_Projekt{
+	
+	private static int ID_count = 1;
 	
 	private int id;
 	private User ersteller;
@@ -35,6 +38,7 @@ public class Projekt implements RMI_Projekt{
 	 */
 	public Projekt(User user, String projektname, String beschreibung) {
 		
+		this.id = ID_count;
 		this.erstellungsDatum = ZonedDateTime.now(ZoneId.systemDefault());
 		this.ersteller = user;
 		this.projektname = projektname;
@@ -42,6 +46,8 @@ public class Projekt implements RMI_Projekt{
 		this.beschreibung = beschreibung;
 		users.put(user.getNutzername(), user);
 		this.letzteAenderung = ZonedDateTime.now(ZoneId.systemDefault());
+		
+		ID_count++;
 	}
 	
 	/**

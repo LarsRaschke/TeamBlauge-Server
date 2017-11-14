@@ -5,6 +5,7 @@ import java.util.List;
 
 import communication.Server;
 import model.interfaces.RMI_Projektmanager;
+import xml.XML_translator;
 
 /**
  * Model-Klasse für den Projektmanager.

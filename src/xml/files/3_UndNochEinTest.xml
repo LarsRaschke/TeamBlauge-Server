@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<project>
-    <projectname>ABCD</projectname>
-    <lastMod>2017-11-08T01:27:40.924+01:00[Europe/Berlin]</lastMod>
-    <description>Testen und so...</description>
+<project ID="3">
+    <projectname>UndNochEinTest</projectname>
+    <lastMod>2017-11-14T00:28:33.959+01:00[Europe/Berlin]</lastMod>
+    <description>123...</description>
     <statusEntries>
         <status>To Do</status>
     </statusEntries>

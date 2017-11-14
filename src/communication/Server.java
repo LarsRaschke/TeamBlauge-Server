@@ -20,7 +20,7 @@ import model.interfaces.RMI_Task;
  *
  */
 public class Server implements ServerComm{
-
+	
 	public static Server server;
 	
 	private ArrayList<ClientComm> clients = new ArrayList<>();
@@ -49,11 +49,11 @@ public class Server implements ServerComm{
 			
 			System.out.println("2");
 			
-//			ServerComm stub_server = (ServerComm) UnicastRemoteObject.exportObject(server, 0);
-//			Registry registry = LocateRegistry.getRegistry();
-//			registry.rebind("Server", stub_server);
+			ServerComm stub_server = (ServerComm) UnicastRemoteObject.exportObject(server, 0);
+			Registry registry = LocateRegistry.getRegistry();
+			registry.rebind("Server", stub_server);
 			
-			System.out.println("2");
+			System.out.println("3");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,18 +131,13 @@ public class Server implements ServerComm{
 	}
 
 	@Override
-	public void notifyClients(ClientComm client, String gui) throws RemoteException {
+	public void notifyClients(ClientComm client, String gui, String projekt) throws RemoteException {
 
 		for(ClientComm notifyClient : this.clients)
 		{
 			if(!notifyClient.equals(client))
 			{
-				try {
-					client.notifyChanges(gui);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				notifyClient.updateGUI(gui, projekt);
 			}
 		}
 		
